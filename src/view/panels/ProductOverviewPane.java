@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import model.IO.ProductsFromFile;
 import model.Product;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class ProductOverviewPane extends GridPane {
 	private TableView<Product> table;
@@ -45,7 +48,9 @@ public class ProductOverviewPane extends GridPane {
         table.getColumns().add(price);
         table.getColumns().add(stock);
         ProductsFromFile reader = new ProductsFromFile("src/database/article.txt");
-        table.getItems().addAll(reader.load());
+        ArrayList<Product> list = reader.load();
+        Collections.sort(list);
+        table.getItems().addAll(list);
         //table.getItems().add(new Product(5,"product1",10,"idk","idk"));
         this.add(table,0,1);
 		

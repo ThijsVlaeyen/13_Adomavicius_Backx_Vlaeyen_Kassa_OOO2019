@@ -1,6 +1,8 @@
 package model;
 
-public class Product {
+import java.util.Objects;
+
+public class Product implements Comparable<Product> {
     private int id;
     private double price;
     private String name;
@@ -45,5 +47,10 @@ public class Product {
                 ", id='" + id + '\'' +
                 ", group='" + group + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return this.getName().compareTo(o.name);
     }
 }
