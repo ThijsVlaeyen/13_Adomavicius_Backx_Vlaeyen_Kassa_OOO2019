@@ -32,6 +32,7 @@ public class ReadFromTextFile {
                String group = rowScanner.next();
                String price = rowScanner.next();
                String stock = rowScanner.next();
+
                try {
                    int productId = Integer.parseInt(id);
                    double productPrice = Double.parseDouble(price);
@@ -40,10 +41,6 @@ public class ReadFromTextFile {
                }catch (NumberFormatException e){
                    e.printStackTrace();
                }
-
-               //Product creation here need to type cast id group price and stock
-               //Also add to hashmap key value is id of product
-
             }
          }catch(FileNotFoundException e){
             System.out.println(e);
