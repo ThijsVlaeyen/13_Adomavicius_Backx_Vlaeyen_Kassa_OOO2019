@@ -1,12 +1,10 @@
 package view.panels;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.IO.ReadFromTextFile;
 import model.Product;
@@ -47,7 +45,8 @@ public class ProductOverviewPane extends GridPane {
         table.getColumns().add(price);
         table.getColumns().add(stock);
         ReadFromTextFile reader = new ReadFromTextFile("src/database/article.txt");
-        table.getItems().addAll(reader.ReadFromFile().values());
+        reader.readFromFile();
+        table.getItems().addAll(reader.getList());
         //table.getItems().add(new Product(5,"product1",10,"idk","idk"));
         this.add(table,0,1);
 		

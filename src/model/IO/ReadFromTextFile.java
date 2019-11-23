@@ -4,12 +4,14 @@ import model.Product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class ReadFromTextFile {
 
    private String path;
+   private HashMap<Integer, Product> list;
 
       public ReadFromTextFile(String path){
 
@@ -19,9 +21,9 @@ public class ReadFromTextFile {
          this.path = path;
       }
 
-      public HashMap<Integer, Product> ReadFromFile(){
+      public void readFromFile(){
          File productfile = new File(this.path);
-         HashMap<Integer, Product> list = new HashMap<>();
+         list = new HashMap<>();
          try{
             Scanner fileScanner = new Scanner(productfile);
             while(fileScanner.hasNextLine()){
@@ -45,7 +47,11 @@ public class ReadFromTextFile {
          }catch(FileNotFoundException e){
             System.out.println(e);
          }
-         return list;
+      }
+
+      public ArrayList<Product> getList(){
+         ArrayList<Product> products = new ArrayList<>(list.values());
+         return products;
       }
 
 }
