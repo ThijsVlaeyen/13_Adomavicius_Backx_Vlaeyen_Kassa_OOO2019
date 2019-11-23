@@ -1,4 +1,4 @@
-package model.IO;
+package model.IO.write;
 
 import model.Product;
 
@@ -6,19 +6,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class WriteToTextFile {
+public class WriteProductsToTextFile extends WriteToFileTemplate {
 
    private String path;
 
-   public WriteToTextFile(String path){
-      if (path.isEmpty()){
-         throw new IllegalArgumentException("Path can't be empty");
-      }
-      this.path = path;
+   public WriteProductsToTextFile(String path){
+      super(path);
    }
 
+   @Override
    public void writeToTextFile(ArrayList<Product> products){
       File productfile = new File(this.path);
       try{

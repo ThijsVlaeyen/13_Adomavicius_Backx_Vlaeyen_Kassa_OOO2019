@@ -2,12 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.IO.WriteToTextFile;
-import model.Product;
 import view.KassaView;
 import view.KlantView;
-
-import java.util.ArrayList;
 
 public class Main extends Application {
 	@Override

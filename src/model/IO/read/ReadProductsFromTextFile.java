@@ -1,4 +1,4 @@
-package model.IO;
+package model.IO.read;
 
 import model.Product;
 
@@ -8,19 +8,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ReadFromTextFile {
+public class ReadProductsFromTextFile extends ReadFromFileTemplate {
 
    private String path;
    private HashMap<Integer, Product> list;
 
-      public ReadFromTextFile(String path){
-
-         if (path.isEmpty()){
-            throw new IllegalArgumentException("Path can't be empty");
-         }
-         this.path = path;
+      public ReadProductsFromTextFile(String path){
+         super(path);
       }
 
+      @Override
       public void readFromFile(){
          File productfile = new File(this.path);
          list = new HashMap<>();
@@ -49,6 +46,7 @@ public class ReadFromTextFile {
          }
       }
 
+      @Override
       public ArrayList<Product> getList(){
          ArrayList<Product> products = new ArrayList<>(list.values());
          return products;
