@@ -6,7 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import model.IO.read.ReadProductsFromTextFile;
+import model.IO.ProductsFromFile;
 import model.Product;
 
 
@@ -44,9 +44,8 @@ public class ProductOverviewPane extends GridPane {
         table.getColumns().add(artikelGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
-        ReadProductsFromTextFile reader = new ReadProductsFromTextFile("src/database/article.txt");
-        reader.readFromFile();
-        table.getItems().addAll(reader.getList());
+        ProductsFromFile reader = new ProductsFromFile("src/database/article.txt");
+        table.getItems().addAll(reader.load());
         //table.getItems().add(new Product(5,"product1",10,"idk","idk"));
         this.add(table,0,1);
 		
