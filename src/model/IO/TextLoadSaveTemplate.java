@@ -3,6 +3,7 @@ package model.IO;
 import model.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 abstract public class TextLoadSaveTemplate implements LoadSaveStrategy {
 
@@ -21,7 +22,7 @@ abstract public class TextLoadSaveTemplate implements LoadSaveStrategy {
    }
 
    @Override
-   public void save(ArrayList<Product> products) {
+   public void save(List<Product> products) {
 
    }
 

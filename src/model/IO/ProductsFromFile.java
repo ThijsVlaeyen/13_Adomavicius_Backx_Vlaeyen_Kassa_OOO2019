@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProductsFromFile extends TextLoadSaveTemplate {
@@ -46,7 +47,7 @@ public class ProductsFromFile extends TextLoadSaveTemplate {
    }
 
    @Override
-   public void save(ArrayList<Product> products) {
+   public void save(List<Product> products) {
       File productfile = new File(super.getPath());
       try{
          productfile.createNewFile();
