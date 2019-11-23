@@ -46,7 +46,7 @@ public class ProductOverviewPane extends GridPane {
         table.getColumns().add(artikelGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
-        ReadFromTextFile reader = new ReadFromTextFile("src/files/article.txt");
+        ReadFromTextFile reader = new ReadFromTextFile("src/database/article.txt");
         table.getItems().addAll(reader.ReadFromFile().values());
         //table.getItems().add(new Product(5,"product1",10,"idk","idk"));
         this.add(table,0,1);
