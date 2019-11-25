@@ -19,6 +19,10 @@ public class LoadSaveExcelFile extends TextLoadSaveTemplate {
         super(filepath);
     }
 
+    public LoadSaveExcelFile(){
+        this("src/Files/article.xls");
+    }
+
     @Override
     public ArrayList<Product> readFromFile() {
         excelPlugin = new ExcelPlugin();
@@ -41,7 +45,6 @@ public class LoadSaveExcelFile extends TextLoadSaveTemplate {
 
     }
 
-
     protected void saveFile(ArrayList<Product> products) {
         ArrayList<ArrayList<String>> result= new ArrayList<>();
         for (Product p:products) {
@@ -62,10 +65,5 @@ public class LoadSaveExcelFile extends TextLoadSaveTemplate {
         } catch (WriteException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setPath(String path) {
-
     }
 }

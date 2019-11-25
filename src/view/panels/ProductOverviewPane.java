@@ -26,8 +26,6 @@ public class ProductOverviewPane extends GridPane {
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
 		this.setHgap(5);
-
-		//artikelcode,omschrijving,artikelgroup,price,stock
         
 		this.add(new Label("Products:"), 0, 0, 1, 1);
 		TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
@@ -55,11 +53,9 @@ public class ProductOverviewPane extends GridPane {
 		//Implementation of factory hardcoded to use textfile
       LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
       LoadSaveStrategy loadSaveStrategy = factory.createObject(readFromProperties());
-      loadSaveStrategy.setPath("src/Files/article.txt");
       ArrayList<Product> list = loadSaveStrategy.load();
       Collections.sort(list);
       table.getItems().addAll(list);
-      //table.getItems().add(new Product(5,"product1",10,"idk","idk"));
       this.add(table,0,1);
 		
 	}
@@ -73,7 +69,6 @@ public class ProductOverviewPane extends GridPane {
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
-		System.out.println(strategy);
 		return strategy;
 	}
 

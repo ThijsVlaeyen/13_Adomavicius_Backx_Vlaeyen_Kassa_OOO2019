@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.IO.LoadSaveTextfile;
+import view.CashierMainPane;
 
 import java.io.File;
 import java.io.FileWriter;
