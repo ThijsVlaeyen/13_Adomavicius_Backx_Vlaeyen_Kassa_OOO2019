@@ -6,7 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import model.IO.ProductsFromFile;
+import model.IO.LoadSaveTextfile;
 import model.Product;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class ProductOverviewPane extends GridPane {
         table.getColumns().add(articleGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
-        ProductsFromFile reader = new ProductsFromFile("src/database/article.txt");
+        LoadSaveTextfile reader = new LoadSaveTextfile("src/database/article.txt");
         ArrayList<Product> list = reader.load();
         Collections.sort(list);
         table.getItems().addAll(list);

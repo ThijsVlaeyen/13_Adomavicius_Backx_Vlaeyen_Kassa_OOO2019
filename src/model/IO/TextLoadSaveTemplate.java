@@ -18,13 +18,17 @@ abstract public class TextLoadSaveTemplate implements LoadSaveStrategy {
 
    @Override
    public ArrayList<Product> load() {
-      return null;
+      return readFromFile();
    }
+
+   protected abstract ArrayList<Product> readFromFile();
 
    @Override
    public void save(List<Product> products) {
-
+      saveFile(products);
    }
+
+   protected abstract void saveFile(List<Product> products);
 
    public String getPath() {
       return path;
