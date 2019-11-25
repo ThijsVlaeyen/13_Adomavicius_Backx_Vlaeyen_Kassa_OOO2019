@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LoadSaveExcelFile extends TextLoadSaveTemplate {
+public class LoadSaveExcelFile extends LoadSaveProductsTemplate {
     private ExcelPlugin excelPlugin;
 
     public LoadSaveExcelFile(String filepath){

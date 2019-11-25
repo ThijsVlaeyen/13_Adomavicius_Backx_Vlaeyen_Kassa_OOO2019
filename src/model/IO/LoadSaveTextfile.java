@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class LoadSaveTextfile extends TextLoadSaveTemplate {
+public class LoadSaveTextfile extends LoadSaveProductsTemplate {
 
    public LoadSaveTextfile(String path){
       super(path);
