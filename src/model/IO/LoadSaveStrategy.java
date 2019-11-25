@@ -8,4 +8,5 @@ import java.util.List;
 public interface LoadSaveStrategy {
    ArrayList<Product> load();
    void save(List<Product> products);
+   void setPath(String path);
 }

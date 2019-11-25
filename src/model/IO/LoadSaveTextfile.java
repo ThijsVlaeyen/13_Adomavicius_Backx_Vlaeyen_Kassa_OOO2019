@@ -22,6 +22,8 @@ public class LoadSaveTextfile implements LoadSaveStrategy {
       this.path = path;
    }
 
+   public LoadSaveTextfile(){}
+
    @Override
    public ArrayList<Product> load() {
       File productfile = new File(this.path);
@@ -66,5 +68,10 @@ public class LoadSaveTextfile implements LoadSaveStrategy {
       }catch(IOException e){
          e.printStackTrace();
       }
+   }
+
+   @Override
+   public void setPath(String path) {
+      this.path = path;
    }
 }
