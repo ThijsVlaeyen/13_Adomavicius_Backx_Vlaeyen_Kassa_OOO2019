@@ -33,6 +33,14 @@ public class Product implements Comparable<Product> {
         this.group = group;
     }
 
+    public Product(int id,String name,String group,double price,int stock){
+        this.price = price;
+        this.name = name;
+        this.stock = stock;
+        this.id = id;
+        this.group = group;
+    }
+
 
     public int getId() {
         return id;
