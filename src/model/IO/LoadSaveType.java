@@ -2,7 +2,7 @@ package model.IO;
 
 public enum LoadSaveType {
    TEXTFILE( "textfile", "model.IO.LoadSaveTextfile"),
-   EXCELFILE("excelfile", "model.IO.ReadFromExcelFile");
+   EXCEL("excel", "model.IO.ReadFromExcelFile");
 
    private final String name;
    private final String classname;
