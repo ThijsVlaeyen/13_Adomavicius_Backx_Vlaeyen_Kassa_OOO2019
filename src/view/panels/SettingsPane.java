@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveTextfile;
 import view.CashierMainPane;
 
@@ -23,29 +24,16 @@ public class SettingsPane extends GridPane {
 
       this.add(new Label("Load strategy:"), 0,0,1,1);
 
+      LoadSaveProperties properties = new LoadSaveProperties();
+
       //DROPDOWNLIST
-      loadstrategies.getItems().addAll("Textfile", "Excel");
-      loadstrategies.setValue("Textfile");
+      loadstrategies.getItems().addAll("textfile", "excel");
+      loadstrategies.setValue(properties.load().toLowerCase());
       this.add(loadstrategies,0,1,1,1);
 
       //BUTTON
       Button saveLoadStrategy = new Button("Save");
-      saveLoadStrategy.setOnMouseClicked(event -> saveToProperties());
+      saveLoadStrategy.setOnMouseClicked(event -> properties.save(loadstrategies.getValue().toUpperCase()));
       this.add(saveLoadStrategy, 0, 3,1,1);
    }
-
-   //THIS IS TEMPORARY WILL PROBABLY CHANGE IN NEAR FUTURE
-   private void saveToProperties(){
-      File file = new File("src/Files/properties.txt");
-      try{
-         file.createNewFile();
-         FileWriter writer = new FileWriter(file);
-         writer.write(loadstrategies.getValue().toUpperCase());
-         writer.flush();
-         writer.close();
-      } catch (IOException e){
-         e.printStackTrace();
-      }
-   }
-
 }

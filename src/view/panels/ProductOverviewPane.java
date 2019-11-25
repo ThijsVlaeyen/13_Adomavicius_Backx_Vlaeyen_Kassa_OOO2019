@@ -6,6 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
 import model.IO.LoadSaveStrategyFactory;
 import model.IO.LoadSaveTextfile;
@@ -50,26 +51,12 @@ public class ProductOverviewPane extends GridPane {
 		table.getColumns().add(price);
 		table.getColumns().add(stock);
 
-		//Implementation of factory hardcoded to use textfile
       LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
-      LoadSaveStrategy loadSaveStrategy = factory.createObject(readFromProperties());
+		LoadSaveProperties properties = new LoadSaveProperties();
+      LoadSaveStrategy loadSaveStrategy = factory.createObject(properties.load());
       ArrayList<Product> list = loadSaveStrategy.load();
       Collections.sort(list);
       table.getItems().addAll(list);
       this.add(table,0,1);
-		
 	}
-
-	private String readFromProperties(){
-		File file = new File("src/Files/properties.txt");
-		String strategy = "";
-		try{
-			Scanner filescanner = new Scanner(file);
-			strategy = filescanner.nextLine();
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		return strategy;
-	}
-
 }
