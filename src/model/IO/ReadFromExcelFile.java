@@ -1,6 +1,7 @@
 package model.IO;
 
 
+import excel.ExcelPlugin;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -10,29 +11,13 @@ import java.io.File;
 import java.util.HashMap;
 
 public class ReadFromExcelFile {
-    private Workbook workbook;
-    private File inputFile;
-    private Sheet sheet;
+    private ExcelPlugin excelPlugin;
+    private String path;
 
     public ReadFromExcelFile(String filepath){
-        try{
-            inputFile = new File(filepath);
-            workbook = Workbook.getWorkbook(this.inputFile);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        this.sheet = workbook.getSheet(0);
+        excelPlugin = new ExcelPlugin();
+        this.path = filepath;
     }
 
-    public HashMap<Integer, Product> readData(){
-        HashMap<Integer,Product> result = new HashMap<>();
-        for (int i=0;i<sheet.getRows();i++){
-            for (int j=0;j<sheet.getColumns();i++){
-                Cell  cell = sheet.getCell(i,j);
-                System.out.println(cell.getContents());
-            }
-        }
-        return result;
-    }
-
+    public void saveToExcel()
 }
