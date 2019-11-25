@@ -30,7 +30,7 @@ public class ProductOverviewPane extends GridPane {
 		// the setcellValueFactory will check in the product class for getId() in this example
 		articlecode.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Product,String> description = new TableColumn<>("Name");
+        TableColumn<Product,String> description = new TableColumn<>("Description");
         description.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Product,String> articleGroup = new TableColumn<>("Article Group");

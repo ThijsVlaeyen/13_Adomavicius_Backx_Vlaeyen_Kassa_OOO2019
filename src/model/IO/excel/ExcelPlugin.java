@@ -1,4 +1,4 @@
-package model.IO.exel;
+package model.IO.excel;
 
 import java.io.File;
 import java.io.IOException;
