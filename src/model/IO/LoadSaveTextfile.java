@@ -11,14 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProductsFromFile extends TextLoadSaveTemplate {
-   public ProductsFromFile(String path) {
-      super(path);
+public class LoadSaveTextfile implements LoadSaveStrategy {
+
+   private String path;
+
+   public LoadSaveTextfile(String path) {
+      if (path.isEmpty()){
+         throw new IllegalArgumentException("Path can't be empty");
+      }
+      this.path = path;
    }
 
    @Override
    public ArrayList<Product> load() {
-      File productfile = new File(super.getPath());
+      File productfile = new File(this.path);
       HashMap<Integer, Product> list = new HashMap<>();
       try{
          Scanner fileScanner = new Scanner(productfile);
@@ -48,7 +54,7 @@ public class ProductsFromFile extends TextLoadSaveTemplate {
 
    @Override
    public void save(List<Product> products) {
-      File productfile = new File(super.getPath());
+      File productfile = new File(this.path);
       try{
          productfile.createNewFile();
          FileWriter writer = new FileWriter(productfile);
