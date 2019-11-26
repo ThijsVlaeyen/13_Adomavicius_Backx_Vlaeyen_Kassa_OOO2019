@@ -18,8 +18,8 @@ public class CashierSalesPane extends GridPane {
         this.setHgap(5);
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
-        this.add(articleNumberInput,0,0);
-        this.add(addArticle,0,1);
+        this.add(articleNumberInput,0,0,1,1);
+        this.add(addArticle,0,1,1,1);
         TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
         // the setcellValueFactory will check in the product class for getId() in this example
         articlecode.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -41,7 +41,7 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(articleGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
-        this.add(table,1,0);
+        this.add(table,1,0, 3,3);
 
     }
 }
