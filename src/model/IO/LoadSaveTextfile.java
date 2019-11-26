@@ -11,22 +11,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class LoadSaveTextfile implements LoadSaveStrategy {
+public class LoadSaveTextfile extends LoadSaveProductsTemplate {
 
-   private String path;
-
-   public LoadSaveTextfile(String path) {
-      if (path.isEmpty()){
-         throw new IllegalArgumentException("Path can't be empty");
-      }
-      this.path = path;
+   public LoadSaveTextfile(String path){
+      super(path);
    }
 
-   public LoadSaveTextfile(){}
+   public LoadSaveTextfile(){
+      this("src/Files/article.txt");
+   }
 
    @Override
-   public ArrayList<Product> load() {
-      File productfile = new File(this.path);
+   protected ArrayList<Product> readFromFile() {
+      File productfile = new File(super.getPath());
       HashMap<Integer, Product> list = new HashMap<>();
       try{
          Scanner fileScanner = new Scanner(productfile);
@@ -55,8 +52,8 @@ public class LoadSaveTextfile implements LoadSaveStrategy {
    }
 
    @Override
-   public void save(List<Product> products) {
-      File productfile = new File(this.path);
+   protected void saveFile(List<Product> products) {
+      File productfile = new File(super.getPath());
       try{
          productfile.createNewFile();
          FileWriter writer = new FileWriter(productfile);
@@ -70,8 +67,4 @@ public class LoadSaveTextfile implements LoadSaveStrategy {
       }
    }
 
-   @Override
-   public void setPath(String path) {
-      this.path = path;
-   }
 }

@@ -5,11 +5,11 @@ import model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class TextLoadSaveTemplate implements LoadSaveStrategy {
+abstract public class LoadSaveProductsTemplate implements LoadSaveStrategy {
 
    private String path;
 
-   public TextLoadSaveTemplate(String path){
+   public LoadSaveProductsTemplate(String path){
       if (path.isEmpty()){
          throw new IllegalArgumentException("Path can't be empty");
       }
