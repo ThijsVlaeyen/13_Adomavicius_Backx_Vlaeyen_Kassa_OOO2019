@@ -1,5 +1,6 @@
 package view.panels;
 
+import controllers.ProductOverviewController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -9,20 +10,18 @@ import javafx.scene.layout.GridPane;
 import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
 import model.IO.LoadSaveStrategyFactory;
-import model.IO.LoadSaveTextfile;
 import model.Product;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 
 public class ProductOverviewPane extends GridPane {
 	private TableView<Product> table;
+	private ProductOverviewController controller;
 
-	public ProductOverviewPane() {
+	public ProductOverviewPane(ProductOverviewController controller) {
+	    this.controller = controller;
 		table = new TableView<>();
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
@@ -50,13 +49,7 @@ public class ProductOverviewPane extends GridPane {
 		table.getColumns().add(articleGroup);
 		table.getColumns().add(price);
 		table.getColumns().add(stock);
-
-      LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
-		LoadSaveProperties properties = new LoadSaveProperties();
-      LoadSaveStrategy loadSaveStrategy = factory.createObject(properties.load());
-      ArrayList<Product> list = loadSaveStrategy.load();
-      Collections.sort(list);
-      table.getItems().addAll(list);
-      this.add(table,0,1);
+        table.getItems().addAll(controller.getProducts());
+        this.add(table,0,1);
 	}
 }

@@ -42,10 +42,6 @@ public class LoadSaveExcelFile extends LoadSaveProductsTemplate {
 
     @Override
     protected void saveFile(List<Product> products) {
-
-    }
-
-    protected void saveFile(ArrayList<Product> products) {
         ArrayList<ArrayList<String>> result= new ArrayList<>();
         for (Product p:products) {
             ArrayList<String> product = new ArrayList<>();
