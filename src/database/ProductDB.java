@@ -4,6 +4,8 @@ import controllers.Observer;
 import model.IO.LoadSaveStrategy;
 import model.Product;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ public class ProductDB implements Observable {
     private List<Product> scanedProducts;
     private int totalScanedAmount;
     private Map<Integer, Product> productsMap;
+    private Map<Integer,Product> products;
     private LoadSaveStrategy loadSaveStrategy;
     private ArrayList<Observer> observers;
 
@@ -29,6 +32,8 @@ public class ProductDB implements Observable {
     public ProductDB(String path){
         this();
         this.path = path;
+    public ProductDB(){
+        this.products = new HashMap<>();
     }
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
@@ -36,17 +41,17 @@ public class ProductDB implements Observable {
     }
 
     public void save(){
-        loadSaveStrategy.save(this.products);
+        loadSaveStrategy.save(new ArrayList<>(this.products.values()));
     }
 
     public void load(){
         this.products = loadSaveStrategy.load();
-        for (Product i : products) productsMap.put(i.getId(), i);
+        for (Product i : products) productsMap.put(i.getId(), i); 
     }
 
     public void add(Product p){
         if (p != null){
-            this.products.add(p);
+            this.products.put(p.getId(),p);
         }
     }
 
@@ -56,8 +61,9 @@ public class ProductDB implements Observable {
         }
     }
 
-    public String getPath(){
-        return this.path;
+    public ArrayList<Product> getProducts(){
+        this.load();
+        return new ArrayList<>(this.products.values());
     }
 
     public boolean isProductExist(int code) {

@@ -22,11 +22,13 @@ public class CashierSalesPane extends GridPane {
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
         addArticle.setOnAction(e -> controller.addArticle(Integer.parseInt(articleNumberInput.getText())));
-        this.add(articleNumberInput,0,0);
-        this.add(addArticle,0,1);
+//         this.add(articleNumberInput,0,0);
+//         this.add(addArticle,0,1);
         productExistLabel = new Label("Not existing code");
         productExistLabel.setVisible(false);
         this.add(productExistLabel, 0, 2);
+        this.add(articleNumberInput,0,0,1,1);
+        this.add(addArticle,0,1,1,1);
         TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
         // the setcellValueFactory will check in the product class for getId() in this example
         articlecode.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -48,7 +50,7 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(articleGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
-        this.add(table,1,0);
+        this.add(table,1,0, 3,3);
 
         totalAmount = new Label("0");
         this.add(totalAmount, 2, 0);

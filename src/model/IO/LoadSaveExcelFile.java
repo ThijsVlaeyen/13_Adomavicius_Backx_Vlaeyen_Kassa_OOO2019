@@ -12,11 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LoadSaveExcelFile extends TextLoadSaveTemplate {
+public class LoadSaveExcelFile extends LoadSaveProductsTemplate {
     private ExcelPlugin excelPlugin;
 
     public LoadSaveExcelFile(String filepath){
         super(filepath);
+    }
+
+    public LoadSaveExcelFile(){
+        this("src/Files/article.xls");
     }
 
     @Override
@@ -38,11 +42,6 @@ public class LoadSaveExcelFile extends TextLoadSaveTemplate {
 
     @Override
     protected void saveFile(List<Product> products) {
-
-    }
-
-
-    protected void saveFile(ArrayList<Product> products) {
         ArrayList<ArrayList<String>> result= new ArrayList<>();
         for (Product p:products) {
             ArrayList<String> product = new ArrayList<>();
@@ -62,10 +61,5 @@ public class LoadSaveExcelFile extends TextLoadSaveTemplate {
         } catch (WriteException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setPath(String path) {
-
     }
 }
