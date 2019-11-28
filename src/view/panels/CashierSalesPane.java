@@ -13,8 +13,11 @@ public class CashierSalesPane extends GridPane {
     private TableView<Product> table;
     private Label productExistLabel;
     private Label totalAmount;
+    private CashierController controller;
 
     public CashierSalesPane(CashierController controller){
+        this.controller = controller;
+        controller.setView(this);
         this.table = new TableView<>();
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
@@ -22,8 +25,6 @@ public class CashierSalesPane extends GridPane {
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
         addArticle.setOnAction(e -> controller.addArticle(Integer.parseInt(articleNumberInput.getText())));
-//         this.add(articleNumberInput,0,0);
-//         this.add(addArticle,0,1);
         productExistLabel = new Label("Not existing code");
         productExistLabel.setVisible(false);
         this.add(productExistLabel, 0, 2);
@@ -53,7 +54,7 @@ public class CashierSalesPane extends GridPane {
         this.add(table,1,0, 3,3);
 
         totalAmount = new Label("0");
-        this.add(totalAmount, 2, 0);
+        this.add(totalAmount, 4, 0,1,1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -67,5 +68,9 @@ public class CashierSalesPane extends GridPane {
 
     public void updateTotalAmount(int value) {
         totalAmount.setText(String.valueOf(value));
+    }
+
+    public void updateDisplay() {
+
     }
 }
