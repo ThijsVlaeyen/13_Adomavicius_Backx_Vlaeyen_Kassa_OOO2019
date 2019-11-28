@@ -1,6 +1,7 @@
 package view;
 
 import controllers.CashierController;
+import controllers.ClientViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -13,14 +14,14 @@ public class CashierView {
 	private Stage stage = new Stage();		
 	private CashierMainPane borderPane;
 
-	public CashierView(){
+	public CashierView(ClientViewController controller){
 		stage.setTitle("CASHIER VIEW");
 		stage.setResizable(false);		
 		stage.setX(20);
 		stage.setY(20);
 		Group root = new Group();
 		Scene scene = new Scene(root, 750, 500);
-		borderPane = new CashierMainPane();
+		borderPane = new CashierMainPane(controller);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);

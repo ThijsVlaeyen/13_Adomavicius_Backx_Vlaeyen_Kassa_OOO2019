@@ -1,12 +1,18 @@
 package controllers;
 
+import database.Observable;
 import database.ProductDB;
+import model.Product;
 import view.CashierView;
+import view.ClientView;
 import view.panels.CashierSalesPane;
 
-public class CashierController implements Observer {
+import java.util.ArrayList;
+
+public class CashierController implements Observer, ClientViewObservable {
     private CashierSalesPane view;
     private ProductDB model;
+    private ClientViewObserver observer;
 
     public CashierController(ProductDB model) {
         this.model = model;
@@ -32,5 +38,22 @@ public class CashierController implements Observer {
         else {
             view.setNotExistingCode(true);
         }
+        updateObservers();
     }
+
+    @Override
+    public void addObserver(ClientViewObserver o) {
+        this.observer = o;
+    }
+
+    @Override
+    public void updateObservers(){
+        this.observer.update(model.getScanedProducts());
+    }
+
+    @Override
+    public void removeObserver(ClientViewObserver o) {
+
+    }
+
 }
