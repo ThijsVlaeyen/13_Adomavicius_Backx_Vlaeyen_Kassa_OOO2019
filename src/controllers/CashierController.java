@@ -2,9 +2,10 @@ package controllers;
 
 import database.ProductDB;
 import view.CashierView;
+import view.panels.CashierSalesPane;
 
 public class CashierController implements Observer {
-    private CashierView view;
+    private CashierSalesPane view;
     private ProductDB model;
 
     public CashierController(ProductDB model) {
@@ -12,7 +13,7 @@ public class CashierController implements Observer {
         model.addObserver(this);
     }
 
-    public void setView(CashierView view) {
+    public void setView(CashierSalesPane view) {
         this.view = view;
     }
 

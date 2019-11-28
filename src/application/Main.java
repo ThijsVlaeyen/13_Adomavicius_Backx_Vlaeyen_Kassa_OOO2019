@@ -14,10 +14,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		ClientView clientView = new ClientView();
-
-		ProductDB model = new ProductDB("src/Files/article.txt");
-		CashierController cashierController = new CashierController(model);
-		CashierView cashierView = new CashierView(cashierController);
+		CashierView cashierView = new CashierView();
 	}
 	
 	public static void main(String[] args) {

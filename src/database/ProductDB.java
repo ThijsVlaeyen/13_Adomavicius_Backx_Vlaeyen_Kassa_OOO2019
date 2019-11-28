@@ -5,7 +5,6 @@ import model.IO.LoadSaveStrategy;
 import model.Product;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public class ProductDB implements Observable {
     private String path;
-    private List<Product> products;//todo maybe delete in the future
+    private List<Product> productList;//todo maybe delete in the future
     private List<Product> scanedProducts;
     private int totalScanedAmount;
     private Map<Integer, Product> productsMap;
@@ -22,6 +21,8 @@ public class ProductDB implements Observable {
     private ArrayList<Observer> observers;
 
     public ProductDB() {
+        this.productList = new ArrayList<>();
+        this.productsMap = new HashMap<>();
         observers = new ArrayList<Observer>();
         productsMap = new HashMap<Integer, Product>();
         scanedProducts = new ArrayList<Product>();
@@ -29,41 +30,39 @@ public class ProductDB implements Observable {
         productsMap.put(1, new Product(1, "test", "group", 1.0, 3));//todo just temporary testing data
     }
 
-    public ProductDB(String path){
-        this();
+    public ProductDB(String path) {
         this.path = path;
-    public ProductDB(){
-        this.products = new HashMap<>();
     }
+
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
     public void save(){
-        loadSaveStrategy.save(new ArrayList<>(this.products.values()));
+        loadSaveStrategy.save(new ArrayList<Product>(this.products.values()));
     }
 
     public void load(){
-        this.products = loadSaveStrategy.load();
-        for (Product i : products) productsMap.put(i.getId(), i); 
+        this.productList = loadSaveStrategy.load();
+        for (Product i : productList) productsMap.put(i.getId(), i);
     }
 
     public void add(Product p){
         if (p != null){
-            this.products.put(p.getId(),p);
+            this.productsMap.put(p.getId(),p);
         }
     }
 
     public void remove(Product p){
         if (p != null){
-            this.products.remove(p);
+            this.productsMap.remove(p);
         }
     }
 
     public ArrayList<Product> getProducts(){
         this.load();
-        return new ArrayList<>(this.products.values());
+        return new ArrayList<>(this.productsMap.values());
     }
 
     public boolean isProductExist(int code) {

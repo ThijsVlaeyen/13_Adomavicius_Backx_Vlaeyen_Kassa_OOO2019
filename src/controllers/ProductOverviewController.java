@@ -5,12 +5,14 @@ import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
 import model.IO.LoadSaveStrategyFactory;
 import model.Product;
+import view.panels.ProductOverviewPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class ProductOverviewController {
     private ProductDB db;
+    private ProductOverviewPane view;
 
     public ProductOverviewController(ProductDB db){
         this.db = db;
@@ -24,5 +26,9 @@ public class ProductOverviewController {
         ArrayList<Product> products = db.getProducts();
         Collections.sort(products);
        return products;
+    }
+
+    public void setView(ProductOverviewPane view){
+        this.view = view;
     }
 }

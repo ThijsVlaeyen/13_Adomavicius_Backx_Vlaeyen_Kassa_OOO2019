@@ -20,7 +20,7 @@ public class LoadSaveExcelFile extends LoadSaveProductsTemplate {
     }
 
     public LoadSaveExcelFile(){
-        this("src/Files/article.xls");
+        this("13_Adomavicius_Backx_Vlaeyen_Kassa_OOO2019/src/Files/article.xls");
     }
 
     @Override
