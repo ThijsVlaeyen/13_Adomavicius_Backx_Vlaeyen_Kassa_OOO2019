@@ -3,6 +3,7 @@ package view;
 
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import controllers.CashierController;
+import controllers.ClientViewController;
 import controllers.ProductOverviewController;
 import controllers.SettingsController;
 import database.ProductDB;
@@ -40,15 +41,15 @@ public class CashierMainPane extends BorderPane {
 //      this.setCenter(tabPane);
 //	}
 
-    public CashierMainPane(){
+    public CashierMainPane(ClientViewController controller){
         ProductDB db = new ProductDB();
-        //db.load();
         TabPane tabPane = new TabPane();
         ProductOverviewController productOverviewController = new ProductOverviewController(db);
         ProductOverviewPane productOverviewPane = new ProductOverviewPane(productOverviewController);
         SettingsController settingsController = new SettingsController(db);
         SettingsPane settingsPane = new SettingsPane(settingsController);
         CashierController cashierController = new CashierController(db);
+        cashierController.addObserver(controller);
         cashiersSalesPane = new CashierSalesPane(cashierController);
         Tab cashierTab = new Tab("Cashier", cashiersSalesPane);
         Tab articleTab = new Tab("Article",productOverviewPane);
