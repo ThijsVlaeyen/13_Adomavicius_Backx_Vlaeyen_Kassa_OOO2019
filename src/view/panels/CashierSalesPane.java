@@ -1,23 +1,33 @@
 package view.panels;
 
+import controllers.CashierController;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Product;
 
+import java.util.List;
+
 public class CashierSalesPane extends GridPane {
     private TableView<Product> table;
-    public CashierSalesPane(){
+    private Label productExistLabel;
+    private Label totalAmount;
+    private CashierController controller;
+
+    public CashierSalesPane(CashierController controller){
+        this.controller = controller;
+        controller.setView(this);
         this.table = new TableView<>();
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
+        addArticle.setOnAction(e -> controller.addArticle(Integer.parseInt(articleNumberInput.getText())));
+        productExistLabel = new Label("Not existing code");
+        productExistLabel.setVisible(false);
+        this.add(productExistLabel, 0, 2);
         this.add(articleNumberInput,0,0,1,1);
         this.add(addArticle,0,1,1,1);
         TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
@@ -42,6 +52,25 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(price);
         table.getColumns().add(stock);
         this.add(table,1,0, 3,3);
+
+        totalAmount = new Label("0");
+        this.add(totalAmount, 4, 0,1,1);
+    }
+
+    public void setNotExistingCode(boolean value) {
+        productExistLabel.setVisible(value);
+    }
+
+    public void updateScannedItemsTable(List<Product> list) {
+        table.getItems().clear();
+        table.getItems().addAll(list);
+    }
+
+    public void updateTotalAmount(int value) {
+        totalAmount.setText(String.valueOf(value));
+    }
+
+    public void updateDisplay() {
 
     }
 }
