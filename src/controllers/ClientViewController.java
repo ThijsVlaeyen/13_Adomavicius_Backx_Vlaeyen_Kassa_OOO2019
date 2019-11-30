@@ -12,11 +12,9 @@ import java.util.Map;
 public class ClientViewController implements ClientViewObserver{
     private ClientView view;
     private CashierController observable;
-    private Map<Product,Integer> products;
     private ShoppingCart model;
 
     public ClientViewController(){
-        this.products = new HashMap<>();
         this.model = new ShoppingCart();
     }
 
@@ -38,6 +36,15 @@ public class ClientViewController implements ClientViewObserver{
             }
         }
         this.view.update();
+    }
+
+    public double getTotalPrice(){
+        double totalPrice=0.0;
+        Map<Product,Integer> products = model.getItems();
+        for(Map.Entry<Product,Integer> product:products.entrySet()){
+            totalPrice+= (product.getKey().getPrice())*product.getValue();
+        }
+        return totalPrice;
     }
 
     public Map<Product,Integer> getItems(){

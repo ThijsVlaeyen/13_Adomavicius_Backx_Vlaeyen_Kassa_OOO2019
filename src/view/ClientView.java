@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,6 +22,7 @@ public class ClientView {
 	private Stage stage = new Stage();
 	private ClientViewController controller;
 	private TableView<Map.Entry<Product,Integer>> table;
+	private Label priceLabel;
 		
 	public ClientView(ClientViewController controller){
 		this.controller = controller;
@@ -40,10 +42,13 @@ public class ClientView {
 		System.out.println(controller.getItems().size());
 		this.table.getItems().clear();
 		this.table.getItems().addAll(controller.getItems().entrySet());
+		this.priceLabel.setText("Total price \n€ " + controller.getTotalPrice());
 	}
 
 	public void setup(Group root){
+		HBox items = new HBox();
 		this.controller.setView(this);
+		this.priceLabel = new Label("Total price\n€ 0.0");
 		this.table = new TableView<>();
 
 		TableColumn<Map.Entry<Product,Integer>,String> articleId = new TableColumn<>("prouct Id");
@@ -87,7 +92,9 @@ public class ClientView {
 		table.getColumns().add(articleGroup);
 		table.getColumns().add(articlePrice);
 		table.getColumns().add(amount);
-		root.getChildren().add(table);
+		items.getChildren().add(this.table);
+		items.getChildren().add(this.priceLabel);
+		root.getChildren().add(items);
 		System.out.println(table.getPrefWidth());
 
 	}
