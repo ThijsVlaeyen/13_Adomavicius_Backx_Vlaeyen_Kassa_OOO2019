@@ -14,6 +14,7 @@ public class CashierSalesPane extends GridPane {
     private Label productExistLabel;
     private Label totalAmount;
     private CashierController controller;
+    private Label priceLabel;
 
     public CashierSalesPane(CashierController controller){
         this.controller = controller;
@@ -53,8 +54,10 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(stock);
         this.add(table,1,0, 3,3);
 
+        priceLabel = new Label("Price:");
         totalAmount = new Label("0");
-        this.add(totalAmount, 4, 0,1,1);
+        this.add(priceLabel, 4,0,1,1);
+        this.add(totalAmount, 4, 1,1,1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -66,7 +69,7 @@ public class CashierSalesPane extends GridPane {
         table.getItems().addAll(list);
     }
 
-    public void updateTotalAmount(int value) {
+    public void updateTotalAmount(double value) {
         totalAmount.setText(String.valueOf(value));
     }
 

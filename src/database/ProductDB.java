@@ -14,7 +14,7 @@ public class ProductDB implements Observable {
     private String path;
     private List<Product> productList;//todo maybe delete in the future
     private List<Product> scanedProducts;
-    private int totalScanedAmount;
+    private double totalScanedAmount;
     private Map<Integer, Product> productsMap;
     private Map<Integer,Product> products;
     private LoadSaveStrategy loadSaveStrategy;
@@ -71,10 +71,10 @@ public class ProductDB implements Observable {
 
     public void addScannedArticle(int code) {
         scanedProducts.add(productsMap.get(code));
-        totalScanedAmount += productsMap.get(code).getStock();
+        totalScanedAmount += productsMap.get(code).getPrice();
     }
 
-    public int getTotalAmount() {
+    public double getTotalAmount() {
         return totalScanedAmount;
     }
 
