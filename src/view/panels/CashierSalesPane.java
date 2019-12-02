@@ -54,8 +54,8 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(stock);
         this.add(table,1,0, 3,3);
 
-        priceLabel = new Label("Price:");
-        totalAmount = new Label("0");
+        priceLabel = new Label("Total price:");
+        totalAmount = new Label("€ 0");
         this.add(priceLabel, 4,0,1,1);
         this.add(totalAmount, 4, 1,1,1);
     }
@@ -70,7 +70,7 @@ public class CashierSalesPane extends GridPane {
     }
 
     public void updateTotalAmount(double value) {
-        totalAmount.setText(String.valueOf(value));
+        totalAmount.setText(String.valueOf("€ " + value));
     }
 
     public void updateDisplay() {

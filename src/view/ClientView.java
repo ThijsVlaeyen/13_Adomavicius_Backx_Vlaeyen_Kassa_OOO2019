@@ -39,7 +39,6 @@ public class ClientView {
 	}
 
 	public void update(){
-		System.out.println(controller.getItems().size());
 		this.table.getItems().clear();
 		this.table.getItems().addAll(controller.getItems().entrySet());
 		this.priceLabel.setText("Total price \n€ " + controller.getTotalPrice());
@@ -95,7 +94,5 @@ public class ClientView {
 		items.getChildren().add(this.table);
 		items.getChildren().add(this.priceLabel);
 		root.getChildren().add(items);
-		System.out.println(table.getPrefWidth());
-
 	}
 }
