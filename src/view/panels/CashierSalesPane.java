@@ -84,6 +84,14 @@ public class CashierSalesPane extends GridPane {
         this.add(priceLabel, 4,0,1,1);
         this.add(totalAmount, 4, 1,1,1);
         this.add(delete,1,5,1,1);
+
+        Button addOnHold = new Button("add on hold");
+        addOnHold.setOnAction(e -> controller.addOnHold());
+        this.add(addOnHold, 4, 2, 1, 1);
+
+        Button takeFromHold = new Button("take from hold");
+        takeFromHold.setOnAction(e -> controller.takeFromHold());
+        this.add(takeFromHold, 5, 2, 1, 1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -101,5 +109,12 @@ public class CashierSalesPane extends GridPane {
 
     public void updateDisplay() {
 
+    }
+
+    public void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR,message, ButtonType.CLOSE);
+        alert.setTitle(message);
+        alert.setContentText(message);
+        alert.show();
     }
 }

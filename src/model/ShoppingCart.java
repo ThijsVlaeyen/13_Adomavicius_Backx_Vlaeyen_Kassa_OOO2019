@@ -14,6 +14,10 @@ public class ShoppingCart {
         this.cart = new HashMap<>();
     }
 
+    public ShoppingCart(Map<Product, Integer> cart) {
+        this.cart = cart;
+    }
+
 //    public void addProduct(Product p){
 //        this.cart.put(p,1);
 //    }
@@ -40,6 +44,10 @@ public class ShoppingCart {
         }
     }
 
+    public void clear() {
+        cart.clear();
+    }
+
     public Map<Product,Integer> getItems(){
         return this.cart;
     }
@@ -61,5 +69,10 @@ public class ShoppingCart {
             price += p.getPrice();
         }
         return price;
+    }
+
+    public Object clone()
+    {
+        return new ShoppingCart(new HashMap<Product, Integer>(cart));
     }
 }
