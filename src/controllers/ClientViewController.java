@@ -26,14 +26,7 @@ public class ClientViewController implements ClientViewObserver{
     public void update(List<Product> products) {
         this.model.getItems().clear();
         for (Product p:products){
-            Map<Product,Integer> items = this.model.getItems();
-            if (items.containsKey(p)){
-                int amount = items.get(p);
-                amount +=1;
-                this.model.addProduct(p,amount);
-            }else{
-                this.model.addProduct(p);
-            }
+            model.addProduct(p);
         }
         this.view.update();
     }

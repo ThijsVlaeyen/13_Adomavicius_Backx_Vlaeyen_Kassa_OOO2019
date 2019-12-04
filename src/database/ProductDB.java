@@ -27,7 +27,7 @@ public class ProductDB implements Observable {
         productsMap = new HashMap<Integer, Product>();
         scanedProducts = new ArrayList<Product>();
         totalScanedAmount = 0;
-        productsMap.put(1, new Product(1, "test", "group", 1.0, 3));//todo just temporary testing data
+       //productsMap.put(1, new Product(1, "test", "group", 1.0, 3));//todo just temporary testing data
     }
 
     public ProductDB(String path) {
@@ -41,6 +41,10 @@ public class ProductDB implements Observable {
 
     public void save(){
         loadSaveStrategy.save(new ArrayList<Product>(this.products.values()));
+    }
+
+    public Product getProduct(int code){
+        return this.productsMap.get(code);
     }
 
     public void load(){
@@ -69,18 +73,18 @@ public class ProductDB implements Observable {
         return this.productsMap.containsKey(code);
     }
 
-    public void addScannedArticle(int code) {
-        scanedProducts.add(productsMap.get(code));
-        totalScanedAmount += productsMap.get(code).getPrice();
-    }
-
-    public double getTotalAmount() {
-        return totalScanedAmount;
-    }
-
-    public List<Product> getScanedProducts() {
-        return scanedProducts;
-    }
+//    public void addScannedArticle(int code) {
+//        scanedProducts.add(productsMap.get(code));
+//        totalScanedAmount += productsMap.get(code).getPrice();
+//    }
+//
+//    public double getTotalAmount() {
+//        return totalScanedAmount;
+//    }
+//
+//    public List<Product> getScanedProducts() {
+//        return scanedProducts;
+//    }
 
     @Override
     public void updateObservers() {

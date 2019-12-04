@@ -46,7 +46,7 @@ public class LoadSaveProperties {
          InputStream in = getClass().getClassLoader().getResourceAsStream("config.properties");
          prop.load(in);
          prop.setProperty("Strategy", value);
-         prop.store(new FileOutputStream("resources/config.properties"), null);
+         prop.store(new FileOutputStream("13_Adomavicius_Backx_Vlaeyen_Kassa_OOO2019/resources/config.properties"), null);
          in.close();
       } catch (IOException e) {
          e.printStackTrace();

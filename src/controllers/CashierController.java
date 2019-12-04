@@ -3,6 +3,7 @@ package controllers;
 import database.Observable;
 import database.ProductDB;
 import model.Product;
+import model.ShoppingCart;
 import view.CashierView;
 import view.ClientView;
 import view.panels.CashierSalesPane;
@@ -11,12 +12,14 @@ import java.util.ArrayList;
 
 public class CashierController implements Observer, ClientViewObservable {
     private CashierSalesPane view;
-    private ProductDB model;
+    private ProductDB db;
+    private ShoppingCart model;
     private ClientViewObserver observer;
 
-    public CashierController(ProductDB model) {
-        this.model = model;
-        model.addObserver(this);
+    public CashierController(ProductDB db) {
+        this.db = db;
+        model = new ShoppingCart();
+        db.addObserver(this);
     }
 
     public void setView(CashierSalesPane view) {
@@ -29,14 +32,21 @@ public class CashierController implements Observer, ClientViewObservable {
     }
 
     public void addArticle(int code) {
-        if(model.isProductExist(code)) {
-            model.addScannedArticle(code);
+        if (db.isProductExist(code)){
+            model.addProduct(db.getProduct(code));
             view.setNotExistingCode(false);
-            view.updateScannedItemsTable(model.getScanedProducts());
-            view.updateTotalAmount(model.getTotalAmount());
-        }
-        else {
+            view.updateTable(model.getItemsList());
+            view.updateTotalAmount(model.getTotalPrice());
+        }else{
             view.setNotExistingCode(true);
+        }
+        updateObservers();
+    }
+
+    public void removeArticle(Product p){
+        if (p != null){
+            model.remove(p);
+            view.updateTable(model.getItemsList());
         }
         updateObservers();
     }
@@ -48,7 +58,7 @@ public class CashierController implements Observer, ClientViewObservable {
 
     @Override
     public void updateObservers(){
-        this.observer.update(model.getScanedProducts());
+        this.observer.update(model.getItemsList());
     }
 
     @Override
