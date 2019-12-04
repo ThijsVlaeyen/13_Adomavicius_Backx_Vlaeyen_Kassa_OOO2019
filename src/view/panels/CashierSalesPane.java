@@ -20,6 +20,8 @@ public class CashierSalesPane extends GridPane {
         this.controller = controller;
         controller.setView(this);
         this.table = new TableView<>();
+        this.table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        Button delete = new Button("delete");
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -47,24 +49,48 @@ public class CashierSalesPane extends GridPane {
         TableColumn<Product,String> stock = new TableColumn<>("Stock");
         stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
+        delete.setOnMouseClicked(event -> {
+            if (table.getSelectionModel().getSelectedCells().size()<=0){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Delete");
+                info.setContentText("To delete items select the items you want to delete from the table view (shift select for multiple)");
+                info.show();
+            }else {
+                Alert deleteConirmation = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete these item(s)",ButtonType.NO,ButtonType.YES);
+                deleteConirmation.setTitle("Delete confirmation");
+                deleteConirmation.setContentText("Are you sure you want to delete these item(s)");
+                deleteConirmation.showAndWait().ifPresent(response ->{
+                    if (deleteConirmation.getResult() == ButtonType.YES){
+                        List<Product> items = table.getSelectionModel().getSelectedItems();
+                        for (int i=0;i<items.size();i++){
+                            System.out.println(items.get(i));
+                            controller.removeArticle(items.get(i));
+                        }
+                    }
+                });
+            }
+        });
+
         table.getColumns().add(articlecode);
         table.getColumns().add(description);
         table.getColumns().add(articleGroup);
         table.getColumns().add(price);
         table.getColumns().add(stock);
+
         this.add(table,1,0, 3,3);
 
         priceLabel = new Label("Total price:");
         totalAmount = new Label("€ 0");
         this.add(priceLabel, 4,0,1,1);
         this.add(totalAmount, 4, 1,1,1);
+        this.add(delete,1,5,1,1);
     }
 
     public void setNotExistingCode(boolean value) {
         productExistLabel.setVisible(value);
     }
 
-    public void updateScannedItemsTable(List<Product> list) {
+    public void updateTable(List<Product> list) {
         table.getItems().clear();
         table.getItems().addAll(list);
     }

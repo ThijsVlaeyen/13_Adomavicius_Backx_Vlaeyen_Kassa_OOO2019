@@ -66,7 +66,7 @@ public class CashierMainPane extends BorderPane {
     }
 
     public void updateScannedItemsTable(List<Product> list) {
-        cashiersSalesPane.updateScannedItemsTable(list);
+        cashiersSalesPane.updateTable(list);
     }
 
     public void updateTotalAmount(int value) {
