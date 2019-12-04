@@ -9,6 +9,7 @@ import view.ClientView;
 import view.panels.CashierSalesPane;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.List;
 
 public class CashierController implements Observer, ClientViewObservable {
@@ -16,11 +17,13 @@ public class CashierController implements Observer, ClientViewObservable {
     private ProductDB db;
     private ShoppingCart model;
     private ClientViewObserver observer;
+    private ShoppingCart holdingShoppingCart;
 
     public CashierController(ProductDB db) {
         this.db = db;
         model = new ShoppingCart();
         db.addObserver(this);
+        holdingShoppingCart = new ShoppingCart();
     }
 
     public void setView(CashierSalesPane view) {
@@ -63,6 +66,32 @@ public class CashierController implements Observer, ClientViewObservable {
         }
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
+        updateObservers();
+    }
+
+    public void addOnHold() {
+        if(holdingShoppingCart.getItemsList().isEmpty()) {
+            holdingShoppingCart = (ShoppingCart) model.clone();
+            model.clear();
+            view.updateTable(model.getItemsList());
+            view.updateTotalAmount(model.getTotalPrice());
+        }
+        else {
+            view.showAlert("there are already items on hold");
+        }
+        updateObservers();
+    }
+
+    public void takeFromHold() {
+        if(holdingShoppingCart.getItemsList().isEmpty()) {
+            view.showAlert("there are no items to add");
+        }
+        else {
+            model = (ShoppingCart) holdingShoppingCart.clone();
+            holdingShoppingCart.clear();
+            view.updateTable(model.getItemsList());
+            view.updateTotalAmount(model.getTotalPrice());
+        }
         updateObservers();
     }
 
