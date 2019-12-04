@@ -1,12 +1,14 @@
 package view.panels;
 
 import controllers.CashierController;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Product;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class CashierSalesPane extends GridPane {
@@ -53,7 +55,7 @@ public class CashierSalesPane extends GridPane {
             if (table.getSelectionModel().getSelectedCells().size()<=0){
                 Alert info = new Alert(Alert.AlertType.INFORMATION);
                 info.setTitle("Delete");
-                info.setContentText("To delete items select the items you want to delete from the table view (shift select for multiple)");
+                info.setContentText("To delete items select the items you want to delete from the table view (shift or control select for multiple)");
                 info.show();
             }else {
                 Alert deleteConirmation = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete these item(s)",ButtonType.NO,ButtonType.YES);
@@ -61,11 +63,7 @@ public class CashierSalesPane extends GridPane {
                 deleteConirmation.setContentText("Are you sure you want to delete these item(s)");
                 deleteConirmation.showAndWait().ifPresent(response ->{
                     if (deleteConirmation.getResult() == ButtonType.YES){
-                        List<Product> items = table.getSelectionModel().getSelectedItems();
-                        for (int i=0;i<items.size();i++){
-                            System.out.println(items.get(i));
-                            controller.removeArticle(items.get(i));
-                        }
+                        controller.removeArticles(table.getSelectionModel().getSelectedItems());
                     }
                 });
             }

@@ -9,6 +9,7 @@ import view.ClientView;
 import view.panels.CashierSalesPane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CashierController implements Observer, ClientViewObservable {
     private CashierSalesPane view;
@@ -44,10 +45,24 @@ public class CashierController implements Observer, ClientViewObservable {
     }
 
     public void removeArticle(Product p){
+        remove(p);
+        view.updateTable(model.getItemsList());
+        view.updateTotalAmount(model.getTotalPrice());
+        updateObservers();
+    }
+
+    public void remove(Product p){
         if (p != null){
             model.remove(p);
-            view.updateTable(model.getItemsList());
         }
+    }
+
+    public void removeArticles(List<Product> products){
+        for (Product p:products){
+            remove(p);
+        }
+        view.updateTable(model.getItemsList());
+        view.updateTotalAmount(model.getTotalPrice());
         updateObservers();
     }
 

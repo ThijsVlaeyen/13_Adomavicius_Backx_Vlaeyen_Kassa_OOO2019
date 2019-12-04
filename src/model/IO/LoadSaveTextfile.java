@@ -18,7 +18,7 @@ public class LoadSaveTextfile extends LoadSaveProductsTemplate {
    }
 
    public LoadSaveTextfile(){
-      this("src/Files/article.txt");
+      this("13_Adomavicius_Backx_Vlaeyen_Kassa_OOO2019/src/Files/article.txt");
    }
 
    @Override
