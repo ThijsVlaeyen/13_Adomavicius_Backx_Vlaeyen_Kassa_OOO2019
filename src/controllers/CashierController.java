@@ -64,6 +64,7 @@ public class CashierController implements Observer, ClientViewObservable {
         else {
             view.showAlert("there are already items on hold");
         }
+        updateObservers();
     }
 
     public void takeFromHold() {
@@ -76,6 +77,7 @@ public class CashierController implements Observer, ClientViewObservable {
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
         }
+        updateObservers();
     }
 
     @Override
