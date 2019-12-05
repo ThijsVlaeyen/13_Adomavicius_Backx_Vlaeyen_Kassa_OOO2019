@@ -104,6 +104,9 @@ public class CashierSalesPane extends GridPane {
         this.add(discountLabel,4,2,1,1);
         this.add(delete,0,4,1,1);
         this.add(close,0,5,1,1);
+        Button payment = new Button("payment");
+        payment.setOnAction(e -> controller.payment());
+        this.add(payment, 6, 2, 1, 1);
     }
 
     public void setNotExistingCode(boolean value) {

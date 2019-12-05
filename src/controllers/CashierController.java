@@ -88,6 +88,19 @@ public class CashierController implements  ClientViewObservable {
         updateObservers();
     }
 
+    public void payment() {
+        db.updateStocks(model.getItemsList());
+        logPayment();
+        model.clear();
+        view.updateTable(model.getItemsList());
+        view.updateTotalAmount(model.getTotalPrice());
+        updateObservers();
+    }
+
+    public void logPayment() {
+
+    }
+
     @Override
     public void addObserver(ClientViewObserver o) {
         this.observer = o;

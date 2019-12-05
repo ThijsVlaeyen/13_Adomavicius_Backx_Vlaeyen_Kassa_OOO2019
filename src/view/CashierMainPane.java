@@ -21,26 +21,6 @@ import java.util.List;
 public class CashierMainPane extends BorderPane {
     private CashierSalesPane cashiersSalesPane;
 
-//    public CashierMainPane(CashierController controller){
-//       ProductDB db = new ProductDB();
-//       db.setLoadSaveStrategy(new LoadSaveTextfile());
-//       db.load();
-//	   TabPane tabPane = new TabPane();
-//	   Tab cashierTab = new Tab("Cashier",new CashierSalesPane(controller));
-//       ProductOverviewController productOverviewController = new ProductOverviewController(db);
-//       SettingsController settingsController = new SettingsController(db);
-//	   ProductOverviewPane productOverviewPane = new ProductOverviewPane(productOverviewController);
-//	   Tab articleTab = new Tab("Article",productOverviewPane);
-//      SettingsPane settingsPane = new SettingsPane(settingsController);
-//      Tab settingsTab = new Tab("Settings", settingsPane);
-//      Tab logTab = new Tab("Log");
-//      tabPane.getTabs().add(cashierTab);
-//      tabPane.getTabs().add(articleTab);
-//      tabPane.getTabs().add(settingsTab);
-//      tabPane.getTabs().add(logTab);
-//      this.setCenter(tabPane);
-//	}
-
     public CashierMainPane(ClientViewController controller){
         ProductDB db = new ProductDB();
         TabPane tabPane = new TabPane();
