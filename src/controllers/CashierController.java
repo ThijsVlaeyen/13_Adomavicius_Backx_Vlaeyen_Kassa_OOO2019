@@ -1,18 +1,16 @@
 package controllers;
 
-import database.Observable;
 import database.ProductDB;
+import model.DiscountFactory;
+import model.DiscountStrategy;
+import model.IO.LoadSaveProperties;
 import model.Product;
 import model.ShoppingCart;
-import view.CashierView;
-import view.ClientView;
 import view.panels.CashierSalesPane;
 
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.List;
 
-public class CashierController implements Observer, ClientViewObservable {
+public class CashierController implements  ClientViewObservable {
     private CashierSalesPane view;
     private ProductDB db;
     private ShoppingCart model;
@@ -22,17 +20,11 @@ public class CashierController implements Observer, ClientViewObservable {
     public CashierController(ProductDB db) {
         this.db = db;
         model = new ShoppingCart();
-        db.addObserver(this);
         holdingShoppingCart = new ShoppingCart();
     }
 
     public void setView(CashierSalesPane view) {
         this.view = view;
-    }
-
-    @Override
-    public void update() {
-        view.updateDisplay();
     }
 
     public void addArticle(int code) {
@@ -44,6 +36,7 @@ public class CashierController implements Observer, ClientViewObservable {
         }else{
             view.setNotExistingCode(true);
         }
+        calculateDiscount();
         updateObservers();
     }
 
@@ -95,6 +88,19 @@ public class CashierController implements Observer, ClientViewObservable {
         updateObservers();
     }
 
+    public void payment() {
+        db.updateStocks(model.getItemsList());
+        logPayment();
+        model.clear();
+        view.updateTable(model.getItemsList());
+        view.updateTotalAmount(model.getTotalPrice());
+        updateObservers();
+    }
+
+    public void logPayment() {
+
+    }
+
     @Override
     public void addObserver(ClientViewObserver o) {
         this.observer = o;
@@ -110,4 +116,29 @@ public class CashierController implements Observer, ClientViewObservable {
 
     }
 
+    public double calculateDiscount() {
+        double totalDiscount =0.0;
+        LoadSaveProperties loadSaveProperties = new LoadSaveProperties();
+        String discounts = LoadSaveProperties.getDiscountActive();
+        discounts = discounts.replaceAll("\\[*\\]*","");
+        String[] discountsArray = discounts.split(", ");
+        DiscountFactory factory = new DiscountFactory();
+        if (!discountsArray[0].equals("")) {
+            for (String s : discountsArray) {
+                //System.out.println(s);
+                DiscountStrategy discount = factory.create(s);
+                totalDiscount += discount.calculateDiscount(model);
+            }
+        }
+        view.updateDiscount(totalDiscount);
+        return totalDiscount;
+    }
+
+    public double getFinalPrice(){
+        return model.getTotalPrice()-calculateDiscount();
+    }
+
+    public void close() {
+        view.updateTotalAmount(getFinalPrice());
+    }
 }

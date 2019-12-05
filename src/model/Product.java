@@ -46,6 +46,10 @@ public class Product implements Comparable<Product> {
         return id;
     }
 
+    public void decreaseStock() {
+        this.stock--;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

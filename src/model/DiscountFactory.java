@@ -1,27 +1,21 @@
 package model;
 
-import java.util.ArrayList;
-
 public class DiscountFactory {
 
-   ArrayList<DiscountStrategy> discounts = new ArrayList<>();
+   public DiscountStrategy create(String type){
+      DiscountType dType = DiscountType.valueOf(type);
+      String classname = dType.getClassname();
+      DiscountStrategy discount = null;
 
-   public void create(ArrayList<String> types){
-      for (String t: types){
-         switch (t){
-            case "GROUP":
-               discounts.add(new DiscountGroup());
-               break;
-            case "THRESHOLD":
-               discounts.add(new DiscountThreshold());
-               break;
-            case "EXPENSIVE":
-               discounts.add(new DiscountExpensive());
-               break;
-         }
+      try{
+         Class dbClassName = Class.forName(classname);
+         Object object = dbClassName.newInstance();
+         discount = (DiscountStrategy)object;
+      } catch (Exception e){
+         e.printStackTrace();
       }
+      return discount;
    }
 
-   public ArrayList<DiscountStrategy> getDiscounts(){return discounts;}
 
 }

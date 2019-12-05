@@ -14,6 +14,7 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 public class ProductOverviewPane extends GridPane {
@@ -22,6 +23,7 @@ public class ProductOverviewPane extends GridPane {
 
 	public ProductOverviewPane(ProductOverviewController controller) {
 	    this.controller = controller;
+	    controller.setView(this);
 		table = new TableView<>();
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
@@ -51,5 +53,10 @@ public class ProductOverviewPane extends GridPane {
 		table.getColumns().add(stock);
         table.getItems().addAll(controller.getProducts());
         this.add(table,0,1);
+	}
+
+	public void update(List<Product> products) {
+		this.table.getItems().clear();
+		this.table.getItems().addAll(products);
 	}
 }

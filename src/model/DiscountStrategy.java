@@ -3,5 +3,5 @@ package model;
 import database.ProductDB;
 
 public interface DiscountStrategy {
-   int calculateDiscount(ShoppingCart shoppingCart);
+   double calculateDiscount(ShoppingCart shoppingCart);
 }

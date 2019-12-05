@@ -38,8 +38,11 @@ public class LoadSaveProperties {
    public static String getLoadSave(){return properties.getProperty("Strategy");}
    public static void setLoadSave(String value){properties.setProperty("Strategy", value);}
 
+   //ACTIVE DISCOUNTS
+   public static void setDiscountActive(String value){properties.setProperty("DiscountActive", value);}
+   public static String getDiscountActive(){return properties.getProperty("DiscountActive");}
+
    //DISCOUNT GROUP
-   public static void setDiscountGroupActive(String value){properties.setProperty("DiscountGroup", value);}
    public static void setDiscountGroupGroup(String value){properties.setProperty("DiscountGroupGroup", value);}
    public static void setDiscountGroupPercent(String value){properties.setProperty("DiscountGroupPercent", value);}
    public static String getDiscountGroupActive(){return properties.getProperty("DiscountGroup", "false");}
@@ -47,7 +50,6 @@ public class LoadSaveProperties {
    public static String getDiscountGroupPercent(){return properties.getProperty("DiscountGroupPercent", "1%");}
 
    //DISCOUNT THRESHOLD
-   public static void setDiscountThresholdActive(String value){properties.setProperty("ThresholdActive", value);}
    public static void setDiscountThresholdAmount(String value){properties.setProperty("ThresholdAmount", value);}
    public static void setDiscountThresholdPercent(String value){properties.setProperty("ThresholdPercent", value);}
    public static String getDiscountThresholdActive(){return properties.getProperty("ThresholdActive", "false");}
@@ -55,7 +57,6 @@ public class LoadSaveProperties {
    public static String getDiscountThresholdPercent(){return properties.getProperty("ThresholdPercent", "1%");}
 
    //DISCOUNT EXPENSIVE
-   public static void setDiscountExpensiveActive(String value){properties.setProperty("ExpensiveActive", value);}
    public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
    public static String getDiscountExpensiveActive(){return properties.getProperty("ExpensiveActive", "false");}
    public static String getDiscountExpensivePercent(){return properties.getProperty("ExpensivePercent", "1%");}

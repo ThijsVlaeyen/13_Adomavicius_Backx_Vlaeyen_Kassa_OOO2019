@@ -9,14 +9,16 @@ import view.panels.ProductOverviewPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class ProductOverviewController {
+public class ProductOverviewController implements ClientViewObserver {
     private ProductDB db;
     private ProductOverviewPane view;
     private LoadSaveProperties properties;
 
     public ProductOverviewController(ProductDB db){
         this.db = db;
+        db.addObserver(this);
         properties = new LoadSaveProperties();
     }
 
@@ -31,5 +33,10 @@ public class ProductOverviewController {
 
     public void setView(ProductOverviewPane view){
         this.view = view;
+    }
+
+    @Override
+    public void update(List<Product> products) {
+        view.update(products);
     }
 }

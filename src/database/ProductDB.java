@@ -1,5 +1,7 @@
 package database;
 
+import controllers.ClientViewObservable;
+import controllers.ClientViewObserver;
 import controllers.Observer;
 import model.IO.LoadSaveStrategy;
 import model.Product;
@@ -10,37 +12,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductDB implements Observable {
-    private String path;
-    private List<Product> productList;//todo maybe delete in the future
-    private List<Product> scanedProducts;
-    private double totalScanedAmount;
+public class ProductDB implements ClientViewObservable {
     private Map<Integer, Product> productsMap;
-    private Map<Integer,Product> products;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<Observer> observers;
+    private ArrayList<ClientViewObserver> observers;
 
     public ProductDB() {
-        this.productList = new ArrayList<>();
         this.productsMap = new HashMap<>();
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<ClientViewObserver>();
         productsMap = new HashMap<Integer, Product>();
-        scanedProducts = new ArrayList<Product>();
-        totalScanedAmount = 0;
-       //productsMap.put(1, new Product(1, "test", "group", 1.0, 3));//todo just temporary testing data
     }
-
-    public ProductDB(String path) {
-        this.path = path;
-    }
-
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
     public void save(){
-        loadSaveStrategy.save(new ArrayList<Product>(this.products.values()));
+        loadSaveStrategy.save(new ArrayList<Product>(this.productsMap.values()));
     }
 
     public Product getProduct(int code){
@@ -48,8 +36,7 @@ public class ProductDB implements Observable {
     }
 
     public void load(){
-        this.productList = loadSaveStrategy.load();
-        for (Product i : productList) productsMap.put(i.getId(), i);
+        for (Product i : loadSaveStrategy.load()) productsMap.put(i.getId(), i);
     }
 
     public void add(Product p){
@@ -73,28 +60,40 @@ public class ProductDB implements Observable {
         return this.productsMap.containsKey(code);
     }
 
-//    public void addScannedArticle(int code) {
-//        scanedProducts.add(productsMap.get(code));
-//        totalScanedAmount += productsMap.get(code).getPrice();
-//    }
-//
-//    public double getTotalAmount() {
-//        return totalScanedAmount;
-//    }
-//
-//    public List<Product> getScanedProducts() {
-//        return scanedProducts;
-//    }
+    public void updateStocks(List<Product> products) {
+        for(Product p : products) {
+            decreaseStock(p);
+        }
+        save();
+        load();
+        updateObservers();
+    }
+
+    public void decreaseStock(Product product) {
+        productsMap.get(product.getId()).decreaseStock();
+    }
+
+    @Override
+    public void addObserver(ClientViewObserver o) {
+        this.observers.add(o);
+    }
 
     @Override
     public void updateObservers() {
-        for (Observer o : observers) {
-            o.update();
+        for (ClientViewObserver o : observers) {
+            o.update((new ArrayList<Product>(productsMap.values())));
         }
     }
 
     @Override
-    public void addObserver(Observer o) {
+    public void removeObserver(ClientViewObserver o) {
+        this.observers.remove(o);
+    }
+
+    @Override
+    public void addObserver(ClientViewObserver o) {
         this.observers.add(o);
     }
+
+
 }

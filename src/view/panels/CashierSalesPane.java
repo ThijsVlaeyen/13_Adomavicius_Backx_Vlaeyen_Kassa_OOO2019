@@ -1,20 +1,19 @@
 package view.panels;
 
 import controllers.CashierController;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Product;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class CashierSalesPane extends GridPane {
     private TableView<Product> table;
     private Label productExistLabel;
     private Label totalAmount;
+    private Label discountLabel;
     private CashierController controller;
     private Label priceLabel;
 
@@ -33,8 +32,6 @@ public class CashierSalesPane extends GridPane {
         productExistLabel = new Label("Not existing code");
         productExistLabel.setVisible(false);
         this.add(productExistLabel, 0, 2);
-        this.add(articleNumberInput,0,0,1,1);
-        this.add(addArticle,0,1,1,1);
         TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
         // the setcellValueFactory will check in the product class for getId() in this example
         articlecode.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -75,21 +72,41 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(price);
         table.getColumns().add(stock);
 
-        this.add(table,1,0, 3,3);
+
 
         priceLabel = new Label("Total price:");
+        discountLabel = new Label("Total discount:\n€ 0.0");
         totalAmount = new Label("€ 0");
-        this.add(priceLabel, 4,0,1,1);
-        this.add(totalAmount, 4, 1,1,1);
-        this.add(delete,1,5,1,1);
+
 
         Button addOnHold = new Button("add on hold");
         addOnHold.setOnAction(e -> controller.addOnHold());
-        this.add(addOnHold, 4, 2, 1, 1);
+
 
         Button takeFromHold = new Button("take from hold");
         takeFromHold.setOnAction(e -> controller.takeFromHold());
-        this.add(takeFromHold, 5, 2, 1, 1);
+
+
+        Button close = new Button("Close Sale");
+        close.setOnAction(e->{
+            controller.close();
+            discountLabel.setText("discount applied");
+        });
+
+
+        this.add(table,1,0, 3,3);
+        this.add(articleNumberInput,0,0,1,1);
+        this.add(addArticle,0,1,1,1);
+        this.add(addOnHold, 0, 2, 1, 1);
+        this.add(takeFromHold, 0, 3, 1, 1);
+        this.add(priceLabel, 4,0,1,1);
+        this.add(totalAmount, 4, 1,1,1);
+        this.add(discountLabel,4,2,1,1);
+        this.add(delete,0,4,1,1);
+        this.add(close,0,5,1,1);
+        Button payment = new Button("payment");
+        payment.setOnAction(e -> controller.payment());
+        this.add(payment, 6, 2, 1, 1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -102,7 +119,11 @@ public class CashierSalesPane extends GridPane {
     }
 
     public void updateTotalAmount(double value) {
-        totalAmount.setText(String.valueOf("€ " + value));
+        totalAmount.setText("€ " + value);
+    }
+
+    public void updateDiscount(double value){
+        discountLabel.setText("Total Discount:\n€ " + value );
     }
 
     public void updateDisplay() {

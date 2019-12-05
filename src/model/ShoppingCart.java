@@ -2,10 +2,7 @@ package model;
 
 import javafx.scene.shape.Polyline;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShoppingCart {
     private Map<Product,Integer> cart;
