@@ -1,6 +1,6 @@
 package model;
 
-public enum KortingType {
+public enum DiscountType {
    GROUP,
    THRESHOLD,
    EXPENSIVE

@@ -63,4 +63,5 @@ public class SettingsController {
     //EXPENSIVE DISCOUNT SETTERS
     public void setDiscountExpensiveActive(String type){properties.setDiscountExpensiveActive(type);}
     public void setDiscountExpensivePercent(String type){properties.setDiscountExpensivePercent(type);}
+    public String getDiscountExpensiveActive(){return properties.getDiscountExpensiveActive();}
 }

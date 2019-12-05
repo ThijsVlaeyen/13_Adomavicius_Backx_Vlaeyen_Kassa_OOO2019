@@ -58,6 +58,7 @@ public class LoadSaveProperties {
    //DISCOUNT EXPENSIVE
    public static void setDiscountExpensiveActive(String value){properties.setProperty("ExpensiveActive", value);}
    public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
+   public static String getDiscountExpensiveActive(){return properties.getProperty("ExpensiveActive", "false");}
 
 
 }
