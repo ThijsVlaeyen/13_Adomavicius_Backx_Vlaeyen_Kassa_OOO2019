@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+
 public class SettingsPane extends GridPane {
 
    private SettingsController controller;
@@ -53,9 +55,10 @@ public class SettingsPane extends GridPane {
 
       //THIS IS FOR DISCOUNT
 
+
       //FOR GROUP DISCOUNT
       this.add(new Label("Discounts:"), 0,2,1,1);
-      groupCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountGroupActive()));
+      groupCheckbox.setSelected(contains("GROUP"));
       groups.setValue(controller.getDiscountGroupGroup());
       groupDiscounts.setValue(controller.getDiscountGroupPercent());
       setGroupButtons();
@@ -68,7 +71,7 @@ public class SettingsPane extends GridPane {
       groupCheckbox.setOnAction(event -> setGroupButtons());
 
       //FOR THRESHOLD DISCOUNT
-      thresholdCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountThresholdActive()));
+      thresholdCheckbox.setSelected(contains("THRESHOLD"));
       thresholdDiscounts.setValue(controller.getDiscountThresholdPercent());
       thresholdAmount.setText(controller.getDiscountThresholdAmount());
       setThresholdButtons();
@@ -80,7 +83,7 @@ public class SettingsPane extends GridPane {
       thresholdCheckbox.setOnAction(event -> setThresholdButtons());
 
       //FOR EXPENSIVE DISCOUNT
-      expensiveCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountExpensiveActive()));
+      expensiveCheckbox.setSelected(contains("EXPENSIVE"));
       expensiveDiscounts.setValue(controller.getDiscountExpensivePercent());
       setExpensiveButtons();
       this.add(new Label("Expensive:"),1,5,1,1);
@@ -141,8 +144,10 @@ public class SettingsPane extends GridPane {
    }
 
    private void save(){
-      controller.setDiscountGroupActive(Boolean.toString(groupCheckbox.isSelected()));
+      ArrayList<String> active = new ArrayList<>();
+
       if (groupCheckbox.isSelected()){
+         active.add("GROUP");
          controller.setDiscountGroupGroup(groups.getValue().toString().trim());
          controller.setDiscountGroupPercent(groupDiscounts.getValue().toString().trim());
       } else {
@@ -150,20 +155,35 @@ public class SettingsPane extends GridPane {
          controller.setDiscountGroupPercent("null");
       }
 
-      controller.setDiscountThresholdActive(Boolean.toString(thresholdCheckbox.isSelected()));
       if (thresholdCheckbox.isSelected()){
+         active.add("THRESHOLD");
          controller.setDiscountThresholdAmount(thresholdAmount.getText());
          controller.setDiscountThresholdPercent(thresholdDiscounts.getValue().toString().trim());
       } else {
          controller.setDiscountThresholdAmount("null");
          controller.setDiscountThresholdPercent("null");
       }
-      controller.setDiscountExpensiveActive(Boolean.toString(expensiveCheckbox.isSelected()));
+
       if (expensiveCheckbox.isSelected()){
+         active.add("EXPENSIVE");
          controller.setDiscountExpensivePercent(expensiveDiscounts.getValue().toString().trim());
       } else {
          controller.setDiscountExpensivePercent("null");
       }
+      controller.setDiscountActive(active.toString());
       controller.save();
+   }
+
+   private boolean contains(String discount){
+      boolean out = false;
+      String array = controller.getDiscountActive();
+      array = array.replaceAll("\\[*\\]*", "");
+      String[] activeDiscounts = array.split(", ");
+      for (String s:activeDiscounts) {
+         if (s.equals(discount)){
+            out = true;
+         }
+      }
+      return out;
    }
 }

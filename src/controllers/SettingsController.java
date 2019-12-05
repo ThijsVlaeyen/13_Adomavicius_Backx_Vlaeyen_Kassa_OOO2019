@@ -43,10 +43,11 @@ public class SettingsController {
         LoadSaveProperties.setLoadSave(type);
     }
 
+    //SET ACTIVE DISCOUNTS
+    public void setDiscountActive(String type){LoadSaveProperties.setDiscountActive(type);}
+    public String getDiscountActive(){return LoadSaveProperties.getDiscountActive();}
+
     //GROUP DISCOUNT SETTERS GETTERS
-    public void setDiscountGroupActive(String type){
-        LoadSaveProperties.setDiscountGroupActive(type);
-    }
     public void setDiscountGroupGroup(String type){
         LoadSaveProperties.setDiscountGroupGroup(type);
     }
@@ -58,7 +59,6 @@ public class SettingsController {
     public String getDiscountGroupPercent(){return LoadSaveProperties.getDiscountGroupPercent();}
 
     //THRESHOLD DISCOUNT SETTERS
-    public void setDiscountThresholdActive(String type){LoadSaveProperties.setDiscountThresholdActive(type);}
     public void setDiscountThresholdAmount(String type){LoadSaveProperties.setDiscountThresholdAmount(type);}
     public void setDiscountThresholdPercent(String type){LoadSaveProperties.setDiscountThresholdPercent(type);}
     public String getDiscountThresholdActive(){return LoadSaveProperties.getDiscountThresholdActive();}
@@ -66,7 +66,6 @@ public class SettingsController {
     public String getDiscountThresholdPercent(){return LoadSaveProperties.getDiscountThresholdPercent();}
 
     //EXPENSIVE DISCOUNT SETTERS
-    public void setDiscountExpensiveActive(String type){LoadSaveProperties.setDiscountExpensiveActive(type);}
     public void setDiscountExpensivePercent(String type){LoadSaveProperties.setDiscountExpensivePercent(type);}
     public String getDiscountExpensiveActive(){return LoadSaveProperties.getDiscountExpensiveActive();}
     public String getDiscountExpensivePercent(){return LoadSaveProperties.getDiscountExpensivePercent();}
