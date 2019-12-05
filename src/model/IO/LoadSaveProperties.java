@@ -1,55 +1,69 @@
 package model.IO;
 
-import model.Product;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
+import java.io.*;
 import java.util.Properties;
 
 public class LoadSaveProperties {
 
+   static InputStream inputStream;
+   static Properties properties;
+   static OutputStream outputStream;
+
    public LoadSaveProperties(){
    }
 
-   public String load() {
-      String result = "";
-      InputStream inputStream;
-
+   public static void load(){
       try{
-         Properties prop = new Properties();
-         String propFileName = "config.properties";
-
-         inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+         properties = new Properties();
+         inputStream = new FileInputStream("src/Files/config.properties");
 
          if (inputStream != null){
-            prop.load(inputStream);
+            properties.load(inputStream);
          } else {
-            throw new FileNotFoundException("property file" + propFileName + " not found");
+            throw new FileNotFoundException("property file not found");
          }
-
-         result = prop.getProperty("Strategy");
-
          inputStream.close();
-
       } catch (Exception e){
          System.out.println(e);
       }
-      return result;
    }
 
-   public void save(String value) {
-      try {
-         Properties prop = new Properties();
-         InputStream in = getClass().getClassLoader().getResourceAsStream("config.properties");
-         prop.load(in);
-         prop.setProperty("Strategy", value);
-         prop.store(new FileOutputStream("resources/config.properties"), null);
-         in.close();
-      } catch (IOException e) {
+   public void save() {
+      try{
+         outputStream = new FileOutputStream("src/Files/config.properties");
+         properties.store(outputStream, null);
+      } catch (Exception e){
          e.printStackTrace();
       }
    }
+
+   //LOAD SAVE STRATEGY
+   public static String getLoadSave(){return properties.getProperty("Strategy");}
+   public static void setLoadSave(String value){properties.setProperty("Strategy", value);}
+
+   //DISCOUNT GROUP
+   public static void setDiscountGroupActive(String value){properties.setProperty("DiscountGroup", value);}
+   public static void setDiscountGroupGroup(String value){properties.setProperty("DiscountGroupGroup", value);}
+   public static void setDiscountGroupPercent(String value){properties.setProperty("DiscountGroupPercent", value);}
+   public static String getDiscountGroupActive(){return properties.getProperty("DiscountGroup", "false");}
+   public static String getDiscountGroupGroup(){return properties.getProperty("DiscountGroupGroup", "Group 1");}
+   public static String getDiscountGroupPercent(){return properties.getProperty("DiscountGroupPercent", "1%");}
+
+   //DISCOUNT THRESHOLD
+   public static void setDiscountThresholdActive(String value){properties.setProperty("ThresholdActive", value);}
+   public static void setDiscountThresholdAmount(String value){properties.setProperty("ThresholdAmount", value);}
+   public static void setDiscountThresholdPercent(String value){properties.setProperty("ThresholdPercent", value);}
+   public static String getDiscountThresholdActive(){return properties.getProperty("ThresholdActive", "false");}
+   public static String getDiscountThresholdAmount(){return properties.getProperty("ThresholdAmount", "0");}
+   public static String getDiscountThresholdPercent(){return properties.getProperty("ThresholdPercent", "1%");}
+
+   //DISCOUNT EXPENSIVE
+   public static void setDiscountExpensiveActive(String value){properties.setProperty("ExpensiveActive", value);}
+   public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
+   public static String getDiscountExpensiveActive(){return properties.getProperty("ExpensiveActive", "false");}
+   public static String getDiscountExpensivePercent(){return properties.getProperty("ExpensivePercent", "1%");}
+
+
 }

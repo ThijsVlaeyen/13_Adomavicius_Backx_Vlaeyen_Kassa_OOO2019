@@ -21,7 +21,8 @@ public class ProductOverviewController {
     public ArrayList<Product> getProducts(){
         LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
         LoadSaveProperties properties = new LoadSaveProperties();
-        LoadSaveStrategy loadSaveStrategy = factory.createObject(properties.load());
+        properties.load();
+        LoadSaveStrategy loadSaveStrategy = factory.createObject(properties.getLoadSave());
         db.setLoadSaveStrategy(loadSaveStrategy);
         ArrayList<Product> products = db.getProducts();
         Collections.sort(products);
