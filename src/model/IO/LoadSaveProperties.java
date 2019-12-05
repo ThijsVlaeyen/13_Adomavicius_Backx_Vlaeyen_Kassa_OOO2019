@@ -1,7 +1,5 @@
 package model.IO;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.io.*;
 import java.util.Properties;
 
@@ -12,9 +10,6 @@ public class LoadSaveProperties {
    static OutputStream outputStream;
 
    public LoadSaveProperties(){
-   }
-
-   public static void load(){
       try{
          properties = new Properties();
          inputStream = new FileInputStream("src/Files/config.properties");

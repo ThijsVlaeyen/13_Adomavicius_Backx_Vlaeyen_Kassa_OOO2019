@@ -5,6 +5,7 @@ import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveType;
 import view.panels.SettingsPane;
 
+import javax.security.auth.login.LoginException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
@@ -12,11 +13,11 @@ import java.util.Set;
 public class SettingsController {
     private ProductDB db;
     private SettingsPane view;
-    private LoadSaveProperties properties = new LoadSaveProperties();
+    private LoadSaveProperties properties;
 
     public SettingsController(ProductDB db){
         this.db = db;
-        properties.load();
+        properties = new LoadSaveProperties();
     }
 
     public ArrayList<String> getTypes(){
@@ -32,41 +33,41 @@ public class SettingsController {
     }
 
     public String getType(){
-        return properties.getLoadSave().toLowerCase();
+        return LoadSaveProperties.getLoadSave().toLowerCase();
     }
 
     public void save(){properties.save();}
 
     //LOAD SAVE STRATEGY
     public void setLoadSave(String type) {
-        properties.setLoadSave(type);
+        LoadSaveProperties.setLoadSave(type);
     }
 
     //GROUP DISCOUNT SETTERS GETTERS
     public void setDiscountGroupActive(String type){
-        properties.setDiscountGroupActive(type);
+        LoadSaveProperties.setDiscountGroupActive(type);
     }
     public void setDiscountGroupGroup(String type){
-        properties.setDiscountGroupGroup(type);
+        LoadSaveProperties.setDiscountGroupGroup(type);
     }
     public void setDiscountGroupPercent(String type){
-        properties.setDiscountGroupPercent(type);
+        LoadSaveProperties.setDiscountGroupPercent(type);
     }
-    public String getDiscountGroupActive(){return properties.getDiscountGroupActive();}
-    public String getDiscountGroupGroup(){return properties.getDiscountGroupGroup();}
-    public String getDiscountGroupPercent(){return properties.getDiscountGroupPercent();}
+    public String getDiscountGroupActive(){return LoadSaveProperties.getDiscountGroupActive();}
+    public String getDiscountGroupGroup(){return LoadSaveProperties.getDiscountGroupGroup();}
+    public String getDiscountGroupPercent(){return LoadSaveProperties.getDiscountGroupPercent();}
 
     //THRESHOLD DISCOUNT SETTERS
-    public void setDiscountThresholdActive(String type){properties.setDiscountThresholdActive(type);}
-    public void setDiscountThresholdAmount(String type){properties.setDiscountThresholdAmount(type);}
-    public void setDiscountThresholdPercent(String type){properties.setDiscountThresholdPercent(type);}
-    public String getDiscountThresholdActive(){return properties.getDiscountThresholdActive();}
-    public String getDiscountThresholdAmount(){return properties.getDiscountThresholdAmount();}
-    public String getDiscountThresholdPercent(){return properties.getDiscountThresholdPercent();}
+    public void setDiscountThresholdActive(String type){LoadSaveProperties.setDiscountThresholdActive(type);}
+    public void setDiscountThresholdAmount(String type){LoadSaveProperties.setDiscountThresholdAmount(type);}
+    public void setDiscountThresholdPercent(String type){LoadSaveProperties.setDiscountThresholdPercent(type);}
+    public String getDiscountThresholdActive(){return LoadSaveProperties.getDiscountThresholdActive();}
+    public String getDiscountThresholdAmount(){return LoadSaveProperties.getDiscountThresholdAmount();}
+    public String getDiscountThresholdPercent(){return LoadSaveProperties.getDiscountThresholdPercent();}
 
     //EXPENSIVE DISCOUNT SETTERS
-    public void setDiscountExpensiveActive(String type){properties.setDiscountExpensiveActive(type);}
-    public void setDiscountExpensivePercent(String type){properties.setDiscountExpensivePercent(type);}
-    public String getDiscountExpensiveActive(){return properties.getDiscountExpensiveActive();}
-    public String getDiscountExpensivePercent(){return properties.getDiscountExpensivePercent();}
+    public void setDiscountExpensiveActive(String type){LoadSaveProperties.setDiscountExpensiveActive(type);}
+    public void setDiscountExpensivePercent(String type){LoadSaveProperties.setDiscountExpensivePercent(type);}
+    public String getDiscountExpensiveActive(){return LoadSaveProperties.getDiscountExpensiveActive();}
+    public String getDiscountExpensivePercent(){return LoadSaveProperties.getDiscountExpensivePercent();}
 }

@@ -13,16 +13,16 @@ import java.util.Collections;
 public class ProductOverviewController {
     private ProductDB db;
     private ProductOverviewPane view;
+    private LoadSaveProperties properties;
 
     public ProductOverviewController(ProductDB db){
         this.db = db;
+        properties = new LoadSaveProperties();
     }
 
     public ArrayList<Product> getProducts(){
         LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
-        LoadSaveProperties properties = new LoadSaveProperties();
-        properties.load();
-        LoadSaveStrategy loadSaveStrategy = factory.createObject(properties.getLoadSave());
+        LoadSaveStrategy loadSaveStrategy = factory.createObject(LoadSaveProperties.getLoadSave());
         db.setLoadSaveStrategy(loadSaveStrategy);
         ArrayList<Product> products = db.getProducts();
         Collections.sort(products);
