@@ -1,5 +1,6 @@
 package view.panels;
 
+import com.sun.javafx.scene.DirtyBits;
 import controllers.SettingsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -27,6 +28,7 @@ public class SettingsPane extends GridPane {
    private final ComboBox expensiveDiscounts = new ComboBox<String>();
 
    private Button saveDiscount;
+   private Button resetDiscount;
 
    public SettingsPane(SettingsController controller){
       this.controller = controller;
@@ -54,101 +56,114 @@ public class SettingsPane extends GridPane {
       //FOR GROUP DISCOUNT
       this.add(new Label("Discounts:"), 0,2,1,1);
       groupCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountGroupActive()));
-      if(groupCheckbox.isSelected()){
-         groups.setDisable(false);
-         groupDiscounts.setDisable(false);
-      }else{
-         groups.setDisable(true);
-         groupDiscounts.setDisable(true);
-      }
+      groups.setValue(controller.getDiscountGroupGroup());
+      groupDiscounts.setValue(controller.getDiscountGroupPercent());
+      setGroupButtons();
       this.add(groupCheckbox, 0,3,1,1);
       this.add(new Label("Group discount:"),1,3,1,1);
       groupDiscounts.getItems().addAll("1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%", "11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%","21%", "22%", "23%", "24%", "25%", "26%","27%", "28%", "29%", "30%");
       groups.getItems().addAll("Group 1", "Group 2");
       this.add(groups, 2,3,1,1);
       this.add(groupDiscounts, 3,3,1,1);
-      groupCheckbox.setOnAction(event -> {
-         if(groupCheckbox.isSelected()){
-            groups.setDisable(false);
-            groupDiscounts.setDisable(false);
-         }else{
-            groups.setDisable(true);
-            groupDiscounts.setDisable(true);
-         }});
+      groupCheckbox.setOnAction(event -> setGroupButtons());
 
       //FOR THRESHOLD DISCOUNT
       thresholdCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountThresholdActive()));
+      thresholdDiscounts.setValue(controller.getDiscountThresholdPercent());
+      thresholdAmount.setText(controller.getDiscountThresholdAmount());
+      setThresholdButtons();
+      this.add(thresholdCheckbox,0,4,1,1);
+      this.add(new Label("Threshold discount:"), 1,4,1,1);
+      this.add(thresholdAmount,2,4,1,1);
+      thresholdDiscounts.getItems().addAll("1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%", "11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%","21%", "22%", "23%", "24%", "25%", "26%","27%", "28%", "29%", "30%");
+      this.add(thresholdDiscounts,3,4,1,1);
+      thresholdCheckbox.setOnAction(event -> setThresholdButtons());
+
+      //FOR EXPENSIVE DISCOUNT
+      expensiveCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountExpensiveActive()));
+      expensiveDiscounts.setValue(controller.getDiscountExpensivePercent());
+      setExpensiveButtons();
+      this.add(new Label("Expensive:"),1,5,1,1);
+      this.add(expensiveCheckbox,0,5,1,1);
+      expensiveDiscounts.getItems().addAll("1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%", "11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%","21%", "22%", "23%", "24%", "25%", "26%","27%", "28%", "29%", "30%");
+      this.add(expensiveDiscounts,3,5,1,1);
+      expensiveCheckbox.setOnAction(event -> setExpensiveButtons());
+
+      //DISCOUNT BUTTONS
+      saveDiscount = new Button("Save Discounts");
+      this.add(saveDiscount,0,6,1,1);
+      saveDiscount.setOnAction(event -> save());
+      resetDiscount = new Button("Reset Discounts");
+      this.add(resetDiscount,1,6,1,1);
+      resetDiscount.setOnAction(event -> {
+         groupCheckbox.setSelected(false);
+         thresholdCheckbox.setSelected(false);
+         expensiveCheckbox.setSelected(false);
+         setGroupButtons();
+         setThresholdButtons();
+         setExpensiveButtons();
+         save();
+      });
+
+   }
+
+   private void setGroupButtons(){
+      if(groupCheckbox.isSelected()){
+         groups.setDisable(false);
+         groupDiscounts.setDisable(false);
+      }else{
+         groups.setDisable(true);
+         groupDiscounts.setDisable(true);
+         groups.setValue("Group 1");
+         groupDiscounts.setValue("1%");
+      }
+   }
+
+   private void setThresholdButtons(){
       if (thresholdCheckbox.isSelected()){
          thresholdDiscounts.setDisable(false);
          thresholdAmount.setDisable(false);
       } else {
          thresholdDiscounts.setDisable(true);
          thresholdAmount.setDisable(true);
+         thresholdDiscounts.setValue("1%");
+         thresholdAmount.setText("0");
       }
-      this.add(thresholdCheckbox,0,4,1,1);
-      this.add(new Label("Threshold discount:"), 1,4,1,1);
-      this.add(thresholdAmount,2,4,1,1);
-      thresholdDiscounts.getItems().addAll("1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%", "11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%","21%", "22%", "23%", "24%", "25%", "26%","27%", "28%", "29%", "30%");
-      this.add(thresholdDiscounts,3,4,1,1);
-      thresholdCheckbox.setOnAction(event -> {
-         if (thresholdCheckbox.isSelected()){
-            thresholdDiscounts.setDisable(false);
-            thresholdAmount.setDisable(false);
-         } else {
-            thresholdDiscounts.setDisable(true);
-            thresholdAmount.setDisable(true);
-         }});
+   }
 
-      //FOR EXPENSIVE DISCOUNT
-      expensiveCheckbox.setSelected(Boolean.parseBoolean(controller.getDiscountThresholdActive()));
+   private void setExpensiveButtons(){
       if (expensiveCheckbox.isSelected()){
          expensiveDiscounts.setDisable(false);
       } else {
          expensiveDiscounts.setDisable(true);
+         expensiveDiscounts.setValue("1%");
       }
-      this.add(new Label("Expensive:"),1,5,1,1);
-      this.add(expensiveCheckbox,0,5,1,1);
-      expensiveDiscounts.getItems().addAll("1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%", "11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%","21%", "22%", "23%", "24%", "25%", "26%","27%", "28%", "29%", "30%");
-      this.add(expensiveDiscounts,3,5,1,1);
-      expensiveCheckbox.setOnAction(event -> {
-         if (expensiveCheckbox.isSelected()){
-            expensiveDiscounts.setDisable(false);
-         } else {
-            expensiveDiscounts.setDisable(true);
-         }
-      });
-
-      //DISCOUNT BUTTONS
-      saveDiscount = new Button("Save Discounts");
-      this.add(saveDiscount,0,6,1,1);
-      saveDiscount.setOnAction(event -> {
-         controller.setDiscountGroupActive(Boolean.toString(groupCheckbox.isSelected()));
-         if (groupCheckbox.isSelected()){
-            controller.setDiscountGroupGroup(groups.getValue().toString().trim());
-            controller.setDiscountGroupPercent(groupDiscounts.getValue().toString().trim());
-         } else {
-            controller.setDiscountGroupGroup("null");
-            controller.setDiscountGroupPercent("null");
-         }
-
-         controller.setDiscountThresholdActive(Boolean.toString(thresholdCheckbox.isSelected()));
-         if (thresholdCheckbox.isSelected()){
-            controller.setDiscountThresholdAmount(thresholdAmount.getText());
-            controller.setDiscountThresholdPercent(thresholdDiscounts.getValue().toString().trim());
-         } else {
-            controller.setDiscountThresholdAmount("null");
-            controller.setDiscountThresholdPercent("null");
-         }
-         controller.setDiscountExpensiveActive(Boolean.toString(expensiveCheckbox.isSelected()));
-         if (expensiveCheckbox.isSelected()){
-            controller.setDiscountExpensivePercent(expensiveDiscounts.getValue().toString().trim());
-         } else {
-            controller.setDiscountExpensivePercent("null");
-         }
-         controller.save();
-      });
-
-
    }
 
+   private void save(){
+      controller.setDiscountGroupActive(Boolean.toString(groupCheckbox.isSelected()));
+      if (groupCheckbox.isSelected()){
+         controller.setDiscountGroupGroup(groups.getValue().toString().trim());
+         controller.setDiscountGroupPercent(groupDiscounts.getValue().toString().trim());
+      } else {
+         controller.setDiscountGroupGroup("null");
+         controller.setDiscountGroupPercent("null");
+      }
+
+      controller.setDiscountThresholdActive(Boolean.toString(thresholdCheckbox.isSelected()));
+      if (thresholdCheckbox.isSelected()){
+         controller.setDiscountThresholdAmount(thresholdAmount.getText());
+         controller.setDiscountThresholdPercent(thresholdDiscounts.getValue().toString().trim());
+      } else {
+         controller.setDiscountThresholdAmount("null");
+         controller.setDiscountThresholdPercent("null");
+      }
+      controller.setDiscountExpensiveActive(Boolean.toString(expensiveCheckbox.isSelected()));
+      if (expensiveCheckbox.isSelected()){
+         controller.setDiscountExpensivePercent(expensiveDiscounts.getValue().toString().trim());
+      } else {
+         controller.setDiscountExpensivePercent("null");
+      }
+      controller.save();
+   }
 }

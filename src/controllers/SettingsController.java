@@ -53,15 +53,20 @@ public class SettingsController {
         properties.setDiscountGroupPercent(type);
     }
     public String getDiscountGroupActive(){return properties.getDiscountGroupActive();}
+    public String getDiscountGroupGroup(){return properties.getDiscountGroupGroup();}
+    public String getDiscountGroupPercent(){return properties.getDiscountGroupPercent();}
 
     //THRESHOLD DISCOUNT SETTERS
     public void setDiscountThresholdActive(String type){properties.setDiscountThresholdActive(type);}
     public void setDiscountThresholdAmount(String type){properties.setDiscountThresholdAmount(type);}
     public void setDiscountThresholdPercent(String type){properties.setDiscountThresholdPercent(type);}
     public String getDiscountThresholdActive(){return properties.getDiscountThresholdActive();}
+    public String getDiscountThresholdAmount(){return properties.getDiscountThresholdAmount();}
+    public String getDiscountThresholdPercent(){return properties.getDiscountThresholdPercent();}
 
     //EXPENSIVE DISCOUNT SETTERS
     public void setDiscountExpensiveActive(String type){properties.setDiscountExpensiveActive(type);}
     public void setDiscountExpensivePercent(String type){properties.setDiscountExpensivePercent(type);}
     public String getDiscountExpensiveActive(){return properties.getDiscountExpensiveActive();}
+    public String getDiscountExpensivePercent(){return properties.getDiscountExpensivePercent();}
 }
