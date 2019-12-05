@@ -1,5 +1,7 @@
 package database;
 
+import controllers.ClientViewObservable;
+import controllers.ClientViewObserver;
 import controllers.Observer;
 import model.IO.LoadSaveStrategy;
 import model.Product;
@@ -10,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductDB implements Observable {
+public class ProductDB implements ClientViewObservable {
     private String path;
     private List<Product> productList;//todo maybe delete in the future
     private List<Product> scanedProducts;
@@ -18,12 +20,12 @@ public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;
     private Map<Integer,Product> products;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<Observer> observers;
+    private ArrayList<ClientViewObserver> observers;
 
     public ProductDB() {
         this.productList = new ArrayList<>();
         this.productsMap = new HashMap<>();
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<ClientViewObserver>();
         productsMap = new HashMap<Integer, Product>();
         scanedProducts = new ArrayList<Product>();
         totalScanedAmount = 0;
@@ -73,28 +75,24 @@ public class ProductDB implements Observable {
         return this.productsMap.containsKey(code);
     }
 
-//    public void addScannedArticle(int code) {
-//        scanedProducts.add(productsMap.get(code));
-//        totalScanedAmount += productsMap.get(code).getPrice();
-//    }
-//
-//    public double getTotalAmount() {
-//        return totalScanedAmount;
-//    }
-//
-//    public List<Product> getScanedProducts() {
-//        return scanedProducts;
-//    }
+
+    @Override
+    public void addObserver(ClientViewObserver o) {
+        this.observers.add(o);
+    }
 
     @Override
     public void updateObservers() {
-        for (Observer o : observers) {
-            o.update();
+        for (ClientViewObserver o : observers) {
+            List<Product> list = new ArrayList<>(productsMap.values());
+            o.update(list);
         }
     }
 
     @Override
-    public void addObserver(Observer o) {
-        this.observers.add(o);
+    public void removeObserver(ClientViewObserver o) {
+
     }
+
+
 }

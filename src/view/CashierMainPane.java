@@ -45,6 +45,7 @@ public class CashierMainPane extends BorderPane {
         ProductDB db = new ProductDB();
         TabPane tabPane = new TabPane();
         ProductOverviewController productOverviewController = new ProductOverviewController(db);
+
         ProductOverviewPane productOverviewPane = new ProductOverviewPane(productOverviewController);
         SettingsController settingsController = new SettingsController(db);
         SettingsPane settingsPane = new SettingsPane(settingsController);

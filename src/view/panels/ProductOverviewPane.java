@@ -22,6 +22,7 @@ public class ProductOverviewPane extends GridPane {
 
 	public ProductOverviewPane(ProductOverviewController controller) {
 	    this.controller = controller;
+	    controller.setView(this);
 		table = new TableView<>();
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
