@@ -89,11 +89,4 @@ public class ProductDB implements ClientViewObservable {
     public void removeObserver(ClientViewObserver o) {
         this.observers.remove(o);
     }
-
-    @Override
-    public void addObserver(ClientViewObserver o) {
-        this.observers.add(o);
-    }
-
-
 }

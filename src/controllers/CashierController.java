@@ -8,7 +8,11 @@ import model.Product;
 import model.ShoppingCart;
 import view.panels.CashierSalesPane;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class CashierController implements  ClientViewObservable {
     private CashierSalesPane view;
@@ -90,15 +94,16 @@ public class CashierController implements  ClientViewObservable {
 
     public void payment() {
         db.updateStocks(model.getItemsList());
-        logPayment();
         model.clear();
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
-        updateObservers();
+        updateObservers(getLogMessage());
     }
 
-    public void logPayment() {
-
+    public String getLogMessage() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date) + " " + model.getTotalPrice() + " " + calculateDiscount() + " " + getFinalPrice();
     }
 
     @Override
@@ -109,6 +114,10 @@ public class CashierController implements  ClientViewObservable {
     @Override
     public void updateObservers(){
         this.observer.update(model.getItemsList());
+    }
+
+    public void updateObservers(String log) {
+        //todo this.observer.update(log, model.getItemsList());
     }
 
     @Override
