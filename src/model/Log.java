@@ -11,6 +11,14 @@ public class Log {
     private Date date;
     private DateFormat dateFormat;
 
+    public double getTotalPrice() { return totalPrice;}
+
+    public double getDiscount() { return discount; }
+
+    public double getFinalPrice() { return finalPrice; }
+
+    public Date getDate() { return date; }
+
     public Log(double totalPrice, double discount, double finalPrice) {
         this.totalPrice = totalPrice;
         this.discount = discount;
