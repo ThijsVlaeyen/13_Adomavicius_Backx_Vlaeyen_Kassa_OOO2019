@@ -1,5 +1,7 @@
 package controllers;
 
+import database.ProductDB;
+import model.EventType;
 import model.Product;
 import model.ShoppingCart;
 import view.ClientView;
@@ -7,12 +9,15 @@ import view.ClientView;
 import java.util.List;
 import java.util.Map;
 
-public class Controller implements Observer {
+public class ClientViewController implements Observer {
     private ClientView view;
     private CashierController observable;
     private ShoppingCart model;
+    private ProductDB db;
 
-    public Controller(){
+    public ClientViewController(ProductDB db){
+        this.db = db;
+        db.addObserver(EventType.TODO, this);
         this.model = new ShoppingCart();
     }
 

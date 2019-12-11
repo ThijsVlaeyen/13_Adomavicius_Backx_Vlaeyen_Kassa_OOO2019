@@ -15,8 +15,7 @@ import java.util.List;
 public class CashierMainPane extends BorderPane {
     private CashierSalesPane cashiersSalesPane;
 
-    public CashierMainPane(Controller controller){
-        ProductDB db = new ProductDB();
+    public CashierMainPane(ProductDB db){
         TabPane tabPane = new TabPane();
         ProductOverviewController productOverviewController = new ProductOverviewController(db);
 
@@ -26,7 +25,6 @@ public class CashierMainPane extends BorderPane {
         CashierController cashierController = new CashierController(db);
         LogController logController = new LogController (db);
         LogPane logPane = new LogPane(logController);
-        cashierController.addObserver(controller);
         cashiersSalesPane = new CashierSalesPane(cashierController);
         Tab cashierTab = new Tab("Cashier", cashiersSalesPane);
         Tab articleTab = new Tab("Article",productOverviewPane);

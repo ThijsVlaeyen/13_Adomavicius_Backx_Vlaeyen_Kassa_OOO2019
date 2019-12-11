@@ -1,7 +1,9 @@
 package controllers;
 
+import model.EventType;
+
 public interface Observable {
-    void addObserver(Observer o);
-    void updateObservers(Object o);
-    void removeObserver(Observer o);
+    void addObserver(EventType e, Observer o);
+    void updateObservers(EventType e, Object o);
+    void removeObserver(EventType e, Observer o);
 }

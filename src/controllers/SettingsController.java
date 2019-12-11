@@ -10,7 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class SettingsController {
+public class SettingsController {//todo maybe also observer?
     private ProductDB db;
     private SettingsPane view;
     private LoadSaveProperties properties;

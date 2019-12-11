@@ -1,6 +1,7 @@
 package controllers;
 
 import database.ProductDB;
+import model.EventType;
 import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
 import model.IO.LoadSaveStrategyFactory;
@@ -18,7 +19,7 @@ public class ProductOverviewController implements Observer {
 
     public ProductOverviewController(ProductDB db){
         this.db = db;
-        db.addObserver(this);
+        db.addObserver(EventType.TODO, this);
         properties = new LoadSaveProperties();
     }
 

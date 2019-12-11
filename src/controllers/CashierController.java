@@ -6,11 +6,10 @@ import view.panels.CashierSalesPane;
 
 import java.util.List;
 
-public class CashierController implements Observable {
+public class CashierController implements Observer {
     private CashierSalesPane view;
     private ProductDB db;
     private ShoppingCart model;
-    private Observer observer;
     private ShoppingCart holdingShoppingCart;
 
     public CashierController(ProductDB db) {
@@ -34,14 +33,14 @@ public class CashierController implements Observable {
         }
         model.calculateDiscount();
         view.updateDiscount(model.calculateDiscount());
-        updateObservers(model.getItemsList());
+        db.updateObservers(EventType.TODO, model.getItemsList());
     }
 
     public void removeArticle(Product p){
         remove(p);
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
-        updateObservers(model.getItemsList());
+        db.updateObservers(EventType.TODO, model.getItemsList());
     }
 
     public void remove(Product p){
@@ -54,7 +53,7 @@ public class CashierController implements Observable {
         }
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
-        updateObservers(model.getItemsList());
+        db.updateObservers(EventType.TODO, model.getItemsList());
     }
 
     public void addOnHold() {
@@ -63,7 +62,7 @@ public class CashierController implements Observable {
             model.clear();
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
-            updateObservers(model.getItemsList());
+            db.updateObservers(EventType.TODO, model.getItemsList());
         }
         else {
             view.showAlert("Invalid operation");
@@ -80,7 +79,7 @@ public class CashierController implements Observable {
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
         }
-        updateObservers(model.getItemsList());
+        db.updateObservers(EventType.TODO, model.getItemsList());
     }
 
     public void payment() {
@@ -89,26 +88,16 @@ public class CashierController implements Observable {
             model.clear();
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
-            updateObservers(new Log(model.getTotalPrice(), model.calculateDiscount(), model.getFinalPrice()));
+            db.updateObservers(EventType.TODO, new Log(model.getTotalPrice(), model.calculateDiscount(), model.getFinalPrice()));
         }
-    }
-
-    @Override
-    public void addObserver(Observer o) {
-        this.observer = o;
-    }
-
-    @Override
-    public void updateObservers(Object o){
-        this.observer.update(o);
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
-
     }
 
     public void close() {
         view.updateTotalAmount(model.getFinalPrice());
+    }
+
+    @Override
+    public void update(Object object) {
+
     }
 }

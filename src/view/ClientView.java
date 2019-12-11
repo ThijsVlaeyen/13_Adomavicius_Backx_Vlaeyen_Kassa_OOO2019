@@ -1,6 +1,6 @@
 package view;
 
-import controllers.Controller;
+import controllers.ClientViewController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -17,11 +17,11 @@ import java.util.Map;
 
 public class ClientView {
 	private Stage stage = new Stage();
-	private Controller controller;
+	private ClientViewController controller;
 	private TableView<Map.Entry<Product,Integer>> table;
 	private Label priceLabel;
 		
-	public ClientView(Controller controller){
+	public ClientView(ClientViewController controller){
 		this.controller = controller;
 		stage.setTitle("CLIENT VIEW");
 		stage.setResizable(false);		

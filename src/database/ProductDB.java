@@ -2,6 +2,7 @@ package database;
 
 import controllers.Observable;
 import controllers.Observer;
+import model.EventType;
 import model.IO.LoadSaveStrategy;
 import model.Product;
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ import java.util.Map;
 public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<Observer> observers;
+    private Map<EventType, List<Observer>> observers;
 
     public ProductDB() {
         this.productsMap = new HashMap<>();
-        observers = new ArrayList<Observer>();
+        observers = new HashMap<>();
         productsMap = new HashMap<Integer, Product>();
     }
 
@@ -63,7 +64,7 @@ public class ProductDB implements Observable {
         }
         save();
         load();
-        updateObservers(observers);
+        updateObservers(EventType.TODO, observers);
     }
 
     public void decreaseStock(Product product) {
@@ -71,20 +72,26 @@ public class ProductDB implements Observable {
     }
 
     @Override
-    public void addObserver(Observer o) {
-        this.observers.add(o);
-    }
-
-    @Override
-    public void updateObservers(Object obj) {
-        List<Observer> list = (List<Observer>)obj;
-        for (Observer o : list) {
-            o.update((new ArrayList<Product>(productsMap.values())));
+    public void addObserver(EventType e, Observer o) {
+        if (observers.get(e) == null){
+            List<Observer> observers = new ArrayList<>();
+            observers.add(o);
+            this.observers.put(e,observers);
+        }else{
+            List<Observer> observers = this.observers.get(e);
+            observers.add(o);
         }
     }
 
     @Override
-    public void removeObserver(Observer o) {
-        this.observers.remove(o);
+    public void updateObservers(EventType e, Object o) {
+        for (Observer observer:this.observers.get(e)) {
+            observer.update(o);
+        }
+    }
+
+    @Override
+    public void removeObserver(EventType e, Observer o) {
+        this.observers.get(e).remove(o);
     }
 }
