@@ -1,9 +1,14 @@
 package model.states;
 
+import model.Product;
+
+import java.util.List;
+
 public interface State {
-    public boolean addOnHold();
-    public boolean takeFromHold();
-    public boolean remove();
-    public boolean closeSale();
-    public boolean payment();
+    void add(int code);
+    void addOnHold();
+    void takeFromHold();
+    void remove(List<Product> products);
+    void closeSale();
+    void payment();
 }

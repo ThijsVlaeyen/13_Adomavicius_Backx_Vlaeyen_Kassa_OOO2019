@@ -1,5 +1,6 @@
 package model;
 
+import database.ProductDB;
 import model.IO.LoadSaveProperties;
 import model.states.*;
 
@@ -13,18 +14,20 @@ public class ShoppingCart {
     State state;
 
     private Map<Product,Integer> cart;
+    private ProductDB db;
 
-    public ShoppingCart(){
+    public ShoppingCart(ProductDB db){
+        this.db = db;
         this.cart = new HashMap<>();
-        openState = new OpenState(this);
-        onHoldState = new OnHoldState(this);
-        closedState = new ClosedState(this);
-        paidState = new PaidState(this);
+        openState = new OpenState(this, db);
+        onHoldState = new OnHoldState(this, db);
+        closedState = new ClosedState(this, db);
+        paidState = new PaidState(this, db);
         state = openState;
     }
 
-    public ShoppingCart(Map<Product, Integer> cart) {
-        this();
+    public ShoppingCart(Map<Product, Integer> cart, ProductDB db) {
+        this(db);
         this.cart = cart;
     }
 
@@ -75,25 +78,29 @@ public class ShoppingCart {
 
     public Object clone()
     {
-        return new ShoppingCart(new HashMap<Product, Integer>(cart));
+        return new ShoppingCart(new HashMap<Product, Integer>(cart), db);
     }
 
-    public boolean addOnHold() {
-        return state.addOnHold();
+    public void addOnHold() {
+        state.addOnHold();
     }
 
-    public boolean payment() { return state.payment(); }
+    public void payment() { state.payment(); }
 
     public void takeFromHold() {
         state.takeFromHold();
     }
 
-    public void delete() {
-        state.remove();
+    public void delete(List<Product> products) {
+        state.remove(products);
     }
 
-    public boolean closeSale() {
-        return state.closeSale();
+    public void closeSale() {
+        state.closeSale();
+    }
+
+    public void add(int code) {
+        state.add(code);
     }
 
     public void setState(State state) {

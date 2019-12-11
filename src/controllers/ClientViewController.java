@@ -17,7 +17,7 @@ public class ClientViewController implements Observer {
     public ClientViewController(ProductDB db){
         this.db = db;
         db.addObserver(EventType.PRODUCTSCHANGED, this);
-        this.model = new ShoppingCart();
+        this.model = new ShoppingCart(db);
     }
 
     public void setView(ClientView view){

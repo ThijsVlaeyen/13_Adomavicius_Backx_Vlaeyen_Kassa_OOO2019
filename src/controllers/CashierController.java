@@ -15,8 +15,8 @@ public class CashierController implements Observer {
     public CashierController(ProductDB db) {
         this.db = db;
         db.addObserver(EventType.PRODUCTSCHANGED, this);
-        cart = new ShoppingCart();
-        holdingShoppingCart = new ShoppingCart();
+        cart = new ShoppingCart(db);
+        holdingShoppingCart = new ShoppingCart(db);
     }
 
     public void setView(CashierSalesPane view) {
@@ -24,56 +24,27 @@ public class CashierController implements Observer {
     }
 
     public void addArticle(int code) {
-        if (db.isProductExist(code)){
-            cart.addProduct(db.getProduct(code));
-            view.setNotExistingCode(false);
-        }else{
-            view.setNotExistingCode(true);
-        }
-        cart.calculateDiscount();
-        db.updateObservers(EventType.PRODUCTSCHANGED, cart);
+        cart.add(code);
     }
 
     public void removeArticles(List<Product> products){
-        for (Product p:products){
-            cart.remove(p);
-        }
-        db.updateObservers(EventType.PRODUCTSCHANGED, cart);
+        cart.delete(products);
     }
 
     public void addOnHold() {
-        if(cart.addOnHold()) {
-            holdingShoppingCart = (ShoppingCart) cart.clone();
-            cart.clear();
-            db.updateObservers(EventType.PRODUCTSCHANGED, cart);
-        }
-        else {
-            view.showAlert("Invalid operation");
-        }
+        cart.addOnHold();
     }
 
     public void takeFromHold() {
-        if(holdingShoppingCart.getItemsList().isEmpty()) {
-            view.showAlert("there are no items to add");
-        }
-        else {
-            cart = (ShoppingCart) holdingShoppingCart.clone();
-            holdingShoppingCart.clear();
-            db.updateObservers(EventType.PRODUCTSCHANGED, cart);
-        }
+        cart.takeFromHold();
     }
 
     public void payment() {
-        if(cart.payment()) {
-            db.payment(cart);
-            cart.clear();
-        }
+        cart.payment();
     }
 
     public void close() {
-        if(cart.closeSale()) {
-            view.updateTotalAmount(cart.getFinalPrice());
-        }
+        cart.closeSale();
     }
 
     @Override

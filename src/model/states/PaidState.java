@@ -1,36 +1,47 @@
 package model.states;
 
+import database.ProductDB;
+import model.Product;
 import model.ShoppingCart;
+
+import java.util.List;
 
 public class PaidState implements State {
     ShoppingCart shoppingCart;
+    ProductDB db;
 
-    public PaidState(ShoppingCart shoppingCart) {
+    public PaidState(ShoppingCart shoppingCart, ProductDB db) {
         this.shoppingCart = shoppingCart;
+        this.db = db;
     }
 
     @Override
-    public boolean addOnHold() {
-        return false;
+    public void add(int code) {
+
     }
 
     @Override
-    public boolean takeFromHold() {
-        return false;
+    public void addOnHold() {
+
     }
 
     @Override
-    public boolean remove() {
-        return false;
+    public void takeFromHold() {
+
     }
 
     @Override
-    public boolean closeSale() {
-        return false;
+    public void remove(List<Product> products) {
+
     }
 
     @Override
-    public boolean payment() {
-        return false;
+    public void closeSale() {
+
+    }
+
+    @Override
+    public void payment() {
+
     }
 }

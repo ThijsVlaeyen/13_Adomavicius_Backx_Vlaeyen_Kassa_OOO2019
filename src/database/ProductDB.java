@@ -78,6 +78,10 @@ public class ProductDB implements Observable {
         updateObservers(EventType.PRODUCTSCHANGED, cart);
     }
 
+    public void closeSale(ShoppingCart cart) {
+        updateObservers(EventType.PRODUCTSCHANGED, cart);
+    }
+
     @Override
     public void addObserver(EventType e, Observer o) {
         if (observers.get(e) == null){
