@@ -2,20 +2,15 @@ package controllers;
 
 import database.ProductDB;
 import model.*;
-import model.IO.LoadSaveProperties;
 import view.panels.CashierSalesPane;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-public class CashierController implements  ClientViewObservable {
+public class CashierController implements Observable {
     private CashierSalesPane view;
     private ProductDB db;
     private ShoppingCart model;
-    private ClientViewObserver observer;
+    private Observer observer;
     private ShoppingCart holdingShoppingCart;
 
     public CashierController(ProductDB db) {
@@ -99,7 +94,7 @@ public class CashierController implements  ClientViewObservable {
     }
 
     @Override
-    public void addObserver(ClientViewObserver o) {
+    public void addObserver(Observer o) {
         this.observer = o;
     }
 
@@ -109,7 +104,7 @@ public class CashierController implements  ClientViewObservable {
     }
 
     @Override
-    public void removeObserver(ClientViewObserver o) {
+    public void removeObserver(Observer o) {
 
     }
 

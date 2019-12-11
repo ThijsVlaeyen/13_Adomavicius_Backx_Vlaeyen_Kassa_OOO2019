@@ -1,25 +1,21 @@
 package view;
 
-
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import controllers.*;
 import database.ProductDB;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import model.IO.LoadSaveTextfile;
 import model.Product;
 import view.panels.CashierSalesPane;
 import view.panels.LogPane;
 import view.panels.ProductOverviewPane;
 import view.panels.SettingsPane;
-
 import java.util.List;
 
 public class CashierMainPane extends BorderPane {
     private CashierSalesPane cashiersSalesPane;
 
-    public CashierMainPane(ClientViewController controller){
+    public CashierMainPane(Controller controller){
         ProductDB db = new ProductDB();
         TabPane tabPane = new TabPane();
         ProductOverviewController productOverviewController = new ProductOverviewController(db);

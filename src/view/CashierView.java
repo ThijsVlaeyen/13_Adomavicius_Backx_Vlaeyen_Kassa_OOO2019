@@ -1,20 +1,15 @@
 package view;
 
-import controllers.CashierController;
-import controllers.ClientViewController;
+import controllers.Controller;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Product;
-
-import java.util.List;
 
 public class CashierView {
 	private Stage stage = new Stage();		
 	private CashierMainPane borderPane;
 
-	public CashierView(ClientViewController controller){
+	public CashierView(Controller controller){
 		stage.setTitle("CASHIER VIEW");
 		stage.setResizable(false);		
 		stage.setX(20);

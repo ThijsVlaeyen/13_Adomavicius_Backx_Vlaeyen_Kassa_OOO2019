@@ -4,17 +4,15 @@ import model.Product;
 import model.ShoppingCart;
 import view.ClientView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClientViewController implements ClientViewObserver{
+public class Controller implements Observer {
     private ClientView view;
     private CashierController observable;
     private ShoppingCart model;
 
-    public ClientViewController(){
+    public Controller(){
         this.model = new ShoppingCart();
     }
 

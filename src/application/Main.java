@@ -1,12 +1,8 @@
 package application;
 	
-import controllers.CashierController;
-import controllers.ClientViewController;
-import database.ProductDB;
+import controllers.Controller;
 import javafx.application.Application;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.IO.LoadSaveProperties;
 import view.CashierView;
 import view.ClientView;
 
@@ -14,7 +10,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		ClientViewController clientViewController = new ClientViewController();
+		Controller clientViewController = new Controller();
 		ClientView clientView = new ClientView(clientViewController);
 		CashierView cashierView = new CashierView(clientViewController);
 	}

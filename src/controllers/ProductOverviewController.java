@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductOverviewController implements ClientViewObserver {
+public class ProductOverviewController implements Observer {
     private ProductDB db;
     private ProductOverviewPane view;
     private LoadSaveProperties properties;

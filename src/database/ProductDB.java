@@ -1,25 +1,22 @@
 package database;
 
-import controllers.ClientViewObservable;
-import controllers.ClientViewObserver;
+import controllers.Observable;
 import controllers.Observer;
 import model.IO.LoadSaveStrategy;
 import model.Product;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductDB implements ClientViewObservable {
+public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<ClientViewObserver> observers;
+    private ArrayList<Observer> observers;
 
     public ProductDB() {
         this.productsMap = new HashMap<>();
-        observers = new ArrayList<ClientViewObserver>();
+        observers = new ArrayList<Observer>();
         productsMap = new HashMap<Integer, Product>();
     }
 
@@ -74,20 +71,20 @@ public class ProductDB implements ClientViewObservable {
     }
 
     @Override
-    public void addObserver(ClientViewObserver o) {
+    public void addObserver(Observer o) {
         this.observers.add(o);
     }
 
     @Override
     public void updateObservers(Object obj) {
-        List<ClientViewObserver> list = (List<ClientViewObserver>)obj;
-        for (ClientViewObserver o : list) {
+        List<Observer> list = (List<Observer>)obj;
+        for (Observer o : list) {
             o.update((new ArrayList<Product>(productsMap.values())));
         }
     }
 
     @Override
-    public void removeObserver(ClientViewObserver o) {
+    public void removeObserver(Observer o) {
         this.observers.remove(o);
     }
 }

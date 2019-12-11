@@ -2,12 +2,9 @@ package controllers;
 
 import database.ProductDB;
 import model.Log;
-import model.Product;
 import view.panels.LogPane;
 
-import java.util.List;
-
-public class LogController implements ClientViewObserver {
+public class LogController implements Observer {
     private ProductDB db;
     private LogPane view;
 
