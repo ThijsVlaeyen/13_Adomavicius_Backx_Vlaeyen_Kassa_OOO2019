@@ -27,7 +27,8 @@ public class OpenState implements State {
 
     @Override
     public boolean closeSale() {
-        return false;
+        shoppingCart.setState(shoppingCart.getClosedState());
+        return true;
     }
 
     @Override

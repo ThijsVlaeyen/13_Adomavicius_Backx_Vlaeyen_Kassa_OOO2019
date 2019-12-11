@@ -9,12 +9,14 @@ import java.util.List;
 public class CashierController implements Observer {
     private CashierSalesPane view;
     private ProductDB db;
-    private ShoppingCart model;
+    private ShoppingCart cart;
     private ShoppingCart holdingShoppingCart;
 
     public CashierController(ProductDB db) {
         this.db = db;
-        model = new ShoppingCart();
+        db.addObserver(EventType.UPDATETABLE, this);
+        db.addObserver(EventType.UPDATETABLE, this);
+        cart = new ShoppingCart();
         holdingShoppingCart = new ShoppingCart();
     }
 
@@ -24,45 +26,45 @@ public class CashierController implements Observer {
 
     public void addArticle(int code) {
         if (db.isProductExist(code)){
-            model.addProduct(db.getProduct(code));
+            cart.addProduct(db.getProduct(code));
             view.setNotExistingCode(false);
-            view.updateTable(model.getItemsList());
-            view.updateTotalAmount(model.getTotalPrice());
+            view.updateTable(cart.getItemsList());
+            view.updateTotalAmount(cart.getTotalPrice());
         }else{
             view.setNotExistingCode(true);
         }
-        model.calculateDiscount();
-        view.updateDiscount(model.calculateDiscount());
-        db.updateObservers(EventType.TODO, model.getItemsList());
+        cart.calculateDiscount();
+        view.updateDiscount(cart.calculateDiscount());
+        db.updateObservers(EventType.TODO, cart.getItemsList());
     }
 
     public void removeArticle(Product p){
         remove(p);
-        view.updateTable(model.getItemsList());
-        view.updateTotalAmount(model.getTotalPrice());
-        db.updateObservers(EventType.TODO, model.getItemsList());
+        view.updateTable(cart.getItemsList());
+        view.updateTotalAmount(cart.getTotalPrice());
+        db.updateObservers(EventType.TODO, cart.getItemsList());
     }
 
     public void remove(Product p){
-        model.remove(p);
+        cart.remove(p);
     }
 
     public void removeArticles(List<Product> products){
         for (Product p:products){
             remove(p);
         }
-        view.updateTable(model.getItemsList());
-        view.updateTotalAmount(model.getTotalPrice());
-        db.updateObservers(EventType.TODO, model.getItemsList());
+        view.updateTable(cart.getItemsList());
+        view.updateTotalAmount(cart.getTotalPrice());
+        db.updateObservers(EventType.TODO, cart.getItemsList());
     }
 
     public void addOnHold() {
-        if(model.addOnHold()) {
-            holdingShoppingCart = (ShoppingCart) model.clone();
-            model.clear();
-            view.updateTable(model.getItemsList());
-            view.updateTotalAmount(model.getTotalPrice());
-            db.updateObservers(EventType.TODO, model.getItemsList());
+        if(cart.addOnHold()) {
+            holdingShoppingCart = (ShoppingCart) cart.clone();
+            cart.clear();
+            view.updateTable(cart.getItemsList());
+            view.updateTotalAmount(cart.getTotalPrice());
+            db.updateObservers(EventType.TODO, cart.getItemsList());
         }
         else {
             view.showAlert("Invalid operation");
@@ -74,30 +76,31 @@ public class CashierController implements Observer {
             view.showAlert("there are no items to add");
         }
         else {
-            model = (ShoppingCart) holdingShoppingCart.clone();
+            cart = (ShoppingCart) holdingShoppingCart.clone();
             holdingShoppingCart.clear();
-            view.updateTable(model.getItemsList());
-            view.updateTotalAmount(model.getTotalPrice());
+            view.updateTable(cart.getItemsList());
+            view.updateTotalAmount(cart.getTotalPrice());
         }
-        db.updateObservers(EventType.TODO, model.getItemsList());
+        db.updateObservers(EventType.TODO, cart.getItemsList());
     }
 
     public void payment() {
-        if(model.payment()) {
-            db.updateStocks(model.getItemsList());
-            model.clear();
-            view.updateTable(model.getItemsList());
-            view.updateTotalAmount(model.getTotalPrice());
-            db.updateObservers(EventType.TODO, new Log(model.getTotalPrice(), model.calculateDiscount(), model.getFinalPrice()));
+        if(cart.payment()) {
+            db.payment(cart);
+            cart.clear();
         }
     }
 
     public void close() {
-        view.updateTotalAmount(model.getFinalPrice());
+        if(cart.closeSale()) {
+            view.updateTotalAmount(cart.getFinalPrice());
+        }
     }
 
     @Override
     public void update(Object object) {
-
+        ShoppingCart cart = (ShoppingCart) object;
+        view.updateTable(cart.getItemsList());
+        view.updateTotalAmount(cart.getTotalPrice());
     }
 }

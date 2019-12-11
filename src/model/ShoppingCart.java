@@ -100,8 +100,8 @@ public class ShoppingCart {
         state.remove();
     }
 
-    public void closeSale() {
-        state.closeSale();
+    public boolean closeSale() {
+        return state.closeSale();
     }
 
     public void setState(State state) {

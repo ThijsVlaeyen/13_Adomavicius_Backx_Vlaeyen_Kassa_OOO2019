@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class ClientViewController implements Observer {
     private ClientView view;
-    private CashierController observable;
     private ShoppingCart model;
     private ProductDB db;
 

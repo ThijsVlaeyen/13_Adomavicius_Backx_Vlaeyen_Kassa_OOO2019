@@ -1,15 +1,15 @@
 package controllers;
 
 import database.ProductDB;
+import model.EventType;
 import model.Log;
 import view.panels.LogPane;
 
 public class LogController implements Observer {
-    private ProductDB db;
     private LogPane view;
 
     public LogController(ProductDB db) {
-        this.db = db;
+        db.addObserver(EventType.LOG, this);
     }
 
     public void setView(LogPane view){

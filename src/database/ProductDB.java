@@ -4,7 +4,9 @@ import controllers.Observable;
 import controllers.Observer;
 import model.EventType;
 import model.IO.LoadSaveStrategy;
+import model.Log;
 import model.Product;
+import model.ShoppingCart;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,11 +66,17 @@ public class ProductDB implements Observable {
         }
         save();
         load();
-        updateObservers(EventType.TODO, observers);
     }
 
     public void decreaseStock(Product product) {
         productsMap.get(product.getId()).decreaseStock();
+    }
+
+    public void payment(ShoppingCart cart) {
+        updateStocks(cart.getItemsList());
+        updateObservers(EventType.LOG, new Log(cart.getTotalPrice(), cart.calculateDiscount(), cart.getFinalPrice()));
+        updateObservers(EventType.UPDATETOTALAMOUNT, cart);
+        updateObservers(EventType.UPDATETABLE, cart);
     }
 
     @Override

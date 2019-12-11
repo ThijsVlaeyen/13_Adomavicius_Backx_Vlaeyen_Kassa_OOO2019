@@ -9,9 +9,9 @@ public enum EventType {
     ADDPRODUCT(new ArrayList<>()),
     ADDONHOLD(new ArrayList<>()),
     TAKEFROMHOLD(new ArrayList<>()),
-    DELETE(new ArrayList<>()),
-    CLOSESALE(new ArrayList<>()),
-    PAYMENT(new ArrayList<>()),
+    UPDATETABLE(new ArrayList<>()),
+    UPDATETOTALAMOUNT(new ArrayList<>()),
+    LOG(new ArrayList<>()),
     TODO(new ArrayList<>());
 
     private List<Observer> observers;
