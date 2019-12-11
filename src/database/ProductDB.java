@@ -75,8 +75,7 @@ public class ProductDB implements Observable {
     public void payment(ShoppingCart cart) {
         updateStocks(cart.getItemsList());
         updateObservers(EventType.LOG, new Log(cart.getTotalPrice(), cart.calculateDiscount(), cart.getFinalPrice()));
-        updateObservers(EventType.UPDATETOTALAMOUNT, cart);
-        updateObservers(EventType.UPDATETABLE, cart);
+        updateObservers(EventType.PRODUCTSCHANGED, cart);
     }
 
     @Override

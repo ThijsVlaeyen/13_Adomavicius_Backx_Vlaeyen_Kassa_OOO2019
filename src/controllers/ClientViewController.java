@@ -16,7 +16,7 @@ public class ClientViewController implements Observer {
 
     public ClientViewController(ProductDB db){
         this.db = db;
-        db.addObserver(EventType.TODO, this);
+        db.addObserver(EventType.PRODUCTSCHANGED, this);
         this.model = new ShoppingCart();
     }
 
@@ -39,9 +39,9 @@ public class ClientViewController implements Observer {
 
     @Override
     public void update(Object object) {
-        List<Product> products = (List<Product>) object;
+        ShoppingCart cart = (ShoppingCart) object;
         this.model.getItems().clear();
-        for (Product p:products){
+        for (Product p:cart.getItemsList()){
             model.addProduct(p);
         }
         this.view.update();

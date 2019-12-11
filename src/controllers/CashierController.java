@@ -14,8 +14,7 @@ public class CashierController implements Observer {
 
     public CashierController(ProductDB db) {
         this.db = db;
-        db.addObserver(EventType.UPDATETABLE, this);
-        db.addObserver(EventType.UPDATETABLE, this);
+        db.addObserver(EventType.PRODUCTSCHANGED, this);
         cart = new ShoppingCart();
         holdingShoppingCart = new ShoppingCart();
     }
@@ -28,43 +27,25 @@ public class CashierController implements Observer {
         if (db.isProductExist(code)){
             cart.addProduct(db.getProduct(code));
             view.setNotExistingCode(false);
-            view.updateTable(cart.getItemsList());
-            view.updateTotalAmount(cart.getTotalPrice());
         }else{
             view.setNotExistingCode(true);
         }
         cart.calculateDiscount();
-        view.updateDiscount(cart.calculateDiscount());
-        db.updateObservers(EventType.TODO, cart.getItemsList());
-    }
-
-    public void removeArticle(Product p){
-        remove(p);
-        view.updateTable(cart.getItemsList());
-        view.updateTotalAmount(cart.getTotalPrice());
-        db.updateObservers(EventType.TODO, cart.getItemsList());
-    }
-
-    public void remove(Product p){
-        cart.remove(p);
+        db.updateObservers(EventType.PRODUCTSCHANGED, cart);
     }
 
     public void removeArticles(List<Product> products){
         for (Product p:products){
-            remove(p);
+            cart.remove(p);
         }
-        view.updateTable(cart.getItemsList());
-        view.updateTotalAmount(cart.getTotalPrice());
-        db.updateObservers(EventType.TODO, cart.getItemsList());
+        db.updateObservers(EventType.PRODUCTSCHANGED, cart);
     }
 
     public void addOnHold() {
         if(cart.addOnHold()) {
             holdingShoppingCart = (ShoppingCart) cart.clone();
             cart.clear();
-            view.updateTable(cart.getItemsList());
-            view.updateTotalAmount(cart.getTotalPrice());
-            db.updateObservers(EventType.TODO, cart.getItemsList());
+            db.updateObservers(EventType.PRODUCTSCHANGED, cart);
         }
         else {
             view.showAlert("Invalid operation");
@@ -78,10 +59,8 @@ public class CashierController implements Observer {
         else {
             cart = (ShoppingCart) holdingShoppingCart.clone();
             holdingShoppingCart.clear();
-            view.updateTable(cart.getItemsList());
-            view.updateTotalAmount(cart.getTotalPrice());
+            db.updateObservers(EventType.PRODUCTSCHANGED, cart);
         }
-        db.updateObservers(EventType.TODO, cart.getItemsList());
     }
 
     public void payment() {
@@ -102,5 +81,6 @@ public class CashierController implements Observer {
         ShoppingCart cart = (ShoppingCart) object;
         view.updateTable(cart.getItemsList());
         view.updateTotalAmount(cart.getTotalPrice());
+        view.updateDiscount(cart.calculateDiscount());
     }
 }

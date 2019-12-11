@@ -28,14 +28,6 @@ public class ShoppingCart {
         this.cart = cart;
     }
 
-//    public void addProduct(Product p){
-//        this.cart.put(p,1);
-//    }
-//
-//    public void addProduct(Product p, int amount){
-//        this.cart.put(p,amount);
-//    }
-
     public void addProduct(Product p){
         if (cart.get(p) != null){
             cart.put(p,cart.get(p)+1);

@@ -6,13 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum EventType {
-    ADDPRODUCT(new ArrayList<>()),
-    ADDONHOLD(new ArrayList<>()),
-    TAKEFROMHOLD(new ArrayList<>()),
-    UPDATETABLE(new ArrayList<>()),
-    UPDATETOTALAMOUNT(new ArrayList<>()),
-    LOG(new ArrayList<>()),
-    TODO(new ArrayList<>());
+    PRODUCTSCHANGED(new ArrayList<>()),
+    LOG(new ArrayList<>());
 
     private List<Observer> observers;
 

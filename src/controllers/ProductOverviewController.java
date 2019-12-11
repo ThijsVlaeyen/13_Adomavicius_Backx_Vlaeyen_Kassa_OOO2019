@@ -6,6 +6,7 @@ import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
 import model.IO.LoadSaveStrategyFactory;
 import model.Product;
+import model.ShoppingCart;
 import view.panels.ProductOverviewPane;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ProductOverviewController implements Observer {
 
     public ProductOverviewController(ProductDB db){
         this.db = db;
-        db.addObserver(EventType.TODO, this);
+        db.addObserver(EventType.PRODUCTSCHANGED, this);
         properties = new LoadSaveProperties();
     }
 
@@ -38,6 +39,7 @@ public class ProductOverviewController implements Observer {
 
     @Override
     public void update(Object object) {
-        view.update((List<Product>) object);
+        ShoppingCart cart = (ShoppingCart) object;
+        view.update(cart.getItemsList());
     }
 }
