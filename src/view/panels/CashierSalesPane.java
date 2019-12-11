@@ -126,10 +126,6 @@ public class CashierSalesPane extends GridPane {
         discountLabel.setText("Total Discount:\n€ " + value );
     }
 
-    public void updateDisplay() {
-
-    }
-
     public void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR,message, ButtonType.CLOSE);
         alert.setTitle(message);

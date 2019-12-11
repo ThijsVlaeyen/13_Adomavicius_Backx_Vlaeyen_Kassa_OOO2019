@@ -36,7 +36,7 @@ public class ProductOverviewController implements ClientViewObserver {
     }
 
     @Override
-    public void update(List<Product> products) {
-        view.update(products);
+    public void update(Object object) {
+        view.update((List<Product>) object);
     }
 }

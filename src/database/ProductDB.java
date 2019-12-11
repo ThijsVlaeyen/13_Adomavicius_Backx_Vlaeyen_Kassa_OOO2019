@@ -66,7 +66,7 @@ public class ProductDB implements ClientViewObservable {
         }
         save();
         load();
-        updateObservers();
+        updateObservers(observers);
     }
 
     public void decreaseStock(Product product) {
@@ -79,8 +79,9 @@ public class ProductDB implements ClientViewObservable {
     }
 
     @Override
-    public void updateObservers() {
-        for (ClientViewObserver o : observers) {
+    public void updateObservers(Object obj) {
+        List<ClientViewObserver> list = (List<ClientViewObserver>)obj;
+        for (ClientViewObserver o : list) {
             o.update((new ArrayList<Product>(productsMap.values())));
         }
     }

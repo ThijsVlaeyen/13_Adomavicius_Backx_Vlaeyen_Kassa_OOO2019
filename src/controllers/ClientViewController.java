@@ -22,15 +22,6 @@ public class ClientViewController implements ClientViewObserver{
         this.view = view;
     }
 
-    @Override
-    public void update(List<Product> products) {
-        this.model.getItems().clear();
-        for (Product p:products){
-            model.addProduct(p);
-        }
-        this.view.update();
-    }
-
     public double getTotalPrice(){
         double totalPrice=0.0;
         Map<Product,Integer> products = model.getItems();
@@ -42,5 +33,15 @@ public class ClientViewController implements ClientViewObserver{
 
     public Map<Product,Integer> getItems(){
         return model.getItems();
+    }
+
+    @Override
+    public void update(Object object) {
+        List<Product> products = (List<Product>) object;
+        this.model.getItems().clear();
+        for (Product p:products){
+            model.addProduct(p);
+        }
+        this.view.update();
     }
 }

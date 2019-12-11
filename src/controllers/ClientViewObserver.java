@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ClientViewObserver {
-    void update(List<Product> products);
+    void update(Object object);
 }

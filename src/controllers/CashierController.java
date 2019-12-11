@@ -1,11 +1,8 @@
 package controllers;
 
 import database.ProductDB;
-import model.DiscountFactory;
-import model.DiscountStrategy;
+import model.*;
 import model.IO.LoadSaveProperties;
-import model.Product;
-import model.ShoppingCart;
 import view.panels.CashierSalesPane;
 
 import java.text.DateFormat;
@@ -40,21 +37,20 @@ public class CashierController implements  ClientViewObservable {
         }else{
             view.setNotExistingCode(true);
         }
-        calculateDiscount();
-        updateObservers();
+        model.calculateDiscount();
+        view.updateDiscount(model.calculateDiscount());
+        updateObservers(model.getItemsList());
     }
 
     public void removeArticle(Product p){
         remove(p);
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
-        updateObservers();
+        updateObservers(model.getItemsList());
     }
 
     public void remove(Product p){
-        if (p != null){
-            model.remove(p);
-        }
+        model.remove(p);
     }
 
     public void removeArticles(List<Product> products){
@@ -63,20 +59,20 @@ public class CashierController implements  ClientViewObservable {
         }
         view.updateTable(model.getItemsList());
         view.updateTotalAmount(model.getTotalPrice());
-        updateObservers();
+        updateObservers(model.getItemsList());
     }
 
     public void addOnHold() {
-        if(holdingShoppingCart.getItemsList().isEmpty()) {
+        if(model.addOnHold()) {
             holdingShoppingCart = (ShoppingCart) model.clone();
             model.clear();
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
+            updateObservers(model.getItemsList());
         }
         else {
-            view.showAlert("there are already items on hold");
+            view.showAlert("Invalid operation");
         }
-        updateObservers();
     }
 
     public void takeFromHold() {
@@ -89,21 +85,17 @@ public class CashierController implements  ClientViewObservable {
             view.updateTable(model.getItemsList());
             view.updateTotalAmount(model.getTotalPrice());
         }
-        updateObservers();
+        updateObservers(model.getItemsList());
     }
 
     public void payment() {
-        db.updateStocks(model.getItemsList());
-        model.clear();
-        view.updateTable(model.getItemsList());
-        view.updateTotalAmount(model.getTotalPrice());
-        updateObservers(getLogMessage());
-    }
-
-    public String getLogMessage() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date) + " " + model.getTotalPrice() + " " + calculateDiscount() + " " + getFinalPrice();
+        if(model.payment()) {
+            db.updateStocks(model.getItemsList());
+            model.clear();
+            view.updateTable(model.getItemsList());
+            view.updateTotalAmount(model.getTotalPrice());
+            updateObservers(new Log(model.getTotalPrice(), model.calculateDiscount(), model.getFinalPrice()));
+        }
     }
 
     @Override
@@ -112,12 +104,8 @@ public class CashierController implements  ClientViewObservable {
     }
 
     @Override
-    public void updateObservers(){
-        this.observer.update(model.getItemsList());
-    }
-
-    public void updateObservers(String log) {
-        //todo this.observer.update(log, model.getItemsList());
+    public void updateObservers(Object o){
+        this.observer.update(o);
     }
 
     @Override
@@ -125,29 +113,7 @@ public class CashierController implements  ClientViewObservable {
 
     }
 
-    public double calculateDiscount() {
-        double totalDiscount =0.0;
-        LoadSaveProperties loadSaveProperties = new LoadSaveProperties();
-        String discounts = LoadSaveProperties.getDiscountActive();
-        discounts = discounts.replaceAll("\\[*\\]*","");
-        String[] discountsArray = discounts.split(", ");
-        DiscountFactory factory = new DiscountFactory();
-        if (!discountsArray[0].equals("")) {
-            for (String s : discountsArray) {
-                //System.out.println(s);
-                DiscountStrategy discount = factory.create(s);
-                totalDiscount += discount.calculateDiscount(model);
-            }
-        }
-        view.updateDiscount(totalDiscount);
-        return totalDiscount;
-    }
-
-    public double getFinalPrice(){
-        return model.getTotalPrice()-calculateDiscount();
-    }
-
     public void close() {
-        view.updateTotalAmount(getFinalPrice());
+        view.updateTotalAmount(model.getFinalPrice());
     }
 }
