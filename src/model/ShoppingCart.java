@@ -7,11 +7,11 @@ import model.states.*;
 import java.util.*;
 
 public class ShoppingCart {
-    State openState;
-    State onHoldState;
-    State closedState;
-    State paidState;
-    State state;
+    private State openState;
+    private State onHoldState;
+    private State closedState;
+    private State paidState;
+    private State state;
 
     private Map<Product,Integer> cart;
     private ProductDB db;

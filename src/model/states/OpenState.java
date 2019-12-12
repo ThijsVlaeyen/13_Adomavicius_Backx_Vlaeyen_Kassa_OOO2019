@@ -7,7 +7,7 @@ import model.ShoppingCart;
 
 import java.util.List;
 
-public class OpenState implements State {
+public class OpenState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;
 

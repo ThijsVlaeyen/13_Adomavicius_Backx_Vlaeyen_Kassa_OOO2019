@@ -84,6 +84,9 @@ public class ProductDB implements Observable {
 
     @Override
     public void addObserver(EventType e, Observer o) {
+        if (e.equals(EventType.LOG)){
+            System.out.println('i');
+        }
         if (observers.get(e) == null){
             List<Observer> observers = new ArrayList<>();
             observers.add(o);

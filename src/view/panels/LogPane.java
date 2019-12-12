@@ -45,5 +45,6 @@ public class LogPane extends GridPane {
 
     public void update(Log log) {
         this.table.getItems().add(log);
+        System.out.println(this.table.getItems());
     }
 }

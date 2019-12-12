@@ -4,11 +4,23 @@ import model.Product;
 
 import java.util.List;
 
-public interface State {
-    void add(int code);
-    void addOnHold();
-    void takeFromHold();
-    void remove(List<Product> products);
-    void closeSale();
-    void payment();
+public abstract class  State {
+    public  void add(int code){
+       throw new IllegalStateException("you cant use this method now");
+    }
+    public  void addOnHold(){
+        throw new IllegalStateException("you cant use this method now");
+    }
+    public  void takeFromHold(){
+        throw new IllegalStateException("you cant use this method now");
+    }
+    public  void remove(List<Product> products){
+        throw new IllegalStateException("you cant use this method now");
+    }
+    public  void closeSale(){
+        throw new IllegalStateException("you cant use this method now");
+    }
+    public  void payment(){
+        throw new IllegalStateException("you cant use this method now");
+    }
 }

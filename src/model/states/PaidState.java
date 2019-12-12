@@ -6,7 +6,7 @@ import model.ShoppingCart;
 
 import java.util.List;
 
-public class PaidState implements State {
+public class PaidState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;
 

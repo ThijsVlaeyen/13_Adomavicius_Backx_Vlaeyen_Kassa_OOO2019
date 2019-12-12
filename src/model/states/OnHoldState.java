@@ -7,7 +7,7 @@ import model.ShoppingCart;
 
 import java.util.List;
 
-public class OnHoldState implements State {
+public class OnHoldState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;
 

@@ -1,12 +1,13 @@
 package model.states;
 
 import database.ProductDB;
+import model.EventType;
 import model.Product;
 import model.ShoppingCart;
 
 import java.util.List;
 
-public class ClosedState implements State {
+public class ClosedState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;
 
