@@ -32,9 +32,15 @@ public class ShoppingCart {
     }
 
     public void addProduct(Product p){
-        if (cart.get(p) != null){
-            cart.put(p,cart.get(p)+1);
-        }else{
+        boolean found = false;
+        for (Map.Entry<Product,Integer> entry:cart.entrySet()){
+            if(entry.getKey().equals(p)){
+                found = true;
+                cart.put(entry.getKey(),cart.get(entry.getKey())+1);
+                break;
+            }
+        }
+        if (!found){
             cart.put(p,1);
         }
     }

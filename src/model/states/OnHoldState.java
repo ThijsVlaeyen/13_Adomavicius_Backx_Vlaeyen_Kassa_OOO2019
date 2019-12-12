@@ -17,34 +17,9 @@ public class OnHoldState extends State {
     }
 
     @Override
-    public void add(int code) {
-
-    }
-
-    @Override
-    public void addOnHold() {
-
-    }
-
-    @Override
     public void takeFromHold() {
         //cart = (ShoppingCart) holdingShoppingCart.clone();
         //holdingShoppingCart.clear();
         //db.updateObservers(EventType.PRODUCTSCHANGED, cart);
-    }
-
-    @Override
-    public void remove(List<Product> products) {
-
-    }
-
-    @Override
-    public void closeSale() {
-
-    }
-
-    @Override
-    public void payment() {
-
     }
 }

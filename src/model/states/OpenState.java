@@ -41,10 +41,6 @@ public class OpenState extends State {
     }
 
     @Override
-    public void takeFromHold() {
-    }
-
-    @Override
     public void remove(List<Product> products) {
         for (Product p:products){
             shoppingCart.remove(p);
@@ -58,8 +54,4 @@ public class OpenState extends State {
         shoppingCart.setState(shoppingCart.getClosedState());
     }
 
-    @Override
-    public void payment() {
-
-    }
 }

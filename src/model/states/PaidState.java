@@ -15,33 +15,4 @@ public class PaidState extends State {
         this.db = db;
     }
 
-    @Override
-    public void add(int code) {
-
-    }
-
-    @Override
-    public void addOnHold() {
-
-    }
-
-    @Override
-    public void takeFromHold() {
-
-    }
-
-    @Override
-    public void remove(List<Product> products) {
-
-    }
-
-    @Override
-    public void closeSale() {
-
-    }
-
-    @Override
-    public void payment() {
-
-    }
 }
