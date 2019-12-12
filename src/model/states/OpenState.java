@@ -6,6 +6,7 @@ import model.Product;
 import model.ShoppingCart;
 
 import java.util.List;
+import java.util.Map;
 
 public class OpenState extends State {
     ShoppingCart shoppingCart;

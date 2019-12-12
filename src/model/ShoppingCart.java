@@ -1,6 +1,8 @@
 package model;
 
 import database.ProductDB;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.IO.LoadSaveProperties;
 import model.states.*;
 
@@ -44,14 +46,15 @@ public class ShoppingCart {
             if (!found) {
                 cart.put(p, 1);
             }
+        }else{
+            Alert stockAlert = new Alert(Alert.AlertType.ERROR,"this item is out of stock", ButtonType.OK);
+            stockAlert.show();
         }
-        System.out.println(this.getItems().size());
     }
 
     private boolean checkStock(Product p) {
         if (this.getItems().get(p) != null) {
             int currentstock = db.getProduct(p.getId()).getStock() - this.getItems().get(p);
-            System.out.println(currentstock);
             return currentstock > 0;
         }
         return true;
@@ -78,7 +81,7 @@ public class ShoppingCart {
     public List<Product> getItemsList(){
         List<Product> products = new ArrayList<>();
         for (Map.Entry<Product,Integer> entry:this.cart.entrySet()){
-            for (int i=0;i<entry.getValue();i++) {
+            for (int i=0;i<entry.getValue() && i< entry.getKey().getStock();i++) {
                 products.add(entry.getKey());
             }
         }
