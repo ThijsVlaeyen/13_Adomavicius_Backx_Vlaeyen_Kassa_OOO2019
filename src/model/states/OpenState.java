@@ -18,11 +18,8 @@ public class OpenState extends State {
 
     @Override
     public void add(int code) {
-        if (db.isProductExist(code)){
+        if (db.isProductExist(code)) {
             shoppingCart.addProduct(db.getProduct(code));
-            //view.setNotExistingCode(false);
-        }else{
-            //view.setNotExistingCode(true);
         }
         shoppingCart.calculateDiscount();
         db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
@@ -30,14 +27,9 @@ public class OpenState extends State {
 
     @Override
     public void addOnHold() {
-        //holdingShoppingCart = (ShoppingCart) shoppingCart.clone();
-        //shoppingCart.clear();
-        //db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
-        //
-        //else {
-        //    view.showAlert("Invalid operation");
-        //}
-        //shoppingCart.setState(shoppingCart.getOnHoldState());
+        db.addOnHold(shoppingCart);
+        shoppingCart.setState(shoppingCart.getOnHoldState());
+        db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
     }
 
     @Override

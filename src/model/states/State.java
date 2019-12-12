@@ -1,6 +1,7 @@
 package model.states;
 
 import model.Product;
+import model.ShoppingCart;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public abstract class  State {
     public  void addOnHold(){
         throw new IllegalStateException("you cant use this method now");
     }
-    public  void takeFromHold(){
+    public ShoppingCart takeFromHold(){
         throw new IllegalStateException("you cant use this method now");
     }
     public  void remove(List<Product> products){

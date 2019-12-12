@@ -16,6 +16,7 @@ public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;
     private LoadSaveStrategy loadSaveStrategy;
     private Map<EventType, List<Observer>> observers;
+    private ShoppingCart holdingShoppingCart;
 
     public ProductDB() {
         this.productsMap = new HashMap<>();
@@ -82,10 +83,18 @@ public class ProductDB implements Observable {
         updateObservers(EventType.PRODUCTSCHANGED, cart);
     }
 
+    public void addOnHold(ShoppingCart cart) {
+        holdingShoppingCart = (ShoppingCart) cart.clone();
+        cart.clear();
+    }
+
+    public ShoppingCart takeFromHold() {
+        return holdingShoppingCart;
+    }
+
     @Override
     public void addObserver(EventType e, Observer o) {
         if (e.equals(EventType.LOG)){
-            System.out.println('i');
         }
         if (observers.get(e) == null){
             List<Observer> observers = new ArrayList<>();

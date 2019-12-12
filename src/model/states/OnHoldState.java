@@ -17,9 +17,10 @@ public class OnHoldState extends State {
     }
 
     @Override
-    public void takeFromHold() {
-        //cart = (ShoppingCart) holdingShoppingCart.clone();
-        //holdingShoppingCart.clear();
-        //db.updateObservers(EventType.PRODUCTSCHANGED, cart);
+    public ShoppingCart takeFromHold() {
+        shoppingCart = db.takeFromHold();
+        db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
+        shoppingCart.setState(shoppingCart.getOpenState());
+        return shoppingCart;
     }
 }

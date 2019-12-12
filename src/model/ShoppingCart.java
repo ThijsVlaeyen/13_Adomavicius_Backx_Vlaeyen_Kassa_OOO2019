@@ -93,8 +93,8 @@ public class ShoppingCart {
 
     public void payment() { state.payment(); }
 
-    public void takeFromHold() {
-        state.takeFromHold();
+    public ShoppingCart takeFromHold() {
+        return state.takeFromHold();
     }
 
     public void delete(List<Product> products) {

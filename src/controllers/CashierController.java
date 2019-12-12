@@ -10,13 +10,11 @@ public class CashierController implements Observer {
     private CashierSalesPane view;
     private ProductDB db;
     private ShoppingCart cart;
-    private ShoppingCart holdingShoppingCart;
 
     public CashierController(ProductDB db) {
         this.db = db;
         db.addObserver(EventType.PRODUCTSCHANGED, this);
         cart = new ShoppingCart(db);
-        holdingShoppingCart = new ShoppingCart(db);
     }
 
     public void setView(CashierSalesPane view) {
@@ -36,7 +34,7 @@ public class CashierController implements Observer {
     }
 
     public void takeFromHold() {
-        cart.takeFromHold();
+        cart = cart.takeFromHold();
     }
 
     public void payment() {
