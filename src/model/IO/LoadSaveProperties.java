@@ -45,20 +45,17 @@ public class LoadSaveProperties {
    //DISCOUNT GROUP
    public static void setDiscountGroupGroup(String value){properties.setProperty("DiscountGroupGroup", value);}
    public static void setDiscountGroupPercent(String value){properties.setProperty("DiscountGroupPercent", value);}
-   public static String getDiscountGroupActive(){return properties.getProperty("DiscountGroup", "false");}
    public static String getDiscountGroupGroup(){return properties.getProperty("DiscountGroupGroup", "Group 1");}
    public static String getDiscountGroupPercent(){return properties.getProperty("DiscountGroupPercent", "1%");}
 
    //DISCOUNT THRESHOLD
    public static void setDiscountThresholdAmount(String value){properties.setProperty("ThresholdAmount", value);}
    public static void setDiscountThresholdPercent(String value){properties.setProperty("ThresholdPercent", value);}
-   public static String getDiscountThresholdActive(){return properties.getProperty("ThresholdActive", "false");}
    public static String getDiscountThresholdAmount(){return properties.getProperty("ThresholdAmount", "0");}
    public static String getDiscountThresholdPercent(){return properties.getProperty("ThresholdPercent", "1%");}
 
    //DISCOUNT EXPENSIVE
    public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
-   public static String getDiscountExpensiveActive(){return properties.getProperty("ExpensiveActive", "false");}
    public static String getDiscountExpensivePercent(){return properties.getProperty("ExpensivePercent", "1%");}
 
 

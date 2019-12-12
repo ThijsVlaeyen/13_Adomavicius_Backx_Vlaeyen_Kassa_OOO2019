@@ -54,19 +54,16 @@ public class SettingsController {//todo maybe also observer?
     public void setDiscountGroupPercent(String type){
         LoadSaveProperties.setDiscountGroupPercent(type);
     }
-    public String getDiscountGroupActive(){return LoadSaveProperties.getDiscountGroupActive();}
     public String getDiscountGroupGroup(){return LoadSaveProperties.getDiscountGroupGroup();}
     public String getDiscountGroupPercent(){return LoadSaveProperties.getDiscountGroupPercent();}
 
     //THRESHOLD DISCOUNT SETTERS
     public void setDiscountThresholdAmount(String type){LoadSaveProperties.setDiscountThresholdAmount(type);}
     public void setDiscountThresholdPercent(String type){LoadSaveProperties.setDiscountThresholdPercent(type);}
-    public String getDiscountThresholdActive(){return LoadSaveProperties.getDiscountThresholdActive();}
     public String getDiscountThresholdAmount(){return LoadSaveProperties.getDiscountThresholdAmount();}
     public String getDiscountThresholdPercent(){return LoadSaveProperties.getDiscountThresholdPercent();}
 
     //EXPENSIVE DISCOUNT SETTERS
     public void setDiscountExpensivePercent(String type){LoadSaveProperties.setDiscountExpensivePercent(type);}
-    public String getDiscountExpensiveActive(){return LoadSaveProperties.getDiscountExpensiveActive();}
     public String getDiscountExpensivePercent(){return LoadSaveProperties.getDiscountExpensivePercent();}
 }
