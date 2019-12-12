@@ -80,8 +80,12 @@ public class CashierSalesPane extends GridPane {
 
 
         Button addOnHold = new Button("add on hold");
-        addOnHold.setOnAction(e -> controller.addOnHold());
-
+        addOnHold.setOnAction(e -> {
+                    try {
+                        controller.addOnHold();
+                    } catch (IllegalStateException exception) {
+                        showAlert(exception.getMessage()); }
+                });
 
         Button takeFromHold = new Button("take from hold");
         takeFromHold.setOnAction(e -> controller.takeFromHold());

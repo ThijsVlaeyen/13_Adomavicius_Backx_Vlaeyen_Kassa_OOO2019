@@ -1,6 +1,8 @@
 package model;
 
 import database.ProductDB;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.IO.LoadSaveProperties;
 import model.states.*;
 
