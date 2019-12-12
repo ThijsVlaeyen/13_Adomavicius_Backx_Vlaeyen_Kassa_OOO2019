@@ -34,17 +34,29 @@ public class ShoppingCart {
     }
 
     public void addProduct(Product p){
-        boolean found = false;
-        for (Map.Entry<Product,Integer> entry:cart.entrySet()){
-            if(entry.getKey().equals(p)){
-                found = true;
-                cart.put(entry.getKey(),cart.get(entry.getKey())+1);
-                break;
+        if (checkStock(p)) {
+            boolean found = false;
+            for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
+                if (entry.getKey().equals(p)) {
+                    found = true;
+                    cart.put(entry.getKey(), cart.get(entry.getKey()) + 1);
+                    break;
+                }
+            }
+            if (!found) {
+                cart.put(p, 1);
             }
         }
-        if (!found){
-            cart.put(p,1);
+        System.out.println(this.getItems().size());
+    }
+
+    private boolean checkStock(Product p) {
+        if (this.getItems().get(p) != null) {
+            int currentstock = db.getProduct(p.getId()).getStock() - this.getItems().get(p);
+            System.out.println(currentstock);
+            return currentstock > 0;
         }
+        return true;
     }
 
     public void remove(Product p){
