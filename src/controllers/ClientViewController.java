@@ -1,34 +1,27 @@
 package controllers;
 
+import database.ProductDB;
+import model.EventType;
 import model.Product;
 import model.ShoppingCart;
 import view.ClientView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClientViewController implements ClientViewObserver{
+public class ClientViewController implements Observer {
     private ClientView view;
-    private CashierController observable;
     private ShoppingCart model;
+    private ProductDB db;
 
-    public ClientViewController(){
-        this.model = new ShoppingCart();
+    public ClientViewController(ProductDB db){
+        this.db = db;
+        db.addObserver(EventType.PRODUCTSCHANGED, this);
+        this.model = new ShoppingCart(db);
     }
 
     public void setView(ClientView view){
         this.view = view;
-    }
-
-    @Override
-    public void update(List<Product> products) {
-        this.model.getItems().clear();
-        for (Product p:products){
-            model.addProduct(p);
-        }
-        this.view.update();
     }
 
     public double getTotalPrice(){
@@ -42,5 +35,15 @@ public class ClientViewController implements ClientViewObserver{
 
     public Map<Product,Integer> getItems(){
         return model.getItems();
+    }
+
+    @Override
+    public void update(Object object) {
+        ShoppingCart cart = (ShoppingCart) object;
+        this.model.getItems().clear();
+        for (Product p:cart.getItemsList()){
+            model.addProduct(p);
+        }
+        this.view.update();
     }
 }

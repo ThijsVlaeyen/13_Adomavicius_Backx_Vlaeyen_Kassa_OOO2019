@@ -1,48 +1,35 @@
 package database;
 
-import controllers.ClientViewObservable;
-import controllers.ClientViewObserver;
+import controllers.Observable;
 import controllers.Observer;
+import model.EventType;
 import model.IO.LoadSaveStrategy;
+import model.Log;
 import model.Product;
-
-
+import model.ShoppingCart;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductDB implements ClientViewObservable {
-    private String path;
-    private List<Product> productList;//todo maybe delete in the future
-    private List<Product> scanedProducts;
-    private double totalScanedAmount;
+public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;
-    private Map<Integer,Product> products;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<ClientViewObserver> observers;
+    private Map<EventType, List<Observer>> observers;
+    private ShoppingCart holdingShoppingCart;
 
     public ProductDB() {
-        this.productList = new ArrayList<>();
         this.productsMap = new HashMap<>();
-        observers = new ArrayList<ClientViewObserver>();
+        observers = new HashMap<>();
         productsMap = new HashMap<Integer, Product>();
-        scanedProducts = new ArrayList<Product>();
-        totalScanedAmount = 0;
-       //productsMap.put(1, new Product(1, "test", "group", 1.0, 3));//todo just temporary testing data
     }
-
-    public ProductDB(String path) {
-        this.path = path;
-    }
-
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
     public void save(){
-        loadSaveStrategy.save(new ArrayList<Product>(this.products.values()));
+        loadSaveStrategy.save(new ArrayList<Product>(this.productsMap.values()));
     }
 
     public Product getProduct(int code){
@@ -50,8 +37,7 @@ public class ProductDB implements ClientViewObservable {
     }
 
     public void load(){
-        this.productList = loadSaveStrategy.load();
-        for (Product i : productList) productsMap.put(i.getId(), i);
+        for (Product i : loadSaveStrategy.load()) productsMap.put(i.getId(), i);
     }
 
     public void add(Product p){
@@ -75,24 +61,60 @@ public class ProductDB implements ClientViewObservable {
         return this.productsMap.containsKey(code);
     }
 
+    public void updateStocks(List<Product> products) {
+        for(Product p : products) {
+            decreaseStock(p);
+        }
+        save();
+        load();
+    }
 
-    @Override
-    public void addObserver(ClientViewObserver o) {
-        this.observers.add(o);
+    public void decreaseStock(Product product) {
+        productsMap.get(product.getId()).decreaseStock();
+    }
+
+    public void payment(ShoppingCart cart) {
+        updateStocks(cart.getItemsList());
+        updateObservers(EventType.LOG, new Log(cart.getTotalPrice(), cart.calculateDiscount(), cart.getFinalPrice()));
+        updateObservers(EventType.PRODUCTSCHANGED, cart);
+    }
+
+    public void closeSale(ShoppingCart cart) {
+        updateObservers(EventType.PRODUCTSCHANGED, cart);
+    }
+
+    public void addOnHold(ShoppingCart cart) {
+        holdingShoppingCart = (ShoppingCart) cart.clone();
+        cart.clear();
+    }
+
+    public ShoppingCart takeFromHold() {
+        return holdingShoppingCart;
     }
 
     @Override
-    public void updateObservers() {
-        for (ClientViewObserver o : observers) {
-            List<Product> list = new ArrayList<>(productsMap.values());
-            o.update(list);
+    public void addObserver(EventType e, Observer o) {
+        if (e.equals(EventType.LOG)){
+        }
+        if (observers.get(e) == null){
+            List<Observer> observers = new ArrayList<>();
+            observers.add(o);
+            this.observers.put(e,observers);
+        }else{
+            List<Observer> observers = this.observers.get(e);
+            observers.add(o);
         }
     }
 
     @Override
-    public void removeObserver(ClientViewObserver o) {
-
+    public void updateObservers(EventType e, Object o) {
+        for (Observer observer:this.observers.get(e)) {
+            observer.update(o);
+        }
     }
 
-
+    @Override
+    public void removeObserver(EventType e, Observer o) {
+        this.observers.get(e).remove(o);
+    }
 }

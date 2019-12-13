@@ -80,8 +80,12 @@ public class CashierSalesPane extends GridPane {
 
 
         Button addOnHold = new Button("add on hold");
-        addOnHold.setOnAction(e -> controller.addOnHold());
-
+        addOnHold.setOnAction(e -> {
+                    try {
+                        controller.addOnHold();
+                    } catch (IllegalStateException exception) {
+                        showAlert(exception.getMessage()); }
+                });
 
         Button takeFromHold = new Button("take from hold");
         takeFromHold.setOnAction(e -> controller.takeFromHold());
@@ -104,6 +108,9 @@ public class CashierSalesPane extends GridPane {
         this.add(discountLabel,4,2,1,1);
         this.add(delete,0,4,1,1);
         this.add(close,0,5,1,1);
+        Button payment = new Button("payment");
+        payment.setOnAction(e -> controller.payment());
+        this.add(payment, 6, 2, 1, 1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -121,10 +128,6 @@ public class CashierSalesPane extends GridPane {
 
     public void updateDiscount(double value){
         discountLabel.setText("Total Discount:\n€ " + value );
-    }
-
-    public void updateDisplay() {
-
     }
 
     public void showAlert(String message) {

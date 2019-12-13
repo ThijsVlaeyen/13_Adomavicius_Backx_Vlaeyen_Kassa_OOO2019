@@ -1,5 +1,6 @@
 package model;
 
+import java.net.PortUnreachableException;
 import java.util.Objects;
 
 public class Product implements Comparable<Product> {
@@ -46,6 +47,10 @@ public class Product implements Comparable<Product> {
         return id;
     }
 
+    public void decreaseStock() {
+        this.stock--;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -60,5 +65,13 @@ public class Product implements Comparable<Product> {
     @Override
     public int compareTo(Product o) {
         return this.getName().compareTo(o.name);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Product){
+            return this.id == ((Product) obj).id;
+        }
+        return false;
     }
 }
