@@ -58,5 +58,10 @@ public class LoadSaveProperties {
    public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
    public static String getDiscountExpensivePercent(){return properties.getProperty("ExpensivePercent", "1%");}
 
+   //RECEIPT MESSAGE
+   public static void setReceiptHeaderMessage(String value){properties.setProperty("ReceiptHeaderMessage", value);}
+   public static void setReceiptFooterMessage(String value){properties.setProperty("ReceiptFooterMessage", value);}
+   public static String getReceiptHeaderMessage(){return properties.getProperty("ReceiptHeaderMessage");}
+   public static String getReceiptFooterMessage(){return properties.getProperty("ReceiptFooterMessage");}
 
 }
