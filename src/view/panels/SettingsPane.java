@@ -127,28 +127,35 @@ public class SettingsPane extends GridPane {
       this.add(new Label("Receipt:"), 0,7,1,1);
 
       //HEADER MESSAGE
+      headerMessageCheckbox.setSelected(containsReceipt("HEADERMESSAGE"));
       this.add(headerMessageCheckbox, 0,8,1,1);
       this.add(new Label("Header Message: "),1,8,1,1);
       this.add(headerMessage,2,8,1,1);
+      headerMessage.setText(controller.getReceiptHeaderMessage());
       setHeaderMessageButtons();
       headerMessageCheckbox.setOnAction(event -> setHeaderMessageButtons());
 
       //HEADER DATE
+      headerDateCheckbox.setSelected(containsReceipt("HEADERDATE"));
       this.add(headerDateCheckbox, 0,9,1,1);
       this.add(new Label("Header Date"),1,9,1,1);
 
       //FOOTER MESSAGE
+      footerMessageCheckbox.setSelected(containsReceipt("FOOTERMESSAGE"));
       this.add(footerMessageCheckbox, 0,10,1,1);
       this.add(new Label("Footer Message: "),1,10,1,1);
       this.add(footerMessage,2,10,1,1);
+      footerMessage.setText(controller.getReceiptFooterMessage());
       setFooterMessageButtons();
       footerMessageCheckbox.setOnAction(event -> setFooterMessageButtons());
 
       //FOOTER DISCOUNT
+      footerDiscountCheckbox.setSelected(containsReceipt("FOOTERDISCOUNT"));
       this.add(footerDiscountCheckbox,0,11,1,1);
       this.add(new Label("Footer Discount"),1,11,1,1);
 
       //FOOTER VAT
+      footerVATCheckbox.setSelected(containsReceipt("FOOTERVAT"));
       this.add(footerVATCheckbox,0,12,1,1);
       this.add(new Label("Footer VAT"),1,12,1,1);
 
@@ -157,6 +164,17 @@ public class SettingsPane extends GridPane {
       resetReceipt = new Button("Reset Receipt");
       this.add(saveReceipt,0,13,1,1);
       this.add(resetReceipt,1,13,1,1);
+      saveReceipt.setOnAction(event -> saveReceipt());
+      resetReceipt.setOnAction(event -> {
+         headerMessageCheckbox.setSelected(false);
+         headerDateCheckbox.setSelected(false);
+         footerMessageCheckbox.setSelected(false);
+         footerDiscountCheckbox.setSelected(false);
+         footerVATCheckbox.setSelected(false);
+         setHeaderMessageButtons();
+         setFooterMessageButtons();
+         saveReceipt();
+      });
 
    }
 
@@ -198,7 +216,7 @@ public class SettingsPane extends GridPane {
          headerMessage.setDisable(false);
       } else {
          headerMessage.setDisable(true);
-         headerMessage.setText("");
+         headerMessage.setText(" ");
       }
    }
 
@@ -207,8 +225,39 @@ public class SettingsPane extends GridPane {
          footerMessage.setDisable(false);
       } else {
          footerMessage.setDisable(true);
-         footerMessage.setText("");
+         footerMessage.setText(" ");
       }
+   }
+
+   private void saveReceipt(){
+      ArrayList<String> active = new ArrayList<>();
+      if(headerMessageCheckbox.isSelected()){
+         active.add("HEADERMESSAGE");
+         controller.setReceiptHeaderMessage(headerMessage.getText());
+      } else {
+         controller.setReceiptHeaderMessage("null");
+      }
+
+      if(headerDateCheckbox.isSelected()){
+         active.add("HEADERDATE");
+      }
+
+      if(footerMessageCheckbox.isSelected()){
+         active.add("FOOTERMESSAGE");
+         controller.setReceiptFooterMessage(footerMessage.getText());
+      }else{
+         controller.setReceiptFooterMessage("null");
+      }
+
+      if(footerVATCheckbox.isSelected()){
+         active.add("FOOTERVAT");
+      }
+
+      if(footerDiscountCheckbox.isSelected()){
+         active.add("FOOTERDISCOUNT");
+      }
+      controller.setReceiptActive(active.toString());
+      controller.save();
    }
 
    private void saveDiscount(){
@@ -247,7 +296,7 @@ public class SettingsPane extends GridPane {
    }
 
    private boolean containsReceipt(String receipt){
-      return true;
+      return contains(receipt, controller.getReceiptActive());
    }
 
    private boolean contains(String discount, String array){
