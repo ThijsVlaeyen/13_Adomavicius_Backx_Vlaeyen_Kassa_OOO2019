@@ -1,7 +1,11 @@
 package model.IO;
 
 public enum ReceiptType {
-   CONSOLE("console", "model.IO.ReceiptConsole");
+   HEADERMESSAGE("headermessage", "model.IO.ReceiptHeaderMessage"),
+   HEADERDATE("headerdate", "model.IO.ReceiptHeaderDate"),
+   FOOTERMESSAGE("footermessage", "model.IO.ReceiptFooterMessage"),
+   FOOTERVAT("footervat", "model.IO.ReceiptFooterVAT"),
+   FOOTERDISCOUNT("footerdiscount", "model.IO.ReceiptFooterDiscount");
 
    private final String name;
    private final String classname;

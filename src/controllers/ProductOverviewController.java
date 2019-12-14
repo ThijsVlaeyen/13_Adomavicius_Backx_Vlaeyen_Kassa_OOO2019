@@ -2,16 +2,12 @@ package controllers;
 
 import database.ProductDB;
 import model.EventType;
-import model.IO.LoadSaveProperties;
-import model.IO.LoadSaveStrategy;
-import model.IO.LoadSaveStrategyFactory;
+import model.IO.*;
 import model.Product;
-import model.ShoppingCart;
 import view.panels.ProductOverviewPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class ProductOverviewController implements Observer {
 private ProductDB db;
