@@ -7,6 +7,7 @@ import view.panels.SettingsPane;
 
 import javax.security.auth.login.LoginException;
 import java.lang.reflect.Array;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -66,4 +67,17 @@ public class SettingsController {//todo maybe also observer?
     //EXPENSIVE DISCOUNT SETTERS
     public void setDiscountExpensivePercent(String type){LoadSaveProperties.setDiscountExpensivePercent(type);}
     public String getDiscountExpensivePercent(){return LoadSaveProperties.getDiscountExpensivePercent();}
+
+    //RECEIPT
+    //HEADER MESSAGE
+    public void setReceiptHeaderMessage(String type){LoadSaveProperties.setReceiptHeaderMessage(type);}
+    public String getReceiptHeaderMessage(){return LoadSaveProperties.getReceiptHeaderMessage();}
+
+    //FOOTER MESSAGE
+    public void setReceiptFooterMessage(String type){LoadSaveProperties.setReceiptFooterMessage(type);}
+    public String getReceiptFooterMessage(){return LoadSaveProperties.getReceiptFooterMessage();}
+
+    //ACTIVE
+    public void setReceiptActive(String type){LoadSaveProperties.setReceiptActive(type);}
+    public String getReceiptActive(){return LoadSaveProperties.getReceiptActive();}
 }

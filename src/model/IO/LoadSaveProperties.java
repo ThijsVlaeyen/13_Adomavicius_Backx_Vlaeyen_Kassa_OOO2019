@@ -40,7 +40,7 @@ public class LoadSaveProperties {
 
    //ACTIVE DISCOUNTS
    public static void setDiscountActive(String value){properties.setProperty("DiscountActive", value);}
-   public static String getDiscountActive(){return properties.getProperty("DiscountActive");}
+   public static String getDiscountActive(){return properties.getProperty("DiscountActive", "[]");}
 
    //DISCOUNT GROUP
    public static void setDiscountGroupGroup(String value){properties.setProperty("DiscountGroupGroup", value);}
@@ -58,5 +58,14 @@ public class LoadSaveProperties {
    public static void setDiscountExpensivePercent(String value){properties.setProperty("ExpensivePercent", value);}
    public static String getDiscountExpensivePercent(){return properties.getProperty("ExpensivePercent", "1%");}
 
+   //RECEIPT MESSAGE
+   public static void setReceiptHeaderMessage(String value){properties.setProperty("ReceiptHeaderMessage", value);}
+   public static void setReceiptFooterMessage(String value){properties.setProperty("ReceiptFooterMessage", value);}
+   public static String getReceiptHeaderMessage(){return properties.getProperty("ReceiptHeaderMessage", "");}
+   public static String getReceiptFooterMessage(){return properties.getProperty("ReceiptFooterMessage", "");}
+
+   //RECEIPT ACTIVE
+   public static void setReceiptActive(String value){properties.setProperty("ReceiptActive", value);}
+   public static String getReceiptActive(){return properties.getProperty("ReceiptActive", "[]");}
 
 }
