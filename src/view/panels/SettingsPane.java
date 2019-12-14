@@ -1,6 +1,5 @@
 package view.panels;
 
-import com.sun.javafx.scene.DirtyBits;
 import controllers.SettingsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -32,6 +31,21 @@ public class SettingsPane extends GridPane {
    private Button saveDiscount;
    private Button resetDiscount;
 
+   private final CheckBox headerMessageCheckbox = new CheckBox();
+   private final TextField headerMessage = new TextField();
+
+   private final CheckBox headerDateCheckbox = new CheckBox();
+
+   private final CheckBox footerMessageCheckbox = new CheckBox();
+   private final TextField footerMessage = new TextField();
+
+   private final CheckBox footerDiscountCheckbox = new CheckBox();
+
+   private final CheckBox footerVATCheckbox = new CheckBox();
+
+   private Button saveReceipt;
+   private Button resetReceipt;
+
    public SettingsPane(SettingsController controller){
       this.controller = controller;
       this.setPadding(new Insets(5, 5, 5, 5));
@@ -58,7 +72,7 @@ public class SettingsPane extends GridPane {
 
       //FOR GROUP DISCOUNT
       this.add(new Label("Discounts:"), 0,2,1,1);
-      groupCheckbox.setSelected(contains("GROUP"));
+      groupCheckbox.setSelected(containsDiscount("GROUP"));
       groups.setValue(controller.getDiscountGroupGroup());
       groupDiscounts.setValue(controller.getDiscountGroupPercent());
       setGroupButtons();
@@ -71,7 +85,7 @@ public class SettingsPane extends GridPane {
       groupCheckbox.setOnAction(event -> setGroupButtons());
 
       //FOR THRESHOLD DISCOUNT
-      thresholdCheckbox.setSelected(contains("THRESHOLD"));
+      thresholdCheckbox.setSelected(containsDiscount("THRESHOLD"));
       thresholdDiscounts.setValue(controller.getDiscountThresholdPercent());
       thresholdAmount.setText(controller.getDiscountThresholdAmount());
       setThresholdButtons();
@@ -83,7 +97,7 @@ public class SettingsPane extends GridPane {
       thresholdCheckbox.setOnAction(event -> setThresholdButtons());
 
       //FOR EXPENSIVE DISCOUNT
-      expensiveCheckbox.setSelected(contains("EXPENSIVE"));
+      expensiveCheckbox.setSelected(containsDiscount("EXPENSIVE"));
       expensiveDiscounts.setValue(controller.getDiscountExpensivePercent());
       setExpensiveButtons();
       this.add(new Label("Expensive:"),1,5,1,1);
@@ -95,7 +109,7 @@ public class SettingsPane extends GridPane {
       //DISCOUNT BUTTONS
       saveDiscount = new Button("Save Discounts");
       this.add(saveDiscount,0,6,1,1);
-      saveDiscount.setOnAction(event -> save());
+      saveDiscount.setOnAction(event -> saveDiscount());
       resetDiscount = new Button("Reset Discounts");
       this.add(resetDiscount,1,6,1,1);
       resetDiscount.setOnAction(event -> {
@@ -105,8 +119,44 @@ public class SettingsPane extends GridPane {
          setGroupButtons();
          setThresholdButtons();
          setExpensiveButtons();
-         save();
+         saveDiscount();
       });
+
+      //RECEIPT
+
+      this.add(new Label("Receipt:"), 0,7,1,1);
+
+      //HEADER MESSAGE
+      this.add(headerMessageCheckbox, 0,8,1,1);
+      this.add(new Label("Header Message: "),1,8,1,1);
+      this.add(headerMessage,2,8,1,1);
+      setHeaderMessageButtons();
+      headerMessageCheckbox.setOnAction(event -> setHeaderMessageButtons());
+
+      //HEADER DATE
+      this.add(headerDateCheckbox, 0,9,1,1);
+      this.add(new Label("Header Date"),1,9,1,1);
+
+      //FOOTER MESSAGE
+      this.add(footerMessageCheckbox, 0,10,1,1);
+      this.add(new Label("Footer Message: "),1,10,1,1);
+      this.add(footerMessage,2,10,1,1);
+      setFooterMessageButtons();
+      footerMessageCheckbox.setOnAction(event -> setFooterMessageButtons());
+
+      //FOOTER DISCOUNT
+      this.add(footerDiscountCheckbox,0,11,1,1);
+      this.add(new Label("Footer Discount"),1,11,1,1);
+
+      //FOOTER VAT
+      this.add(footerVATCheckbox,0,12,1,1);
+      this.add(new Label("Footer VAT"),1,12,1,1);
+
+      //BUTTONS
+      saveReceipt = new Button("Save Receipt");
+      resetReceipt = new Button("Reset Receipt");
+      this.add(saveReceipt,0,13,1,1);
+      this.add(resetReceipt,1,13,1,1);
 
    }
 
@@ -143,7 +193,25 @@ public class SettingsPane extends GridPane {
       }
    }
 
-   private void save(){
+   private void setHeaderMessageButtons(){
+      if (headerMessageCheckbox.isSelected()){
+         headerMessage.setDisable(false);
+      } else {
+         headerMessage.setDisable(true);
+         headerMessage.setText("");
+      }
+   }
+
+   private void setFooterMessageButtons(){
+      if (footerMessageCheckbox.isSelected()){
+         footerMessage.setDisable(false);
+      } else {
+         footerMessage.setDisable(true);
+         footerMessage.setText("");
+      }
+   }
+
+   private void saveDiscount(){
       ArrayList<String> active = new ArrayList<>();
 
       if (groupCheckbox.isSelected()){
@@ -174,9 +242,16 @@ public class SettingsPane extends GridPane {
       controller.save();
    }
 
-   private boolean contains(String discount){
+   private boolean containsDiscount(String discount){
+      return contains(discount, controller.getDiscountActive());
+   }
+
+   private boolean containsReceipt(String receipt){
+      return true;
+   }
+
+   private boolean contains(String discount, String array){
       boolean out = false;
-      String array = controller.getDiscountActive();
       array = array.replaceAll("\\[*\\]*", "");
       String[] activeDiscounts = array.split(", ");
       for (String s:activeDiscounts) {
