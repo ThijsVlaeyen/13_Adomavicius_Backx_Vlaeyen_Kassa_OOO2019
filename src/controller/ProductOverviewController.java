@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import database.ProductDB;
 import model.EventType;
@@ -24,7 +24,7 @@ public ArrayList<Product> getProducts() {
    LoadSaveStrategyFactory factory = new LoadSaveStrategyFactory();
    LoadSaveStrategy loadSaveStrategy = factory.createObject(LoadSaveProperties.getLoadSave());
    db.setLoadSaveStrategy(loadSaveStrategy);
-   ArrayList<Product> products = db.getProducts();
+   ArrayList<Product> products = db.load();
    Collections.sort(products);
    return products;
 }

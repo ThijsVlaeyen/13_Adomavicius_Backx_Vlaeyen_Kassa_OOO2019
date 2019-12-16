@@ -1,6 +1,6 @@
 package view;
 
-import controllers.ClientViewController;
+import controller.ClientViewController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;

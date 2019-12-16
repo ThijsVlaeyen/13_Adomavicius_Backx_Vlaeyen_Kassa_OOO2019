@@ -1,6 +1,6 @@
 package view.panels;
 
-import controllers.CashierController;
+import controller.CashierController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;

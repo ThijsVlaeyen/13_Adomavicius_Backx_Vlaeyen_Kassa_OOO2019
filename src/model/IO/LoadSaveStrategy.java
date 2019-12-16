@@ -4,8 +4,9 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public interface LoadSaveStrategy {
-   ArrayList<Product> load();
-   void save(List<Product> products);
+   ArrayList<Object> load();
+   void save(ArrayList<Object> products);
 }

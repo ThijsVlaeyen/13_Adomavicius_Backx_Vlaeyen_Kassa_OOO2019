@@ -1,6 +1,6 @@
 package view.panels;
 
-import controllers.SettingsController;
+import controller.SettingsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;

@@ -1,10 +1,9 @@
 package database;
 
-import controllers.Observable;
-import controllers.Observer;
+import controller.Observable;
+import controller.Observer;
 import model.EventType;
 import model.IO.LoadSaveStrategy;
-import model.Log;
 import model.Product;
 import model.ShoppingCart;
 import java.util.ArrayList;
@@ -19,9 +18,8 @@ public class ProductDB implements Observable {
     private ShoppingCart holdingShoppingCart;
 
     public ProductDB() {
-        this.productsMap = new HashMap<>();
+        productsMap = new HashMap<>();
         observers = new HashMap<>();
-        productsMap = new HashMap<Integer, Product>();
     }
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
@@ -29,15 +27,19 @@ public class ProductDB implements Observable {
     }
 
     public void save(){
-        loadSaveStrategy.save(new ArrayList<Product>(this.productsMap.values()));
+        loadSaveStrategy.save(new ArrayList<>(this.productsMap.values()));
     }
 
     public Product getProduct(int code){
         return this.productsMap.get(code);
     }
 
-    public void load(){
-        for (Product i : loadSaveStrategy.load()) productsMap.put(i.getId(), i);
+    public ArrayList<Product> load(){
+        for (Object obj : loadSaveStrategy.load()) {
+            Product i = (Product) obj;
+            productsMap.put(i.getId(), i);
+        }
+        return new ArrayList<>(this.productsMap.values());
     }
 
     public void add(Product p){
@@ -50,11 +52,6 @@ public class ProductDB implements Observable {
         if (p != null){
             this.productsMap.remove(p);
         }
-    }
-
-    public ArrayList<Product> getProducts(){
-        this.load();
-        return new ArrayList<>(this.productsMap.values());
     }
 
     public boolean isProductExist(int code) {

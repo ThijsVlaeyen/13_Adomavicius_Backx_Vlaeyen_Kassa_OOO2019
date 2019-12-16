@@ -1,6 +1,6 @@
 package view;
 
-import controllers.*;
+import controller.*;
 import database.ProductDB;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

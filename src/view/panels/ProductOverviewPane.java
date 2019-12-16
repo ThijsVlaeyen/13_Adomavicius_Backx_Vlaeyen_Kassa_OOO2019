@@ -1,19 +1,14 @@
 package view.panels;
 
-import controllers.ProductOverviewController;
+import controller.ProductOverviewController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import model.IO.LoadSaveProperties;
-import model.IO.LoadSaveStrategy;
-import model.IO.LoadSaveStrategyFactory;
 import model.Product;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 

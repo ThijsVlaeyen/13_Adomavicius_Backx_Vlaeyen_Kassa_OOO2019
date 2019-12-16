@@ -1,6 +1,6 @@
 package view.panels;
 
-import controllers.LogController;
+import controller.LogController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;

@@ -1,15 +1,11 @@
-package controllers;
+package controller;
 
 import database.ProductDB;
 import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveType;
 import view.panels.SettingsPane;
 
-import javax.security.auth.login.LoginException;
-import java.lang.reflect.Array;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class SettingsController {//todo maybe also observer?
     private ProductDB db;

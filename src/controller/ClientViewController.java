@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import database.ProductDB;
 import model.EventType;
@@ -6,7 +6,6 @@ import model.Product;
 import model.ShoppingCart;
 import view.ClientView;
 
-import java.util.List;
 import java.util.Map;
 
 public class ClientViewController implements Observer {
