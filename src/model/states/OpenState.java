@@ -34,6 +34,18 @@ public class OpenState extends State {
     }
 
     @Override
+    public ShoppingCart takeFromHold() {
+        shoppingCart = db.takeFromHold();
+        if (shoppingCart != null) {
+            db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
+            shoppingCart.setState(shoppingCart.getOpenState());
+        }else{
+            shoppingCart = new ShoppingCart(db);
+        }
+        return shoppingCart;
+    }
+
+    @Override
     public void remove(List<Product> products) {
         for (Product p:products){
             shoppingCart.remove(p);

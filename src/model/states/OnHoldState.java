@@ -32,4 +32,18 @@ public class OnHoldState extends State {
         shoppingCart.setState(shoppingCart.getOpenState());
         return shoppingCart;
     }
+
+    @Override
+    public void remove(List<Product> products) {
+        for (Product p:products){
+            shoppingCart.remove(p);
+        }
+        db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
+    }
+
+    @Override
+    public void closeSale() {
+        db.closeSale(shoppingCart);
+        shoppingCart.setState(shoppingCart.getClosedState());
+    }
 }

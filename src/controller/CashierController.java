@@ -41,7 +41,9 @@ public class CashierController implements Observer {
     }
 
     public void takeFromHold() {
-        cart = cart.takeFromHold();
+        if (cart.takeFromHold() != null){
+            cart = cart.takeFromHold();
+        }
     }
 
     public void payment() {

@@ -2,6 +2,8 @@ package database;
 
 import controller.Observable;
 import controller.Observer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.EventType;
 import model.IO.LoadSaveStrategy;
 import model.Product;
@@ -89,7 +91,13 @@ public class ProductDB implements Observable {
     }
 
     public ShoppingCart takeFromHold() {
-        return holdingShoppingCart;
+        if (holdingShoppingCart == null || holdingShoppingCart.getItemsList().isEmpty()){
+            Alert empty = new Alert(Alert.AlertType.INFORMATION,"there are no carts on hold", ButtonType.OK);
+            empty.show();
+            return null;
+        }else {
+            return holdingShoppingCart;
+        }
     }
 
     @Override
