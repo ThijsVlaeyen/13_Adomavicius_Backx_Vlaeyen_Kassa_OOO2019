@@ -158,7 +158,7 @@ public class ShoppingCart {
         String discounts = LoadSaveProperties.getDiscountActive();
         discounts = discounts.replaceAll("\\[*\\]*","");
         String[] discountsArray = discounts.split(", ");
-        DiscountFactory factory = new DiscountFactory();
+        DiscountFactory factory = DiscountFactory.getInstance();
         if (!discountsArray[0].equals("")) {
             for (String s : discountsArray) {
                 //System.out.println(s);

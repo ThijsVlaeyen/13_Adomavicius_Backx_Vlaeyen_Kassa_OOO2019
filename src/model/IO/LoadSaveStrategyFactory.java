@@ -9,8 +9,19 @@ public class LoadSaveStrategyFactory {
    private static LoadSaveStrategyFactory instance = null;
    public LoadSaveStrategy loadsave;
 
-   private LoadSaveStrategyFactory(String type)
+   private LoadSaveStrategyFactory()
    {
+
+   }
+
+   public static LoadSaveStrategyFactory getInstance()
+   {
+      if (instance == null)
+         instance = new LoadSaveStrategyFactory();
+      return instance;
+   }
+
+   public LoadSaveStrategy create(String type){
       LoadSaveType lsType = LoadSaveType.valueOf(type);
       String className = lsType.getClassName();
       try{
@@ -20,12 +31,6 @@ public class LoadSaveStrategyFactory {
       } catch (Exception e){
          e.printStackTrace();
       }
-   }
-
-   public static LoadSaveStrategyFactory getInstance(String type)
-   {
-      if (instance == null)
-         instance = new LoadSaveStrategyFactory(type);
-      return instance;
+      return loadsave;
    }
 }

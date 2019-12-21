@@ -26,8 +26,8 @@ public class ProductDB implements Observable {
     public ProductDB() {
         productsMap = new HashMap<>();
         observers = new HashMap<>();
-        LoadSaveStrategyFactory factory = LoadSaveStrategyFactory.getInstance(LoadSaveProperties.getLoadSave());
-        this.loadSaveStrategy = factory.loadsave;
+        LoadSaveStrategyFactory factory = LoadSaveStrategyFactory.getInstance();
+        this.loadSaveStrategy = factory.create(LoadSaveProperties.getLoadSave());
     }
 
 
