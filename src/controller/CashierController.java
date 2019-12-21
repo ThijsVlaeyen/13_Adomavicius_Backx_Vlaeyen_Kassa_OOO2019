@@ -20,6 +20,10 @@ public class CashierController implements Observer {
         cart = new ShoppingCart(db);
     }
 
+    public ShoppingCart getCart(){
+        return this.cart;
+    }
+
     public void setView(CashierSalesPane view) {
         this.view = view;
     }
@@ -54,5 +58,6 @@ public class CashierController implements Observer {
         view.updateTable(cart.getItemsList());
         view.updateTotalAmount(cart.getTotalPrice());
         view.updateDiscount(cart.calculateDiscount());
+        System.out.println(this.cart.getState());
     }
 }

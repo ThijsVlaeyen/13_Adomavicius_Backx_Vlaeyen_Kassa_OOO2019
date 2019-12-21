@@ -30,7 +30,13 @@ public class CashierSalesPane extends GridPane {
         this.setHgap(5);
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
-        addArticle.setOnAction(e -> controller.addArticle(Integer.parseInt(articleNumberInput.getText())));
+        int[] teller = {1};
+        addArticle.setOnAction(e -> { if (teller[0] >1){
+            System.out.println(this.controller.getCart().getState());
+        }
+            controller.addArticle(Integer.parseInt(articleNumberInput.getText()));
+            teller[0]++;
+        });
         productExistLabel = new Label("Not existing code");
         productExistLabel.setVisible(false);
         this.add(productExistLabel, 0, 2);
@@ -99,7 +105,6 @@ public class CashierSalesPane extends GridPane {
             discountLabel.setText("discount applied");
         });
 
-
         this.add(table,1,0, 3,3);
         this.add(articleNumberInput,0,0,1,1);
         this.add(addArticle,0,1,1,1);
@@ -122,6 +127,7 @@ public class CashierSalesPane extends GridPane {
     public void updateTable(List<Product> list) {
         table.getItems().clear();
         table.getItems().addAll(list);
+        System.out.println(this.controller.getCart().getTotalPrice());
     }
 
     public void updateTotalAmount(double value) {

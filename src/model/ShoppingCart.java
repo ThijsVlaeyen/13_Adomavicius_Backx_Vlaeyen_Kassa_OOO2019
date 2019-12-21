@@ -105,7 +105,8 @@ public class ShoppingCart {
         state.addOnHold();
     }
 
-    public void payment() { state.payment(); }
+    public void payment() {
+        state.payment(); }
 
     public ShoppingCart takeFromHold() {
         return state.takeFromHold();

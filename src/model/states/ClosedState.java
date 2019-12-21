@@ -16,11 +16,10 @@ public class ClosedState extends State {
         this.db = db;
     }
 
-
     @Override
     public void payment() {
         db.payment(shoppingCart);
-        shoppingCart.setState(shoppingCart.getPaidState());
+        shoppingCart.setState(shoppingCart.getOpenState());
         shoppingCart.clear();
         this.db.updateObservers(EventType.PRODUCTSCHANGED,shoppingCart);
     }
