@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * @Author Vlaeyen Thijs
+ * DiscountFactory
+ */
+
 public class DiscountFactory {
 
    public DiscountStrategy create(String type){

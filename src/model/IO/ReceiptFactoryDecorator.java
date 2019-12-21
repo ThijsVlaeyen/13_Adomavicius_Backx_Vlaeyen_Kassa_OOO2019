@@ -2,6 +2,11 @@ package model.IO;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ReceiptFactoryDecorator
+ */
+
 public class ReceiptFactoryDecorator {
    public ReceiptDecorator createObject(String type, ReceiptManager receiptManager){
       ReceiptType receiptType = ReceiptType.valueOf(type);

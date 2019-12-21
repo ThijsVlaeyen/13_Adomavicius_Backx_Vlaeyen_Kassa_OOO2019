@@ -1,5 +1,10 @@
 package model.IO;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ReceiptType
+ */
+
 public enum ReceiptType {
    HEADERMESSAGE("headermessage", "model.IO.ReceiptHeaderMessage"),
    HEADERDATE("headerdate", "model.IO.ReceiptHeaderDate"),

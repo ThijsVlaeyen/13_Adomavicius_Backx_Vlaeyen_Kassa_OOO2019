@@ -2,6 +2,11 @@ package model;
 
 import model.IO.LoadSaveProperties;
 
+/**
+ * @Author Vlaeyen Thijs
+ * DiscountThreshold
+ */
+
 public class DiscountThreshold implements DiscountStrategy{
 
    private LoadSaveProperties properties = new LoadSaveProperties();

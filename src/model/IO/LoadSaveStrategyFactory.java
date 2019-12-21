@@ -1,5 +1,10 @@
 package model.IO;
 
+/**
+ * @Author Vlaeyen Thijs
+ * LoadSaveStrategyFactory
+ */
+
 public class LoadSaveStrategyFactory {
    public LoadSaveStrategy createObject(String type){
       LoadSaveType lsType = LoadSaveType.valueOf(type);

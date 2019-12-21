@@ -2,6 +2,11 @@ package model.IO;
 
 import model.ShoppingCart;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ReceiptFooterMessage
+ */
+
 public class ReceiptFooterMessage extends ReceiptDecorator {
 
 private ReceiptManager receipt;

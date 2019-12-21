@@ -7,6 +7,11 @@ import view.panels.SettingsPane;
 
 import java.util.ArrayList;
 
+/**
+ * @Author Vlaeyen Thijs & Backx Rafael
+ * SettingsController
+ */
+
 public class SettingsController {//todo maybe also observer?
     private ProductDB db;
     private SettingsPane view;

@@ -8,6 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @Author Vlaeyen Thijs
+ * LoadSaveTextfileTemplate
+ */
+
 public abstract class LoadSaveTextfileTemplate implements LoadSaveStrategy {
 
    private String path;

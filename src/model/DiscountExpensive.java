@@ -1,6 +1,12 @@
 package model;
 
 import model.IO.LoadSaveProperties;
+
+/**
+ * @Author Vlaeyen Thijs
+ * DiscountExpensive
+ */
+
 public class DiscountExpensive implements DiscountStrategy {
 
    private LoadSaveProperties properties = new LoadSaveProperties();

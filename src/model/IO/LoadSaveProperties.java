@@ -3,6 +3,11 @@ package model.IO;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * @Author Vlaeyen Thijs
+ * LoadSaveProperties
+ */
+
 public class LoadSaveProperties {
 
    static InputStream inputStream;

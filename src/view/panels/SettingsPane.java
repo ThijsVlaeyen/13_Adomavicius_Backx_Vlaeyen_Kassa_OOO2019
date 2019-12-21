@@ -10,6 +10,11 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
+/**
+ * @Author Vlaeyen Thijs
+ * SettingsPane
+ */
+
 public class SettingsPane extends GridPane {
 
    private SettingsController controller;

@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * @Author Vlaeyen Thijs
+ * DiscountType
+ */
+
 public enum DiscountType {
    GROUP("group","model.DiscountGroup"),
    THRESHOLD("threshold","model.DiscountThreshold"),

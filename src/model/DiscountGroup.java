@@ -2,6 +2,11 @@ package model;
 
 import model.IO.LoadSaveProperties;
 
+/**
+ * @Author Vlaeyen Thijs
+ * DiscountGroup
+ */
+
 public class DiscountGroup implements DiscountStrategy {
 
 private LoadSaveProperties properties = new LoadSaveProperties();

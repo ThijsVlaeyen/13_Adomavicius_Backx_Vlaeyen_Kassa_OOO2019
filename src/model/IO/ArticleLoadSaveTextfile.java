@@ -4,6 +4,11 @@ import model.Product;
 
 import java.util.*;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ArticleLoadSaveExcelFile
+ */
+
 public class ArticleLoadSaveTextfile extends LoadSaveTextfileTemplate {
 
    public ArticleLoadSaveTextfile(){

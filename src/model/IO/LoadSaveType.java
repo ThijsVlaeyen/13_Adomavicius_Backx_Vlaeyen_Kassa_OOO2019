@@ -1,5 +1,10 @@
 package model.IO;
 
+/**
+ * @Author Vlaeyen Thijs
+ * LoadSaveType
+ */
+
 public enum LoadSaveType {
    TEXTFILE( "textfile", "model.IO.ArticleLoadSaveTextfile"),
    EXCEL("excel", "model.IO.ArticleLoadSaveExcelFile");

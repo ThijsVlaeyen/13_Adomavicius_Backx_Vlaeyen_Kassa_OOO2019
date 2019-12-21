@@ -7,6 +7,11 @@ import model.Log;
 import model.ShoppingCart;
 import view.panels.LogPane;
 
+/**
+ * @Author Vlaeyen Thijs & Adomavicius Tomas
+ * Log controller
+ */
+
 public class LogController implements Observer {
 private LogPane view;
 

@@ -5,6 +5,11 @@ import model.ShoppingCart;
 
 import java.util.Map;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ReceiptConsole
+ */
+
 public class ReceiptConsole implements ReceiptManager{
 
    @Override

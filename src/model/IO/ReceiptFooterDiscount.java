@@ -4,6 +4,11 @@ import model.ShoppingCart;
 
 import java.time.LocalDate;
 
+/**
+ * @Author Vlaeyen Thijs
+ * ReceiptFooterDiscount
+ */
+
 public class ReceiptFooterDiscount extends ReceiptDecorator{
 
    private ReceiptManager receipt;
