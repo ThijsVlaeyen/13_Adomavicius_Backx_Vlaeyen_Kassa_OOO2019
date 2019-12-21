@@ -6,11 +6,13 @@ package model.IO;
  */
 
 public class LoadSaveStrategyFactory {
-   public LoadSaveStrategy createObject(String type){
+   private static LoadSaveStrategyFactory instance = null;
+   public LoadSaveStrategy loadsave;
+
+   private LoadSaveStrategyFactory(String type)
+   {
       LoadSaveType lsType = LoadSaveType.valueOf(type);
       String className = lsType.getClassName();
-      LoadSaveStrategy loadsave = null;
-
       try{
          Class dbClassName = Class.forName(className);
          Object object = dbClassName.newInstance();
@@ -18,6 +20,12 @@ public class LoadSaveStrategyFactory {
       } catch (Exception e){
          e.printStackTrace();
       }
-      return loadsave;
+   }
+
+   public static LoadSaveStrategyFactory getInstance(String type)
+   {
+      if (instance == null)
+         instance = new LoadSaveStrategyFactory(type);
+      return instance;
    }
 }
