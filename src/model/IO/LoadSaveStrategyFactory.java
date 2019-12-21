@@ -7,7 +7,7 @@ package model.IO;
 
 public class LoadSaveStrategyFactory {
    private static LoadSaveStrategyFactory instance = null;
-   public LoadSaveStrategy loadsave;
+   private LoadSaveStrategy loadSave = null;
 
    private LoadSaveStrategyFactory()
    {
@@ -27,10 +27,10 @@ public class LoadSaveStrategyFactory {
       try{
          Class dbClassName = Class.forName(className);
          Object object = dbClassName.newInstance();
-         loadsave = (LoadSaveStrategy)object;
+         loadSave = (LoadSaveStrategy)object;
       } catch (Exception e){
          e.printStackTrace();
       }
-      return loadsave;
+      return loadSave;
    }
 }
