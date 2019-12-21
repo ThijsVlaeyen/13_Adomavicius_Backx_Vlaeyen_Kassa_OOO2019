@@ -45,5 +45,6 @@ public class OnHoldState extends State {
     public void closeSale() {
         db.closeSale(shoppingCart);
         shoppingCart.setState(shoppingCart.getClosedState());
+        db.updateObservers(EventType.PRODUCTSCHANGED,this.shoppingCart);
     }
 }
