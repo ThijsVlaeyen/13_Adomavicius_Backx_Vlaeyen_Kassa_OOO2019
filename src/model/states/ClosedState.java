@@ -8,8 +8,8 @@ import model.ShoppingCart;
 import java.util.List;
 
 public class ClosedState extends State {
-    ShoppingCart shoppingCart;
-    ProductDB db;
+    private ShoppingCart shoppingCart;
+    private ProductDB db;
 
     public ClosedState(ShoppingCart shoppingCart, ProductDB db) {
         this.shoppingCart = shoppingCart;
@@ -22,5 +22,6 @@ public class ClosedState extends State {
         db.payment(shoppingCart);
         shoppingCart.setState(shoppingCart.getPaidState());
         shoppingCart.clear();
+        this.db.updateObservers(EventType.PRODUCTSCHANGED,shoppingCart);
     }
 }

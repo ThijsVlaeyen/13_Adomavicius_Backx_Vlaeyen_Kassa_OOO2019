@@ -46,9 +46,6 @@ public class ShoppingCart {
             if (!found) {
                 cart.put(p, 1);
             }
-        }else{
-            Alert stockAlert = new Alert(Alert.AlertType.ERROR,"this item is out of stock", ButtonType.OK);
-            stockAlert.show();
         }
     }
 
