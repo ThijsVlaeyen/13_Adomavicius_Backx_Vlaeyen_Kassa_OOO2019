@@ -60,6 +60,7 @@ public class CashierController implements Observer {
         view.updateTable(cart.getItemsList());
         view.updateTotalAmount(cart.getTotalPrice());
         view.updateDiscount(cart.calculateDiscount());
-        System.out.println(this.cart.getState());
+        System.out.println(cart.getState()==cart.getClosedState());
+        view.updatePaymentButton(cart.getState()!=cart.getClosedState());
     }
 }

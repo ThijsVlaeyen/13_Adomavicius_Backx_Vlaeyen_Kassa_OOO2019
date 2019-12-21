@@ -57,6 +57,7 @@ public class OpenState extends State {
     public void closeSale() {
         db.closeSale(shoppingCart);
         shoppingCart.setState(shoppingCart.getClosedState());
+        db.updateObservers(EventType.PRODUCTSCHANGED,shoppingCart);
     }
 
 }

@@ -18,6 +18,7 @@ public class CashierSalesPane extends GridPane {
     private Label discountLabel;
     private CashierController controller;
     private Label priceLabel;
+    private Button payment;
 
     public CashierSalesPane(CashierController controller){
         this.controller = controller;
@@ -115,7 +116,8 @@ public class CashierSalesPane extends GridPane {
         this.add(discountLabel,4,2,1,1);
         this.add(delete,0,4,1,1);
         this.add(close,0,5,1,1);
-        Button payment = new Button("payment");
+        payment = new Button("payment");
+        payment.setDisable(true);
         payment.setOnAction(e -> controller.payment());
         this.add(payment, 6, 2, 1, 1);
     }
@@ -127,7 +129,6 @@ public class CashierSalesPane extends GridPane {
     public void updateTable(List<Product> list) {
         table.getItems().clear();
         table.getItems().addAll(list);
-        System.out.println(this.controller.getCart().getTotalPrice());
     }
 
     public void updateTotalAmount(double value) {
@@ -143,5 +144,9 @@ public class CashierSalesPane extends GridPane {
         alert.setTitle(message);
         alert.setContentText(message);
         alert.show();
+    }
+
+    public void updatePaymentButton(boolean b) {
+        payment.setDisable(b);
     }
 }
