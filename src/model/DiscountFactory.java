@@ -6,6 +6,8 @@ package model;
  */
 
 public class DiscountFactory {
+   private static DiscountFactory instance = null;
+   public DiscountStrategy discount;
 
    public DiscountStrategy create(String type){
       DiscountType dType = DiscountType.valueOf(type);
@@ -22,5 +24,15 @@ public class DiscountFactory {
       return discount;
    }
 
+   private DiscountFactory()
+   {
 
+   }
+
+   public static DiscountFactory getInstance()
+   {
+      if (instance == null)
+         instance = new DiscountFactory();
+      return instance;
+   }
 }

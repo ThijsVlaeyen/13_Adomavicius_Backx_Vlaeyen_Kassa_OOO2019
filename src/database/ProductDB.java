@@ -5,7 +5,9 @@ import controller.Observer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.EventType;
+import model.IO.LoadSaveProperties;
 import model.IO.LoadSaveStrategy;
+import model.IO.LoadSaveStrategyFactory;
 import model.Product;
 import model.ShoppingCart;
 import java.util.ArrayList;
@@ -24,11 +26,10 @@ public class ProductDB implements Observable {
     public ProductDB() {
         productsMap = new HashMap<>();
         observers = new HashMap<>();
+        LoadSaveStrategyFactory factory = LoadSaveStrategyFactory.getInstance();
+        this.loadSaveStrategy = factory.create(LoadSaveProperties.getLoadSave());
     }
 
-    public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy){
-        this.loadSaveStrategy = loadSaveStrategy;
-    }
 
     public void save(){
         loadSaveStrategy.save(new ArrayList<>(this.productsMap.values()));
