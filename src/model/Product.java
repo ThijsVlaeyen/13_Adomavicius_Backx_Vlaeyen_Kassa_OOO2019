@@ -2,6 +2,9 @@ package model;
 
 import java.net.PortUnreachableException;
 import java.util.Objects;
+/**
+@Author Rafael Backx
+*/
 
 public class Product implements Comparable<Product> {
     private int id;

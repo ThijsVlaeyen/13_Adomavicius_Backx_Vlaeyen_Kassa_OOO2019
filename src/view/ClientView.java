@@ -14,7 +14,9 @@ import javafx.util.Callback;
 import model.Product;
 
 import java.util.Map;
-
+/**
+@Author Rafael backx
+*/
 public class ClientView {
 	private Stage stage = new Stage();
 	private ClientViewController controller;

@@ -8,7 +8,9 @@ import view.panels.ProductOverviewPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+@Author Rafael Backx
+*/
 public class ProductOverviewController implements Observer {
 private ProductDB db;
 private ProductOverviewPane view;

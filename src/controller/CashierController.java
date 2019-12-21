@@ -3,6 +3,9 @@ package controller;
 import database.ProductDB;
 import model.*;
 import view.panels.CashierSalesPane;
+/**
+@Author Rafael backx, Thomas Adomavicius
+*/
 
 import java.util.List;
 

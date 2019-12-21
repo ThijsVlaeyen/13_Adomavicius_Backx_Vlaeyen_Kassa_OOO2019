@@ -7,7 +7,9 @@ import model.IO.LoadSaveProperties;
 import model.states.*;
 
 import java.util.*;
-
+/**
+@Author Rafael Backx
+*/
 public class ShoppingCart {
     private State openState;
     private State onHoldState;

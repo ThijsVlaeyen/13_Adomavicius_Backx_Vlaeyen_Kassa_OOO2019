@@ -10,7 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+@Author Rafael Backx
+*/
 public class ArticleLoadSaveExcelFile implements LoadSaveStrategy {
     private ExcelPlugin excelPlugin;
     private String path;

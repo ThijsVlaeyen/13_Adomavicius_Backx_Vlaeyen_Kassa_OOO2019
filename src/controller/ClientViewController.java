@@ -7,6 +7,9 @@ import model.ShoppingCart;
 import view.ClientView;
 
 import java.util.Map;
+/**
+@Author Rafael Backx
+*/
 
 public class ClientViewController implements Observer {
     private ClientView view;

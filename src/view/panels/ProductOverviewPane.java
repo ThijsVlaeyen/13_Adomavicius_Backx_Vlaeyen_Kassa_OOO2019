@@ -11,7 +11,9 @@ import model.Product;
 
 import java.util.List;
 
-
+/**
+@Author Rafael Backx
+*/
 public class ProductOverviewPane extends GridPane {
 	private TableView<Product> table;
 	private ProductOverviewController controller;

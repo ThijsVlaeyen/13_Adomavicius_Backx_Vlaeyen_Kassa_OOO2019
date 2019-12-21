@@ -1,6 +1,9 @@
 package controller;
 
 import model.EventType;
+/**
+@Author Rafael backx
+*/
 
 public interface Observable {
     void addObserver(EventType e, Observer o);

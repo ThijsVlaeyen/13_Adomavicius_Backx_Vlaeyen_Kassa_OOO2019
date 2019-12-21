@@ -8,7 +8,9 @@ import javafx.scene.layout.GridPane;
 import model.Product;
 
 import java.util.List;
-
+/**
+@Author Rafael backx, thomas adomavicius
+*/
 public class CashierSalesPane extends GridPane {
     private TableView<Product> table;
     private Label productExistLabel;
