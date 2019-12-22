@@ -52,11 +52,29 @@ public class ShoppingCart {
     }
 
     private boolean checkStock(Product p) {
-        if (this.getItems().get(p) != null) {
-            int currentstock = db.getProduct(p.getId()).getStock() - this.getItems().get(p);
-            return currentstock > 0;
+        List<Product> products = this.getItemsList();
+        for (Product product : products) {
+            if (product.equals(p)) {
+                int currentstock = db.getProduct(p.getId()).getStock() - countOccurences(product);
+                return currentstock > 0;
+            }
         }
-        return true;
+//        if (this.getItems().get(p) != null) {
+//            int currentstock = db.getProduct(p.getId()).getStock() - this.getItems().get(p);
+//            return currentstock > 0;
+//        }
+        return db.getProduct(p.getId()).getStock()>0;
+    }
+
+    private int countOccurences(Product p){
+        List<Product> products = this.getItemsList();
+        int result = 0;
+        for (Product product : products){
+            if (product.equals(p)){
+                result++;
+            }
+        }
+        return result;
     }
 
     public void remove(Product p){
