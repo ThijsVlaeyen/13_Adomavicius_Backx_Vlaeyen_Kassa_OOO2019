@@ -18,7 +18,6 @@ public class LoadSaveProperties {
       try{
          properties = new Properties();
          inputStream = new FileInputStream("src/Files/config.properties");
-
          if (inputStream != null){
             properties.load(inputStream);
          } else {
