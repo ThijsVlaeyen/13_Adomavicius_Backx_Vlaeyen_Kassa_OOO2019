@@ -57,10 +57,6 @@ public class ShoppingCart {
                 return currentstock > 0;
             }
         }
-//        if (this.getItems().get(p) != null) {
-//            int currentstock = db.getProduct(p.getId()).getStock() - this.getItems().get(p);
-//            return currentstock > 0;
-//        }
         return db.getProduct(p.getId()).getStock()>0;
     }
 
@@ -158,10 +154,6 @@ public class ShoppingCart {
 
     public State getClosedState() {
         return closedState;
-    }
-
-    public State getPaidState() {
-        return paidState;
     }
 
     public double getFinalPrice(){

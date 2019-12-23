@@ -14,10 +14,12 @@ import java.util.List;
 public class ClosedState extends State {
     private ShoppingCart shoppingCart;
     private ProductDB db;
+    private int payments;
 
     public ClosedState(ShoppingCart shoppingCart, ProductDB db) {
         this.shoppingCart = shoppingCart;
         this.db = db;
+        payments = 0;
     }
 
     @Override
@@ -26,5 +28,12 @@ public class ClosedState extends State {
         shoppingCart.setState(shoppingCart.getOpenState());
         shoppingCart.clear();
         this.db.updateObservers(EventType.PRODUCTSCHANGED,shoppingCart);
+        if(payments < 3) {
+            payments++;
+        }
+        else {
+            payments = 0;
+            db.takeFromHold();
+        }
     }
 }
