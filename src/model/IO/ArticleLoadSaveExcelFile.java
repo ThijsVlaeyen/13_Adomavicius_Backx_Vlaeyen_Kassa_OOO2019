@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
-@Author Rafael Backx
+@Author Rafael Backx, Tomas Adomavicius
 */
 public class ArticleLoadSaveExcelFile implements LoadSaveStrategy {
     private ExcelPlugin excelPlugin;

@@ -10,6 +10,10 @@ import model.ShoppingCart;
 import java.util.List;
 import java.util.Map;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public class OpenState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;

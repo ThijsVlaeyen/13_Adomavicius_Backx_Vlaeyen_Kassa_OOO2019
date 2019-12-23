@@ -9,6 +9,10 @@ import model.ShoppingCart;
 
 import java.util.List;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public class OnHoldState extends State {
     ShoppingCart shoppingCart;
     ProductDB db;

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
-@Author Rafael Backx,Thomas Adomavicius
+@Author Rafael Backx, Tomas Adomavicius
 */
 public class ProductDB implements Observable {
     private Map<Integer, Product> productsMap;

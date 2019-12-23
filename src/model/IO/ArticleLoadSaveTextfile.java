@@ -5,7 +5,7 @@ import model.Product;
 import java.util.*;
 
 /**
- * @Author Vlaeyen Thijs
+ * @Author Vlaeyen Thijs, Tomas Adomavicius
  * ArticleLoadSaveExcelFile
  */
 

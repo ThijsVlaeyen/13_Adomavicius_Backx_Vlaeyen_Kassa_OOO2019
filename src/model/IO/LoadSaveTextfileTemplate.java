@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @Author Vlaeyen Thijs
+ * @Author Vlaeyen Thijs, Tomas Adomavicius
  * LoadSaveTextfileTemplate
  */
 

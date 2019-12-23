@@ -7,6 +7,10 @@ import model.ShoppingCart;
 
 import java.util.List;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public class ClosedState extends State {
     private ShoppingCart shoppingCart;
     private ProductDB db;

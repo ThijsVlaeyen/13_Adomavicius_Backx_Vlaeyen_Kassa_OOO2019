@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public class Log {
     private double totalPrice;
     private double discount;

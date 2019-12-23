@@ -5,6 +5,10 @@ import model.ShoppingCart;
 
 import java.util.List;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public abstract class  State {
     public  void add(int code){
        throw new IllegalStateException("you cant use this method now");

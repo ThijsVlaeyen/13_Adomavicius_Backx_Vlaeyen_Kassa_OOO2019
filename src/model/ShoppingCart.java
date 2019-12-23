@@ -8,13 +8,12 @@ import model.states.*;
 
 import java.util.*;
 /**
-@Author Rafael Backx
+@Author Rafael Backx, Tomas Adomavicius
 */
 public class ShoppingCart {
     private State openState;
     private State onHoldState;
     private State closedState;
-    private State paidState;
     private State state;
 
     private Map<Product,Integer> cart;
@@ -26,7 +25,6 @@ public class ShoppingCart {
         openState = new OpenState(this, db);
         onHoldState = new OnHoldState(this, db);
         closedState = new ClosedState(this, db);
-        paidState = new PaidState(this, db);
         state = openState;
     }
 

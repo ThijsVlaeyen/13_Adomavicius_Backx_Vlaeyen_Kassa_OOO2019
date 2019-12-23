@@ -3,11 +3,11 @@ package controller;
 import database.ProductDB;
 import model.*;
 import view.panels.CashierSalesPane;
-/**
-@Author Rafael backx, Thomas Adomavicius
-*/
-
 import java.util.List;
+
+/**
+ @Author Rafael backx, Tomas Adomavicius
+ */
 
 public class CashierController implements Observer {
     private CashierSalesPane view;

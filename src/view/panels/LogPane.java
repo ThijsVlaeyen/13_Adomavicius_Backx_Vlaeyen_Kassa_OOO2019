@@ -9,6 +9,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Log;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public class LogPane extends GridPane {
     private LogController controller;
     private TableView<Log> table;

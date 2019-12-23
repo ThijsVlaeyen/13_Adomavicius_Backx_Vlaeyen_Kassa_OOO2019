@@ -5,6 +5,10 @@ import controller.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ @Author Tomas Adomavicius
+ */
+
 public enum EventType {
     PRODUCTSCHANGED(new ArrayList<>()),
     LOG(new ArrayList<>());
