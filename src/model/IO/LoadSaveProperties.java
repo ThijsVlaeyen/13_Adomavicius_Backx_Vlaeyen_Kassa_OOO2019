@@ -25,7 +25,7 @@ public class LoadSaveProperties {
          }
          inputStream.close();
       } catch (Exception e){
-         System.out.println(e);
+         e.printStackTrace();
       }
    }
 

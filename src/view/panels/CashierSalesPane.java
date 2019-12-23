@@ -9,13 +9,14 @@ import model.Product;
 
 import java.util.List;
 /**
-@Author Rafael backx, thomas adomavicius
+@Author Rafael backx, Tomas Adomavicius
 */
 public class CashierSalesPane extends GridPane {
     private TableView<Product> table;
     private Label productExistLabel;
     private Label totalAmount;
     private Label discountLabel;
+    private Label discount;
     private CashierController controller;
     private Label priceLabel;
     private Button payment;
@@ -25,22 +26,23 @@ public class CashierSalesPane extends GridPane {
         controller.setView(this);
         this.table = new TableView<>();
         this.table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        Button delete = new Button("delete");
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+
+        Button delete = new Button("delete");
         TextField articleNumberInput = new TextField();
         Button addArticle = new Button("add Article");
         int[] teller = {1};
-        addArticle.setOnAction(e -> { if (teller[0] >1){
-            System.out.println(this.controller.getCart().getState());
-        }
-            controller.addArticle(Integer.parseInt(articleNumberInput.getText()));
-            teller[0]++;
+        addArticle.setOnAction(e -> {
+            try{
+                controller.addArticle(Integer.parseInt(articleNumberInput.getText()));
+                teller[0]++;
+            } catch (NumberFormatException a){
+                Alert empty = new Alert(Alert.AlertType.ERROR,"This product does not exist!" , ButtonType.OK);
+                empty.show();
+            }
         });
-        productExistLabel = new Label("Not existing code");
-        productExistLabel.setVisible(false);
-        this.add(productExistLabel, 0, 2);
         TableColumn<Product,String> articlecode = new TableColumn<>("Article Code");
         // the setcellValueFactory will check in the product class for getId() in this example
         articlecode.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -81,10 +83,9 @@ public class CashierSalesPane extends GridPane {
         table.getColumns().add(price);
         table.getColumns().add(stock);
 
-
-
         priceLabel = new Label("Total price:");
-        discountLabel = new Label("Total discount:\n€ 0.0");
+        discountLabel = new Label("Total discount:");
+        discount = new Label("€ 0.0");
         totalAmount = new Label("€ 0");
 
 
@@ -106,20 +107,21 @@ public class CashierSalesPane extends GridPane {
             discountLabel.setText("discount applied");
         });
 
-        this.add(table,1,0, 3,3);
+        this.add(table,0,1, 5,3);
         this.add(articleNumberInput,0,0,1,1);
-        this.add(addArticle,0,1,1,1);
-        this.add(addOnHold, 0, 2, 1, 1);
-        this.add(takeFromHold, 0, 3, 1, 1);
-        this.add(priceLabel, 4,0,1,1);
-        this.add(totalAmount, 4, 1,1,1);
-        this.add(discountLabel,4,2,1,1);
-        this.add(delete,0,4,1,1);
-        this.add(close,0,5,1,1);
+        this.add(addArticle,1,0,1,1);
+        this.add(addOnHold, 0, 4, 1, 1);
+        this.add(takeFromHold, 0, 5, 1, 1);
+        this.add(priceLabel, 2,4,1,1);
+        this.add(totalAmount, 2, 5,1,1);
+        this.add(discountLabel,3,4,1,1);
+        this.add(discount, 3,5,1,1);
+        this.add(delete,4,4,1,1);
+        this.add(close,1,4,1,1);
         payment = new Button("payment");
         payment.setDisable(true);
         payment.setOnAction(e -> controller.payment());
-        this.add(payment, 6, 2, 1, 1);
+        this.add(payment, 1, 5, 1, 1);
     }
 
     public void setNotExistingCode(boolean value) {
@@ -136,7 +138,7 @@ public class CashierSalesPane extends GridPane {
     }
 
     public void updateDiscount(double value){
-        discountLabel.setText("Total Discount:\n€ " + value );
+        discount.setText(String.valueOf(value));
     }
 
     public void showAlert(String message) {

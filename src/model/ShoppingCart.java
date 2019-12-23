@@ -179,7 +179,6 @@ public class ShoppingCart {
         DiscountFactory factory = DiscountFactory.getInstance();
         if (!discountsArray[0].equals("")) {
             for (String s : discountsArray) {
-                //System.out.println(s);
                 DiscountStrategy discount = factory.create(s);
                 totalDiscount += discount.calculateDiscount(this);
             }

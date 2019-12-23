@@ -61,7 +61,11 @@ public class ProductDB implements Observable {
     }
 
     public boolean isProductExist(int code) {
-        return this.productsMap.containsKey(code);
+        try{
+            return productsMap.get(code).getStock() != 0;
+        }catch (NullPointerException e){
+            return false;
+        }
     }
 
     public void updateStocks(List<Product> products) {

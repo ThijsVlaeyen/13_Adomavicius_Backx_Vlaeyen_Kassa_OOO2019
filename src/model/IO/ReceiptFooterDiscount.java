@@ -21,8 +21,7 @@ public class ReceiptFooterDiscount extends ReceiptDecorator{
    @Override
    public String writeData(ShoppingCart cart){
       String out = receipt.writeData(cart);
-      out += "\nPrice (Discount excluded):\t" + cart.getTotalPrice() + "\nDiscount: \t\t"+ (cart.getTotalPrice()-cart.getFinalPrice());
+      out += "\nPrice (Discount excluded):\t" + cart.getTotalPrice() + "\nDiscount: \t\t"+ Math.round((cart.getTotalPrice()-cart.getFinalPrice())*100)/100;
       return out;
    }
-
 }

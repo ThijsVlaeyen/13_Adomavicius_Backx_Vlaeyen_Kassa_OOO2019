@@ -68,7 +68,7 @@ public abstract class LoadSaveTextfileTemplate implements LoadSaveStrategy {
       try {
          this.fileScanner = new Scanner(file);
       }catch(FileNotFoundException e){
-         System.out.println(e);
+         e.printStackTrace();
       }
    }
 

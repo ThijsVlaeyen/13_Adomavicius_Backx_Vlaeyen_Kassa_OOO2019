@@ -1,6 +1,8 @@
 package model.states;
 
 import database.ProductDB;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.EventType;
 import model.Product;
 import model.ShoppingCart;
@@ -20,9 +22,12 @@ public class OnHoldState extends State {
     public void add(int code) {
         if (db.isProductExist(code)) {
             shoppingCart.addProduct(db.getProduct(code));
+            shoppingCart.calculateDiscount();
+            db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
+        } else {
+            Alert empty = new Alert(Alert.AlertType.INFORMATION,"This product is out of stock", ButtonType.OK);
+            empty.show();
         }
-        shoppingCart.calculateDiscount();
-        db.updateObservers(EventType.PRODUCTSCHANGED, shoppingCart);
     }
 
     @Override
